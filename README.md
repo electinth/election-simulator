@@ -1,6 +1,7 @@
-# elect.in.th
+# ELECT.IN.TH / Election Simulator
 
-Visualizing Social Engagement
+Election Simulator based on
+https://beta.observablehq.com/@kristw/thai-election-2019-simulator
 
 For development
 
