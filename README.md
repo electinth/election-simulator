@@ -5,7 +5,7 @@ Visualizing Social Engagement
 For development
 
 ```
-npm run start
+npm run dev
 ```
 
 To build final output
