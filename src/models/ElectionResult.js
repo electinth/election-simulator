@@ -1,8 +1,11 @@
-import { TOTAL_REPRESENTATIVE } from './rules';
+import { sum as d3Sum } from 'd3-array';
+import { TOTAL_REPRESENTATIVE } from "./rules";
 
 export default class ElectionResult {
   constructor(partyWithResults) {
-    this.partyWithResults = partyWithResults.concat().sort((a, b) => b.seats - a.seats);
+    this.partyWithResults = partyWithResults
+      .concat()
+      .sort((a, b) => b.seats - a.seats);
     const count = d3Sum(this.partyWithResults, p => p.seats);
     this.isOverflow = TOTAL_REPRESENTATIVE - count >= 0;
   }

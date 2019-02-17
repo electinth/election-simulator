@@ -1,10 +1,5 @@
 export default class Simulation {
-  constructor({
-    electionResult,
-    senatorVotes,
-    mainParty,
-    allyParties,
-  }) {
+  constructor({ electionResult, senatorVotes, mainParty, allyParties }) {
     this.electionResult = electionResult;
     this.senatorVotes = senatorVotes;
     this.mainParty = mainParty;

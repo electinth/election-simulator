@@ -1,10 +1,7 @@
-import Representative from './Representative';
+import Representative from "./Representative";
 
 export default class PartyWithResult {
-  constructor({
-    party,
-    seats = 0
-  }) {
+  constructor({ party, seats = 0 }) {
     this.party = party;
     this.seats = seats;
   }
@@ -12,11 +9,14 @@ export default class PartyWithResult {
   generateRepresentatives() {
     const representatives = [];
     for (let i = 0; i < this.seats; i++) {
-      representatives.push(new Representative({
-        id: i,
-        partyWithResult: this,
-      }));
+      representatives.push(
+        new Representative({
+          id: i,
+          partyWithResult: this
+        })
+      );
     }
+
     return representatives;
   }
 
