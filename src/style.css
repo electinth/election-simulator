@@ -1,0 +1,323 @@
+@font-face {
+  font-family: 'Noto Sans Thai UI';
+  src: url('./font/subset-NotoSansThaiUI-Bold.woff2') format('woff2'),
+  url('./font/subset-NotoSansThaiUI-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai UI';
+  src: url('./font/subset-NotoSansThaiUI-Regular.woff2') format('woff2'),
+  url('./font/subset-NotoSansThaiUI-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Matter';
+  font-weight: 700;
+  src: url(./font/thematter-bold_6c43ee73.woff2) format("woff2"),
+  url(./font/thematter-bold_a41f650d.woff) format("woff");
+}
+
+html, body {
+  background: #000;
+  color: #fff;
+  font-family: 'Noto Sans Thai UI', serif;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+svg text {
+  font-family: 'Noto Sans Thai UI', 'Libre Baskerville', 'The Matter', serif;
+  font-weight: normal;
+}
+
+h1, h2, h3 {
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  text-align: center;
+}
+
+a {
+  color: inherit;
+  /* blue colors for links too */
+  text-decoration: inherit;
+  /* no underline */
+}
+
+.hidden {
+  display: none;
+}
+
+#editorial {
+  text-align: center;
+  margin: 40px auto;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#footnote {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  padding-top: 24px;
+}
+
+#legend {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+  padding: 0 10px;
+}
+
+#legend div {
+  display: inline-block;
+  padding-right: 20px;
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-size: 12px;
+}
+
+#legend i {
+  padding-right: 4px;
+}
+
+#instruction {
+  font-size: 12px;
+  margin-top: 28px;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sunday {
+  font-size: 10px;
+  /* font-weight: bold; */
+  font-family: 'Noto Sans Thai UI', 'The Matter', serif;
+  fill: rgba(255, 255, 255, 0.7);
+}
+
+#streamgraph {
+  display: inline-block;
+  text-align: center;
+  width: 49%;
+  margin-top: 28px;
+}
+
+.grid, .xaxis path, .xaxis line {
+  stroke: rgba(255, 255, 255,1);
+  stroke-opacity: 0.25;
+  stroke-width: 1px;
+}
+
+.hoverarea {
+  fill-opacity: 0;
+  cursor: pointer;
+}
+.highlight-area {
+  color: rgba(255, 255, 255, 0.5);
+  fill: #cdd0c7;
+  fill-opacity: 0.4;
+}
+
+#date {
+  display: inline-block;
+  border-bottom: 1px solid #ef314a;
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 15px 0;
+  padding: 5px 0;
+}
+
+#reference-container {
+  display: inline-block;
+  width: 49%;
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.xaxis2 .tick line {
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+.xaxis2 path {
+  opacity: 0;
+}
+
+.xaxis .tick text, .bar-label {
+  font-weight: 400;
+  font-size: 10px;
+  fill: rgba(255, 255, 255, 0.7);
+  text-anchor: end;
+}
+
+.bar-label-x, .bar-label-y {
+  font-size: 12px;
+  fill: rgba(255, 255, 255, 0.7); 
+}
+
+.bar-label-y {
+  /* font-weight: bold; */
+}
+
+#top-post {
+  text-align: left;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+#top-post .channel {
+  float: right;
+  padding-left: 8px;
+}
+
+.post-container {
+  background-color: rgba(255, 255, 255, .9);
+  border-bottom-color: rgb(221, 223, 226);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(221, 223, 226);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(221, 223, 226);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(221, 223, 226);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  color: rgb(29, 33, 41);
+  direction: ltr;
+  display: block;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+  position: relative;
+  text-size-adjust: 100%;
+  max-width: 480px; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+
+.post-author {
+  font-size: 14px;
+  font-weight: 600;
+  height: 18px;
+  letter-spacing: 0.15px;
+  line-height: 18px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.post-author .username {
+  position: absolute;
+  left: 0;
+  right: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.post-author .channel {
+  position: absolute;
+  right: 0;
+  width: 16px;
+}
+
+.post-content {
+  direction: ltr;
+  display: block;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 12px;
+}
+
+.post {
+  clear: both;
+}
+
+#credits {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-size: 12px; 
+  padding-top: 48px;
+  padding-bottom: 24px; 
+}
+
+#credits a {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.divider {
+  padding: 0 12px; 
+}
+
+@media screen and (max-device-width: 667px){
+  html, body {
+    padding: 0px;
+    margin: 0px;
+  }
+
+  h1, h2, h3 {
+    padding: 0 20px;
+  }
+
+  #editorial {
+    padding: 0 20px;
+  }
+
+  #streamgraph {
+    width: 100%;
+  }
+
+  #reference-container {
+    box-shadow: 0 5px 15px #cdd0c733;
+    max-height: 400px;
+    width: 100%;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+  }
+
+  #top-post {
+    padding: 0 10px;
+  }
+}
+
+@media screen and (max-device-width: 667px) and (orientation: landscape) {
+  #reference-container {
+    max-height: 200px;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  #editorial {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  #minibar {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+}

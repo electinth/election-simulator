@@ -1,0 +1,57 @@
+{
+  "name": "election-simulator",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "dev": "webpack-dev-server --mode=development --hot",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:elect.in.th/election-simulator.git"
+  },
+  "author": "Krist Wongsuphasawat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/elect.in.th/election-simulator/issues"
+  },
+  "homepage": "https://gitlab.com/elect.in.th/election-simulator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-lodash": "^3.3.4",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.13.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-compat": "^2.7.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "prettier": "^1.16.4",
+    "style-loader": "^0.23.1",
+    "terser": "3.14.1",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "d3": "^5.7.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-hot-loader": "^4.6.5"
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>นายกและรัฐบาลที่คุณเลือก (ได้) เอง - ELECT.IN.TH</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-light">
+      <a class="navbar-brand" href="/">
+        <img src="https://elect.in.th/site-logo.png">
+        <h6>In Vote We Trust</h6>
+      </a>
+      <div class="ml-auto d-flex navbar-more">
+        <div class="lang">
+          <!-- <a class="active">ภาษาไทย</a>
+                <a>English</a> -->
+        </div>
+        <div class="social">
+          <a href="https://www.facebook.com/electinth"><i class="fab fa-facebook-f fa-fw"></i></a>
+          <a href="https://twitter.com/electinth"><i class="fab fa-twitter fa-fw"></i></a>
+          <!-- <a><i class="fab fa-instagram fa-fw"></i></a> -->
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <h1>นายกและรัฐบาลที่คุณเลือก (ได้) เอง</h1>
+  <h3>ต้องสูตรไหน </h3>
+
+  <div id="editorial">
+    <div id="article">
+      <p>
+        หลังจากการเลือกตั้งและนับคะแนน
+        ก็ถึงเวลาที่บรรดาพรรคการเมืองจะจับมือกัน
+        เพื่อเลือกนายกรัฐมนตรีและจัดตั้งรัฐบาล
+        ความเป็นไปได้มีมากมายหลายแบบ
+        แต่ถ้าคุณเลือกได้ รัฐบาลจะหน้าตาเป็นอย่างไร
+      </p>
+    </div>
+    <div id="footnote">
+      <b>หมายเหตุ:</b> ยังทำไม่เสร็จ
+    </div>
+  </div>
+
+  <div id="app"></div>
+
+  <div id="credits">
+    Visualization by
+    <a href="https://twitter.com/kristw" target="_blank">Krist Wongsuphasawat</a>
+  </div>
+
+  <script>
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '171048360504115',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v3.2'
+      });
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+</body>
+
+</html>
