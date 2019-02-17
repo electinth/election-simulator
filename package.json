@@ -49,8 +49,11 @@
   },
   "dependencies": {
     "d3": "^5.7.0",
+    "d3kit": "^3.2.0",
+    "lodash": "^4.17.11",
     "prop-types": "^15.7.2",
     "react": "^16.8.2",
+    "react-d3kit": "^2.0.0",
     "react-dom": "^16.8.2",
     "react-hot-loader": "^4.6.5"
   }
