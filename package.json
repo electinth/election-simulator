@@ -50,6 +50,9 @@
   },
   "dependencies": {
     "d3": "^5.7.0",
+    "d3-array": "^2.0.3",
+    "d3-scale": "^2.2.2",
+    "d3-selection": "^1.4.0",
     "d3kit": "^3.2.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.7.2",

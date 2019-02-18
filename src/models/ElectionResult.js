@@ -1,11 +1,41 @@
 import { sum as d3Sum } from 'd3-array';
+import { flatMap } from 'lodash';
+import PartyWithResult from './PartyWithResult';
+import Party, { REMAINDER_PARTY_NAME } from './Party';
 import { TOTAL_REPRESENTATIVE } from './rules';
 
 export default class ElectionResult {
-  constructor(partyWithResults) {
+  // input is PartyWithResult[] or plain object with party name as key and seats as value.
+  constructor(input) {
+    const partyWithResults = Array.isArray(input)
+      ? input
+      : Object.keys(input)
+          .filter(name => name !== REMAINDER_PARTY_NAME)
+          .map(
+            name =>
+              new PartyWithResult({
+                party: Party.getOrCreate({
+                  name,
+                }),
+                seats: input[name],
+              }),
+          );
+
     this.partyWithResults = partyWithResults.concat().sort((a, b) => b.seats - a.seats);
-    const count = d3Sum(this.partyWithResults, p => p.seats);
-    this.isOverflow = TOTAL_REPRESENTATIVE - count >= 0;
+    this.totalSeats = d3Sum(this.partyWithResults, p => p.seats);
+
+    if (this.totalSeats < TOTAL_REPRESENTATIVE) {
+      this.partyWithResults.push(
+        new PartyWithResult({
+          party: Party.getOrCreate({ name: REMAINDER_PARTY_NAME }),
+          seats: TOTAL_REPRESENTATIVE - this.totalSeats,
+        }),
+      );
+    }
+  }
+
+  isOverflow() {
+    return this.totalSeats > TOTAL_REPRESENTATIVE;
   }
 
   getPartiesWithSeats() {
@@ -18,6 +48,10 @@ export default class ElectionResult {
 
   getPotentialAllies(mainPartyName) {
     return this.getPartiesWithSeats().filter(p => p.name !== mainPartyName);
+  }
+
+  generateRepresentatives() {
+    return flatMap(this.getPartiesWithSeats().map(p => p.generateRepresentatives()));
   }
 
   clone() {
