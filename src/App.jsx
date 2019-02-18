@@ -15,11 +15,8 @@ const defaultProps = {
 class App extends React.Component {
   render() {
     const { className } = this.props;
-    return (
-      <div className={className}>
-        under construction
-      </div>
-    );
+
+    return <div className={className}>under construction</div>;
   }
 }
 

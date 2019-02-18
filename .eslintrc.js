@@ -135,5 +135,19 @@ module.exports = {
     "react/no-direct-mutation-state": "error",
     "function-paren-newline": "off",
     "react/jsx-one-expression-per-line": "off"
-  }
+  },
+  "overrides": [{
+    "env": {
+      "node": true
+    },
+    "files": [
+      "{src}/**/*.{js,jsx,ts,tsx}"
+    ],
+    "rules": {
+      "no-magic-numbers": "off",
+      "sort-keys": "off",
+      "import/no-extraneous-dependencies": "off",
+      "react/jsx-filename-extension": "off"
+    }
+  }]
 }

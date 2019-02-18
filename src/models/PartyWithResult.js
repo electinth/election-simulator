@@ -1,4 +1,4 @@
-import Representative from "./Representative";
+import Representative from './Representative';
 
 export default class PartyWithResult {
   constructor({ party, seats = 0 }) {
@@ -12,8 +12,8 @@ export default class PartyWithResult {
       representatives.push(
         new Representative({
           id: i,
-          partyWithResult: this
-        })
+          partyWithResult: this,
+        }),
       );
     }
 
@@ -23,7 +23,7 @@ export default class PartyWithResult {
   clone() {
     return new PartyWithResult({
       party: this.party,
-      seats: this.seats
+      seats: this.seats,
     });
   }
 }

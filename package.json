@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "lint": "eslint src/",
-    "lint:fix": "eslint --fix src/",
+    "lint:fix": "eslint --fix src/**/*.{js,jsx}",
     "dev": "webpack-dev-server --mode=development --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
