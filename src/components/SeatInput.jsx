@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
 import './SeatInput.css';
+import { TOTAL_REPRESENTATIVE } from '../models/rules';
 
 const propTypes = {
   className: PropTypes.string,
@@ -33,6 +34,10 @@ const BUTTON_STYLE = {
   minWidth: '28px',
 };
 
+function boundValue(value) {
+  return Math.min(Math.max(0, value), TOTAL_REPRESENTATIVE);
+}
+
 class SeatInput extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -43,12 +48,12 @@ class SeatInput extends React.PureComponent {
   handleTextChange(ev) {
     const newValue = Number(ev.target.value);
     const { onValueChange } = this.props;
-    onValueChange(newValue);
+    onValueChange(boundValue(newValue));
   }
 
   handleButtonClick(diff) {
     const { onValueChange, value } = this.props;
-    onValueChange(value + diff);
+    onValueChange(boundValue(value + diff));
   }
 
   render() {
