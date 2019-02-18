@@ -21,7 +21,10 @@ export default class ElectionResult {
               }),
           );
 
-    this.partyWithResults = partyWithResults.concat().sort((a, b) => b.seats - a.seats);
+    this.partyWithResults = partyWithResults
+      .filter(p => p.party.name !== REMAINDER_PARTY_NAME)
+      .concat()
+      .sort((a, b) => b.seats - a.seats);
     this.totalSeats = d3Sum(this.partyWithResults, p => p.seats);
 
     if (this.totalSeats < TOTAL_REPRESENTATIVE) {
@@ -52,6 +55,19 @@ export default class ElectionResult {
 
   generateRepresentatives() {
     return flatMap(this.getPartiesWithSeats().map(p => p.generateRepresentatives()));
+  }
+
+  cloneAndUpdateSeats(partyName, newSeats) {
+    return new ElectionResult(
+      this.partyWithResults.map(p => {
+        const clone = p.clone();
+        if (p.party.name === partyName) {
+          clone.seats = newSeats;
+        }
+
+        return clone;
+      }),
+    );
   }
 
   clone() {

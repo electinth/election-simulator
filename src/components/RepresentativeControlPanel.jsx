@@ -5,6 +5,7 @@ import ElectionResult from '../models/ElectionResult';
 import presets from '../data/electionResults';
 import SeatInput from './SeatInput';
 import electionResults from '../data/electionResults';
+import { REMAINDER_PARTY_NAME } from '../models/Party';
 
 const presetLookup = keyBy(presets, p => p.key);
 
@@ -44,7 +45,16 @@ class RepresentativeControlPanel extends React.PureComponent {
     const { preset, result } = this.state;
 
     const half = Math.ceil(result.partyWithResults.length / 2);
-    const halves = [result.partyWithResults.slice(0, half), result.partyWithResults.slice(half)];
+    const sortedParties = result.partyWithResults.sort((a, b) => {
+      if (a.party.name === REMAINDER_PARTY_NAME) {
+        return 1;
+      } else if (b.party.name === REMAINDER_PARTY_NAME) {
+        return -1;
+      }
+
+      return a.party.name.localeCompare(b.party.name);
+    });
+    const halves = [sortedParties.slice(0, half), sortedParties.slice(half)];
 
     return (
       <div className={className}>
@@ -54,9 +64,9 @@ class RepresentativeControlPanel extends React.PureComponent {
               ใช้ตัวเลขจาก
             </label>
           </div>
-          <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
+          <select className="custom-select" onChange={this.handlePresetChange}>
             {presets.map(rs => (
-              <option value={rs.key} key={rs.key}>
+              <option value={rs.key} key={rs.key} selected={rs.key === preset}>
                 {rs.name}
               </option>
             ))}
@@ -78,7 +88,15 @@ class RepresentativeControlPanel extends React.PureComponent {
                     <div key={p.party.name} className="form-group row">
                       <label className="col col-form-label col-form-label-sm">{p.party.name}</label>
                       <div className="col-md-auto">
-                        <SeatInput value={p.seats} />
+                        <SeatInput
+                          value={p.seats}
+                          onValueChange={value => {
+                            this.setState({
+                              preset: 'custom',
+                              result: result.cloneAndUpdateSeats(p.party.name, value),
+                            });
+                          }}
+                        />
                       </div>
                     </div>
                   ))}
