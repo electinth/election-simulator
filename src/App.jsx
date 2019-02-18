@@ -4,8 +4,9 @@ import './css/style.css';
 
 import React from 'react';
 import { hot } from 'react-hot-loader';
+import RepresentativeControlPanel from './components/RepresentativeControlPanel';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
@@ -14,7 +15,7 @@ class App extends React.Component {
             <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
           </header>
           <div class="col">
-            under construction
+            <RepresentativeControlPanel />
           </div>
         </section>
         <section class="container">
@@ -25,7 +26,7 @@ class App extends React.Component {
               ก็ถึงเวลาที่บรรดาพรรคการเมืองจะจับมือกัน
               เพื่อเลือกนายกรัฐมนตรีและจัดตั้งรัฐบาล
               ความเป็นไปได้มีมากมายหลายแบบ
-              ลองเลือกพรรคหลัก, พรรคร่วมรัฐบาล และ จำนวนเสียงที่ได้จากส.ว. ดู
+              ลองเลือก พรรคหลัก, พรรคร่วมรัฐบาล และ จำนวนเสียงที่ได้จากส.ว. แล้วดูผล
             </p>
           </header>
           <div class="col">

@@ -19,6 +19,8 @@ const colorMap = {
 
 const parties = Object.keys(colorMap);
 const colors = parties.map(party => colorMap[party]);
-const scale = scaleOrdinal.domain(parties).range(colors);
+const scale = scaleOrdinal()
+  .domain(parties)
+  .range(colors);
 
 export default scale;

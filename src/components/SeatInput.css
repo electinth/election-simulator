@@ -1,0 +1,12 @@
+.seat-input {
+  width: 200px;
+}
+
+.seat-input .btn {
+  background: rgba(239, 49, 74, 0.6);
+  transition: all .3s;
+}
+
+.seat-input .btn:hover {
+  background: rgba(239, 49, 74, 1);
+}

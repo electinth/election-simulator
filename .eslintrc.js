@@ -133,6 +133,7 @@ module.exports = {
     "react/jsx-no-literals": "off",
     "react/no-did-mount-set-state": "error",
     "react/no-direct-mutation-state": "error",
+    "react/prefer-stateless-function": "off",
     "function-paren-newline": "off",
     "react/jsx-one-expression-per-line": "off"
   },
