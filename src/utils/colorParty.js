@@ -1,35 +1,24 @@
+/* eslint-disable sort-keys */
+
 import { scaleOrdinal } from 'd3-scale';
 
-const PARTIES = [
-  'ชาติไทยพัฒนา',
-  'เพื่อไทย',
-  'อนาคตใหม่',
-  'ไทยรักษาชาติ',
-  'รวมพลังประชาชาติไทย',
-  'พลังประชารัฐ',
-  'ประชาธิปัตย์',
-  'ภูมิใจไทย',
-  'ประชาชาติ',
-  'เพื่อชาติ',
-  'เพื่อธรรม',
-  'อื่นๆ',
-];
+const colorMap = {
+  ชาติไทยพัฒนา: '#1F5D52',
+  เพื่อไทย: '#DE0505',
+  อนาคตใหม่: '#F47932',
+  ไทยรักษาชาติ: '#FA9BCC',
+  รวมพลังประชาชาติไทย: '#F6CD4A',
+  พลังประชารัฐ: '#546D40',
+  ประชาธิปัตย์: '#40BDE7',
+  ภูมิใจไทย: '#005FFF',
+  ประชาชาติ: '#0C3B86',
+  เพื่อชาติ: '#7077C5',
+  เพื่อธรรม: '#EB1970',
+  อื่นๆ: '#ccc',
+};
 
-const COLORS = [
-  '#1F5D52',
-  '#DE0505',
-  '#F47932',
-  '#FA9BCC',
-  '#F6CD4A',
-  '#546D40',
-  '#40BDE7',
-  '#005FFF',
-  '#0C3B86',
-  '#7077C5',
-  '#EB1970',
-  '#ccc',
-];
-
-const scale = scaleOrdinal.domain(PARTIES).range(COLORS);
+const parties = Object.keys(colorMap);
+const colors = parties.map(party => colorMap[party]);
+const scale = scaleOrdinal.domain(parties).range(colors);
 
 export default scale;
