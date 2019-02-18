@@ -14,3 +14,6 @@ To build final output
 ```
 npm run build
 ```
+
+This repo has configured CI job to automatically deploy to gitlab pages
+https://elect.in.th.gitlab.io/election-simulator/
