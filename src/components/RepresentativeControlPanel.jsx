@@ -67,9 +67,9 @@ class RepresentativeControlPanel extends React.PureComponent {
               ใช้ตัวเลขจาก
             </label>
           </div>
-          <select className="custom-select" onChange={this.handlePresetChange}>
+          <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
             {presets.map(rs => (
-              <option value={rs.key} key={rs.key} selected={rs.key === preset}>
+              <option value={rs.key} key={rs.key}>
                 {rs.name}
               </option>
             ))}
@@ -95,7 +95,7 @@ class RepresentativeControlPanel extends React.PureComponent {
                           value={p.seats}
                           onValueChange={value => {
                             this.setState({
-                              preset: 'custom',
+                              preset: 'CUSTOM',
                               result: result.cloneAndUpdateSeats(p.party.name, value),
                             });
                           }}
