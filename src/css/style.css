@@ -1,0 +1,67 @@
+html, body {
+  background: #fff;
+  color: #222;
+  font-family: "Noto Sans", "Noto Sans Thai", sans-serif;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  line-height: 1.5;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+svg text {
+  font-family: "Noto Sans",
+  'Noto Sans Thai UI',
+  'Libre Baskerville',
+  'The Matter',
+  serif;
+  font-weight: normal;
+}
+
+h1, h2, h3 {
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+}
+
+article a,
+article a:link,
+article a:visited {
+  color: rgb(239, 49, 74);
+  border-bottom: 1px dotted rgba(239, 49, 74, 0.2);
+  text-decoration: none;
+  transition: all .3s;
+}
+
+article a:hover {
+  border-bottom: 1px solid rgba(239, 49, 74, 1);
+}
+
+.hidden {
+  display: none;
+}
+
+article>header {
+  text-align: center;
+}
+
+section {
+  margin: 40px 0;
+}
+
+section.introduction {
+  margin-top: 40px;
+}
+
+footer {
+  text-align: center;
+}
+
+#footnote {
+  font-size: 0.9em;
+  color: #999;
+}
+
+#credits {
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-size: 12px;
+}

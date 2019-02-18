@@ -7,7 +7,9 @@
 
   <title>นายกและรัฐบาลที่คุณเลือก (ได้) เอง - ELECT.IN.TH</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700|Noto+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
     crossorigin="anonymous">
 </head>
@@ -33,49 +35,28 @@
     </nav>
   </header>
 
-  <h1>นายกและรัฐบาลที่คุณเลือก (ได้) เอง</h1>
-  <h3>ต้องสูตรไหน </h3>
-
-  <div id="editorial">
-    <div id="article">
-      <p>
-        หลังจากการเลือกตั้งและนับคะแนน
-        ก็ถึงเวลาที่บรรดาพรรคการเมืองจะจับมือกัน
-        เพื่อเลือกนายกรัฐมนตรีและจัดตั้งรัฐบาล
-        ความเป็นไปได้มีมากมายหลายแบบ
-        แต่ถ้าคุณเลือกได้ รัฐบาลจะหน้าตาเป็นอย่างไร
-      </p>
-    </div>
-    <div id="footnote">
-      <b>หมายเหตุ:</b> ยังทำไม่เสร็จ
-    </div>
-  </div>
-
-  <div id="app"></div>
-
-  <div id="credits">
-    Visualization by
-    <a href="https://twitter.com/kristw" target="_blank">Krist Wongsuphasawat</a>
-  </div>
-
-  <script>
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: '171048360504115',
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v3.2'
-      });
-    };
-
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
+  <article>
+    <header>
+      <h1>นายกและรัฐบาลที่คุณเลือก (ได้) เอง</h1>
+    </header>
+    <section class="container introduction">
+      <div class="col">
+        <p>
+          ถ้าคุณสามารถเนรมิตผลเลือกตั้งได้ด้วยปลายนิ้ว อยากให้รัฐบาลออกมาเป็นแบบไหน ลองมาจินตนาการไปด้วยกัน
+        </p>
+      </div>
+    </section>
+    <div id="app"></div>
+    <footer>
+      <section id="footnote">
+        <b>หมายเหตุ:</b> ยังทำไม่เสร็จ
+      </section>
+      <section id="credits">
+        Visualization by
+        <a href="https://twitter.com/kristw" target="_blank">Krist Wongsuphasawat</a>
+      </section>
+    </footer>
+  </article>
 </body>
 
 </html>

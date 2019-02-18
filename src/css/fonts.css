@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'Noto Sans Thai';
+  src: url("../fonts/NotoSansThai-Regular.woff2") format("woff2"), url("../fonts/NotoSansThai-Regular.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai';
+  src: url("../fonts/NotoSansThai-Bold.woff2") format("woff2"), url("../fonts/NotoSansThai-Bold.woff") format("woff");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'The Matter';
+  src: url("../fonts/thematter-bold.woff2") format("woff2"), url("../fonts/thematter-bold.woff") format("woff");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'The Matter';
+  src: url("../fonts/thematter-extrabold.woff2") format("woff2"), url("../fonts/thematter-extrabold.woff") format("woff");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai';
+  src: url("../fonts/NotoSansThai-Regular.woff2") format("woff2"), url("../fonts/NotoSansThai-Regular.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Thai';
+  src: url("../fonts/NotoSansThai-Bold.woff2") format("woff2"), url("../fonts/NotoSansThai-Bold.woff") format("woff");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'The Matter';
+  src: url("../fonts/thematter-bold.woff2") format("woff2"), url("../fonts/thematter-bold.woff") format("woff");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'The Matter';
+  src: url("../fonts/thematter-extrabold.woff2") format("woff2"), url("../fonts/thematter-extrabold.woff") format("woff");
+  font-weight: 800;
+}
