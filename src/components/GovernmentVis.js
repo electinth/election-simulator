@@ -8,7 +8,12 @@ const R = 4;
 
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
-    return helper.deepExtend(super.getDefaultOptions(), {});
+    return helper.deepExtend(super.getDefaultOptions(), {
+      margin: {
+        left: 0,
+        right: 0,
+      },
+    });
   }
 
   static getCustomEventNames() {
