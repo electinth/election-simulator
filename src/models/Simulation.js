@@ -9,4 +9,26 @@ export default class Simulation {
   printResult() {
     return 'lorem ipsum dolor sit amet';
   }
+
+  generateRepresentatives() {
+    const representatives = this.electionResult.generateRepresentatives();
+
+    return representatives
+      .filter(r => r.partyWithResult.party === this.mainParty)
+      .map(r => ({
+        ...r,
+        isSelected: true,
+      }))
+      .concat(
+        representatives
+          .filter(r => this.allyParties.has(r.partyWithResult.party))
+          .map(r => ({
+            ...r,
+            isAlly: true,
+          })),
+      )
+      .concat(
+        representatives.filter(r => r.partyWithResult.party !== this.mainParty && !this.allyParties.has(r.partyWithResult.party)),
+      );
+  }
 }

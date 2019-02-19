@@ -4,9 +4,13 @@ import './css/style.css';
 
 import React from 'react';
 import { hot } from 'react-hot-loader';
+import { createComponent } from 'react-d3kit';
 import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentPanel from './components/GovernmentPanel';
+import RawGovernmentVis from './components/GovernmentVis';
 import Simulation from './models/Simulation';
+
+const GovernmentVis = createComponent(RawGovernmentVis);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -61,7 +65,13 @@ class App extends React.PureComponent {
               }}
             />
           </div>
-          <div className="col">{simulation && simulation.printResult()}</div>
+          <div className="col">
+            <GovernmentVis data={simulation} />
+          </div>
+          <div className="col">
+            <b>ผล:</b>&nbsp;
+            {simulation && simulation.printResult()}
+          </div>
         </section>
       </React.Fragment>
     );
