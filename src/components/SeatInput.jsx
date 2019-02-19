@@ -8,11 +8,13 @@ import { TOTAL_REPRESENTATIVE } from '../models/rules';
 
 const propTypes = {
   className: PropTypes.string,
+  maxValue: PropTypes.number,
   onValueChange: PropTypes.func,
   value: PropTypes.number,
 };
 const defaultProps = {
   className: '',
+  maxValue: TOTAL_REPRESENTATIVE,
   onValueChange() {},
   value: 0,
 };
@@ -34,10 +36,6 @@ const BUTTON_STYLE = {
   minWidth: '28px',
 };
 
-function boundValue(value) {
-  return Math.min(Math.max(0, value), TOTAL_REPRESENTATIVE);
-}
-
 class SeatInput extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -45,15 +43,21 @@ class SeatInput extends React.PureComponent {
     this.handleTextChange = debounce(this.handleTextChange.bind(this), 100);
   }
 
+  boundValue(value) {
+    const { maxValue } = this.props;
+
+    return Math.min(Math.max(0, value), maxValue);
+  }
+
   handleTextChange(ev) {
     const newValue = Number(ev.target.value);
     const { onValueChange } = this.props;
-    onValueChange(boundValue(newValue));
+    onValueChange(this.boundValue(newValue));
   }
 
   handleButtonClick(diff) {
     const { onValueChange, value } = this.props;
-    onValueChange(boundValue(value + diff));
+    onValueChange(this.boundValue(value + diff));
   }
 
   render() {

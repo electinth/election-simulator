@@ -50,7 +50,7 @@ export default class ElectionResult {
   }
 
   getPotentialAllies(mainPartyName) {
-    return this.getPartiesWithSeats().filter(p => p.name !== mainPartyName);
+    return this.getPartiesWithSeats().filter(p => p.party.name !== mainPartyName);
   }
 
   generateRepresentatives() {

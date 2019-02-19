@@ -20,7 +20,7 @@ const defaultProps = {
   onChange() {},
 };
 
-class RepresentativeControlPanel extends React.PureComponent {
+class ElectionResultPanel extends React.PureComponent {
   constructor(props) {
     super(props);
     const preset = presets[0].key;
@@ -29,6 +29,12 @@ class RepresentativeControlPanel extends React.PureComponent {
       result: new ElectionResult(presetLookup[preset].result),
     };
     this.handlePresetChange = this.handlePresetChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { result } = this.state;
+    const { onChange } = this.props;
+    onChange(result);
   }
 
   handlePresetChange(ev) {
@@ -52,7 +58,7 @@ class RepresentativeControlPanel extends React.PureComponent {
       result.totalSeats < TOTAL_REPRESENTATIVE
         ? Math.floor(result.partyWithResults.length / 2)
         : Math.ceil(result.partyWithResults.length / 2);
-    const sortedParties = result.partyWithResults.sort((a, b) => {
+    const sortedParties = result.partyWithResults.concat().sort((a, b) => {
       if (a.party.name === REMAINDER_PARTY_NAME) {
         return 1;
       } else if (b.party.name === REMAINDER_PARTY_NAME) {
@@ -127,7 +133,7 @@ class RepresentativeControlPanel extends React.PureComponent {
   }
 }
 
-RepresentativeControlPanel.propTypes = propTypes;
-RepresentativeControlPanel.defaultProps = defaultProps;
+ElectionResultPanel.propTypes = propTypes;
+ElectionResultPanel.defaultProps = defaultProps;
 
-export default RepresentativeControlPanel;
+export default ElectionResultPanel;
