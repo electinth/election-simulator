@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { keyBy } from 'lodash';
@@ -11,9 +13,11 @@ const presetLookup = keyBy(presets, p => p.key);
 
 const propTypes = {
   className: PropTypes.string,
+  onChange: PropTypes.func,
 };
 const defaultProps = {
   className: '',
+  onChange() {},
 };
 
 class RepresentativeControlPanel extends React.PureComponent {
@@ -25,24 +29,23 @@ class RepresentativeControlPanel extends React.PureComponent {
       result: new ElectionResult(presetLookup[preset].result),
     };
     this.handlePresetChange = this.handlePresetChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handlePresetChange(ev) {
     const { result } = this.state;
+    const { onChange } = this.props;
     const preset = ev.target.value;
+    const newResult = preset === 'CUSTOM' ? result.clone() : new ElectionResult(presetLookup[preset].result);
     this.setState({
       preset,
-      result:
-        preset === 'CUSTOM' ? result.clone() : new ElectionResult(presetLookup[preset].result),
+      result: newResult,
     });
+    onChange(newResult);
   }
-
-  handleInputChange() {}
 
   render() {
     const { className } = this.props;
-    const { preset, result } = this.state;
+    const { preset, result, onChange } = this.state;
 
     const half =
       result.totalSeats < TOTAL_REPRESENTATIVE
@@ -63,7 +66,7 @@ class RepresentativeControlPanel extends React.PureComponent {
       <div className={className}>
         <div className="input-group">
           <div className="input-group-prepend">
-            <label className="input-group-text" htmlFor="inputGroupSelect01">
+            <label className="input-group-text">
               ใช้ตัวเลขจาก
             </label>
           </div>
@@ -99,10 +102,12 @@ class RepresentativeControlPanel extends React.PureComponent {
                         <SeatInput
                           value={p.seats}
                           onValueChange={value => {
+                            const newResult = result.cloneAndUpdateSeats(p.party.name, value);
                             this.setState({
                               preset: 'CUSTOM',
-                              result: result.cloneAndUpdateSeats(p.party.name, value),
+                              result: newResult,
                             });
+                            onChange(newResult);
                           }}
                         />
                       </div>
@@ -114,7 +119,7 @@ class RepresentativeControlPanel extends React.PureComponent {
           </div>
         </div>
         {result.isOverflow() && (
-          <h3 style={{ textAlign: 'center', marginTop: '20px', padding: '20px 0' }}>
+          <h3 style={{ marginTop: '20px', padding: '20px 0', textAlign: 'center' }}>
             เกิน! ส.ส.มีได้ {TOTAL_REPRESENTATIVE} คน ตอนนี้มี {result.totalSeats}
           </h3>
         )}

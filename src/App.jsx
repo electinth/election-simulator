@@ -7,19 +7,24 @@ import { hot } from 'react-hot-loader';
 import RepresentativeControlPanel from './components/RepresentativeControlPanel';
 
 class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <React.Fragment>
-        <section class="container">
-          <header class="col">
+        <section className="container">
+          <header className="col">
             <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
           </header>
-          <div class="col">
+          <div className="col">
             <RepresentativeControlPanel />
           </div>
         </section>
-        <section class="container">
-          <header class="col">
+        <section className="container">
+          <header className="col">
             <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
             <p>
               หลังจากการเลือกตั้งและนับคะแนน
@@ -29,7 +34,7 @@ class App extends React.PureComponent {
               ลองเลือก พรรคหลัก, พรรคร่วมรัฐบาล และ จำนวนเสียงที่ได้จากส.ว. แล้วดูผล
             </p>
           </header>
-          <div class="col">
+          <div className="col">
             under construction
           </div>
         </section>
