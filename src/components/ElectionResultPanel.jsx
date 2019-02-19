@@ -98,7 +98,7 @@ class ElectionResultPanel extends React.PureComponent {
                   {parties.map(p => (
                     <div key={p.party.name} className="form-group row">
                       <label
-                        className="col col-form-label col-form-label-sm"
+                        className="col col-form-label col-form-label-sm party-name"
                         style={{ textAlign: 'left' }}
                       >
                         {p.party.name}

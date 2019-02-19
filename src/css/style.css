@@ -66,6 +66,10 @@ footer {
   font-size: 12px;
 }
 
+.party-name {
+  font-family: 'Libre Baskerville', 'The Matter', serif;
+}
+
 html {
   visibility: visible;
   opacity: 1;

@@ -73,8 +73,9 @@ class GovernmentPanel extends React.PureComponent {
                   }}
                 />
                 <label
-                  className="custom-control-label"
+                  className="custom-control-label party-name"
                   htmlFor={`main-party-radio-${p.party.name}`}
+                  style={{ fontSize: '0.9em' }}
                 >
                   <svg width={R * 2 + 2} height={R * 2 + 2}>
                     <circle cx={R} cy={R} r={R} fill={p.party.color} />
@@ -113,7 +114,7 @@ class GovernmentPanel extends React.PureComponent {
                     });
                   }}
                 />
-                <label className="custom-control-label" htmlFor={`ally-party-${p.party.name}`}>
+                <label className="custom-control-label party-name" htmlFor={`ally-party-${p.party.name}`} style={{ fontSize: '0.9em' }}>
                   <svg width={ R*2 + 2} height={R*2 + 2}>
                     <circle cx={R} cy={R} r={R} fill={p.party.color} />
                   </svg>&nbsp;
