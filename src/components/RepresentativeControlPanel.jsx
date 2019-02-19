@@ -35,7 +35,8 @@ class RepresentativeControlPanel extends React.PureComponent {
     const { result } = this.state;
     const { onChange } = this.props;
     const preset = ev.target.value;
-    const newResult = preset === 'CUSTOM' ? result.clone() : new ElectionResult(presetLookup[preset].result);
+    const newResult =
+      preset === 'CUSTOM' ? result.clone() : new ElectionResult(presetLookup[preset].result);
     this.setState({
       preset,
       result: newResult,
@@ -66,9 +67,7 @@ class RepresentativeControlPanel extends React.PureComponent {
       <div className={className}>
         <div className="input-group">
           <div className="input-group-prepend">
-            <label className="input-group-text">
-              ใช้ตัวเลขจาก
-            </label>
+            <label className="input-group-text">ใช้ตัวเลขจาก</label>
           </div>
           <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
             {presets.map(rs => (
@@ -87,8 +86,8 @@ class RepresentativeControlPanel extends React.PureComponent {
         <p />
         <div className="container">
           <div className="row">
-            {halves.map((parties, i) => (
-              <div className="col" key={`half-${i}`}>
+            {halves.map(parties => (
+              <div className="col" key={parties[0].party.name}>
                 <div className="form">
                   {parties.map(p => (
                     <div key={p.party.name} className="form-group row">
