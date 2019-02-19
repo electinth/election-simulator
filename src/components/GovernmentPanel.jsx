@@ -1,10 +1,12 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for, no-magic-numbers */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import ElectionResult from '../models/ElectionResult';
 import SeatInput from './SeatInput';
 import { TOTAL_SENATOR } from '../models/rules';
+
+const R = 4;
 
 const propTypes = {
   className: PropTypes.string,
@@ -74,6 +76,9 @@ class GovernmentPanel extends React.PureComponent {
                   className="custom-control-label"
                   htmlFor={`main-party-radio-${p.party.name}`}
                 >
+                  <svg width={R * 2 + 2} height={R * 2 + 2}>
+                    <circle cx={R} cy={R} r={R} fill={p.party.color} />
+                  </svg>&nbsp;
                   {p.party.name} ({p.seats})
                 </label>
               </div>
@@ -109,6 +114,9 @@ class GovernmentPanel extends React.PureComponent {
                   }}
                 />
                 <label className="custom-control-label" htmlFor={`ally-party-${p.party.name}`}>
+                  <svg width={ R*2 + 2} height={R*2 + 2}>
+                    <circle cx={R} cy={R} r={R} fill={p.party.color} />
+                  </svg>&nbsp;
                   {p.party.name} ({p.seats})
                 </label>
               </div>
@@ -123,6 +131,7 @@ class GovernmentPanel extends React.PureComponent {
             <SeatInput
               value={senatorVotes}
               maxValue={TOTAL_SENATOR}
+              steppers={[-50, -1, 1, 50]}
               onValueChange={newValue => {
                 this.update({
                   senatorVotes: newValue,

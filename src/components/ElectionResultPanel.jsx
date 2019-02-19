@@ -99,7 +99,7 @@ class ElectionResultPanel extends React.PureComponent {
                     <div key={p.party.name} className="form-group row">
                       <label
                         className="col col-form-label col-form-label-sm"
-                        style={{ textAlign: 'right' }}
+                        style={{ textAlign: 'left' }}
                       >
                         {p.party.name}
                       </label>

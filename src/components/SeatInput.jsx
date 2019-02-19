@@ -10,12 +10,14 @@ const propTypes = {
   className: PropTypes.string,
   maxValue: PropTypes.number,
   onValueChange: PropTypes.func,
+  steppers: PropTypes.arrayOf(PropTypes.number),
   value: PropTypes.number,
 };
 const defaultProps = {
   className: '',
   maxValue: TOTAL_REPRESENTATIVE,
   onValueChange() {},
+  steppers: [-10, -1, 1, 10],
   value: 0,
 };
 
@@ -61,7 +63,7 @@ class SeatInput extends React.PureComponent {
   }
 
   render() {
-    const { className, value } = this.props;
+    const { className, value, steppers } = this.props;
 
     return (
       <div className={className}>
@@ -79,38 +81,17 @@ class SeatInput extends React.PureComponent {
             }}
           />
           <div className="input-group-append">
-            <button
-              className="btn btn-sm btn-outline-secondary"
-              type="button"
-              style={BUTTON_STYLE}
-              onClick={() => this.handleButtonClick(-10)}
-            >
-              -10
-            </button>
-            <button
-              className="btn btn-sm"
-              type="button"
-              style={BUTTON_STYLE}
-              onClick={() => this.handleButtonClick(-1)}
-            >
-              -
-            </button>
-            <button
-              className="btn btn-sm btn-outline-secondary"
-              type="button"
-              style={BUTTON_STYLE}
-              onClick={() => this.handleButtonClick(1)}
-            >
-              +
-            </button>
-            <button
-              className="btn btn-sm btn-outline-secondary"
-              type="button"
-              style={BUTTON_STYLE}
-              onClick={() => this.handleButtonClick(10)}
-            >
-              +10
-            </button>
+            {steppers.map(step => (
+              <button
+                key={step}
+                className="btn btn-sm btn-outline-secondary"
+                type="button"
+                style={BUTTON_STYLE}
+                onClick={() => this.handleButtonClick(step)}
+              >
+                {step > 0 ? `+${step > 1 ? step : ''}` : (Math.abs(step) > 1 ? step : '-')}
+              </button>
+            ))}
           </div>
         </div>
       </div>
