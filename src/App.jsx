@@ -4,19 +4,29 @@ import './css/style.css';
 
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import RepresentativeControlPanel from './components/ElectionResultPanel';
+import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentPanel from './components/GovernmentPanel';
+import Simulation from './models/Simulation';
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       electionResult: null,
+      governmentConfig: null,
     };
   }
 
   render() {
-    const { electionResult } = this.state;
+    const { electionResult, governmentConfig } = this.state;
+
+    let simulation;
+    if (electionResult && governmentConfig) {
+      simulation = new Simulation({
+        electionResult,
+        ...governmentConfig,
+      });
+    }
 
     return (
       <React.Fragment>
@@ -25,7 +35,7 @@ class App extends React.PureComponent {
             <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
           </header>
           <div className="col">
-            <RepresentativeControlPanel
+            <ElectionResultPanel
               onChange={value => {
                 this.setState({ electionResult: value });
               }}
@@ -42,8 +52,16 @@ class App extends React.PureComponent {
             </p>
           </header>
           <div className="col">
-            <GovernmentPanel electionResult={electionResult} />
+            <GovernmentPanel
+              electionResult={electionResult}
+              onChange={value => {
+                this.setState({
+                  governmentConfig: value,
+                });
+              }}
+            />
           </div>
+          <div className="col">{simulation && simulation.printResult()}</div>
         </section>
       </React.Fragment>
     );

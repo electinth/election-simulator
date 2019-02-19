@@ -51,8 +51,8 @@ class ElectionResultPanel extends React.PureComponent {
   }
 
   render() {
-    const { className } = this.props;
-    const { preset, result, onChange } = this.state;
+    const { className, onChange } = this.props;
+    const { preset, result } = this.state;
 
     const half =
       result.totalSeats < TOTAL_REPRESENTATIVE

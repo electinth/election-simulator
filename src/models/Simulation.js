@@ -5,4 +5,8 @@ export default class Simulation {
     this.mainParty = mainParty;
     this.allyParties = allyParties;
   }
+
+  printResult() {
+    return 'lorem ipsum dolor sit amet';
+  }
 }

@@ -49,8 +49,8 @@ class SeatInput extends React.PureComponent {
     return Math.min(Math.max(0, value), maxValue);
   }
 
-  handleTextChange(ev) {
-    const newValue = Number(ev.target.value);
+  handleTextChange(value) {
+    const newValue = Number(value);
     const { onValueChange } = this.props;
     onValueChange(this.boundValue(newValue));
   }
@@ -74,6 +74,9 @@ class SeatInput extends React.PureComponent {
             aria-describedby="button-addon1"
             value={value}
             style={TEXT_INPUT_STYLE}
+            onChange={ev => {
+              this.handleTextChange(ev.target.value);
+            }}
           />
           <div className="input-group-append">
             <button
