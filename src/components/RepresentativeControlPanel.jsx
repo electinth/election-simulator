@@ -4,7 +4,6 @@ import { keyBy } from 'lodash';
 import ElectionResult from '../models/ElectionResult';
 import presets from '../data/electionResults';
 import SeatInput from './SeatInput';
-import electionResults from '../data/electionResults';
 import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
 
@@ -45,9 +44,10 @@ class RepresentativeControlPanel extends React.PureComponent {
     const { className } = this.props;
     const { preset, result } = this.state;
 
-    const half = result.totalSeats < TOTAL_REPRESENTATIVE
-      ? Math.floor(result.partyWithResults.length / 2)
-      : Math.ceil(result.partyWithResults.length / 2);
+    const half =
+      result.totalSeats < TOTAL_REPRESENTATIVE
+        ? Math.floor(result.partyWithResults.length / 2)
+        : Math.ceil(result.partyWithResults.length / 2);
     const sortedParties = result.partyWithResults.sort((a, b) => {
       if (a.party.name === REMAINDER_PARTY_NAME) {
         return 1;
@@ -78,7 +78,7 @@ class RepresentativeControlPanel extends React.PureComponent {
         </div>
         <p>
           <small>
-            (สามารถปรับตัวเลขได้ตามใจชอบ โดยกดที่ช่องตัวเลขแล้วพิมพ์ หรือ ใช้ปุ่มเพิ่ม/ลด)
+            (สามารถปรับตัวเลขได้ตามใจชอบ โดยกดปุ่มเพิ่ม/ลด หรือ กดที่ช่องตัวเลขแล้วพิมพ์)
           </small>
         </p>
         <p />
@@ -89,7 +89,12 @@ class RepresentativeControlPanel extends React.PureComponent {
                 <div className="form">
                   {parties.map(p => (
                     <div key={p.party.name} className="form-group row">
-                      <label className="col col-form-label col-form-label-sm">{p.party.name}</label>
+                      <label
+                        className="col col-form-label col-form-label-sm"
+                        style={{ textAlign: 'right' }}
+                      >
+                        {p.party.name}
+                      </label>
                       <div className="col-md-auto">
                         <SeatInput
                           value={p.seats}
@@ -108,11 +113,11 @@ class RepresentativeControlPanel extends React.PureComponent {
             ))}
           </div>
         </div>
-        {
-          result.isOverflow() && (
-            <h3 style={{textAlign: 'center', marginTop: '20px'}}>เกิน! ส.ส.มีได้ {TOTAL_REPRESENTATIVE} คน ตอนนี้มี {result.totalSeats}</h3>
-          )
-        }
+        {result.isOverflow() && (
+          <h3 style={{ textAlign: 'center', marginTop: '20px', padding: '20px 0' }}>
+            เกิน! ส.ส.มีได้ {TOTAL_REPRESENTATIVE} คน ตอนนี้มี {result.totalSeats}
+          </h3>
+        )}
       </div>
     );
   }

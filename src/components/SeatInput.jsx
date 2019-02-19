@@ -28,7 +28,7 @@ const TEXT_INPUT_STYLE = {
 const BUTTON_STYLE = {
   border: 'none',
   borderRadius: '4px',
-  color: '#fff',
+  // color: '#fff',
   fontSize: '0.75em',
   marginLeft: 4,
   minWidth: '28px',
@@ -81,7 +81,7 @@ class SeatInput extends React.PureComponent {
               -10
             </button>
             <button
-              className="btn btn-sm btn-outline-secondary"
+              className="btn btn-sm"
               type="button"
               style={BUTTON_STYLE}
               onClick={() => this.handleButtonClick(-1)}
