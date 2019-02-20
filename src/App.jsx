@@ -87,10 +87,9 @@ class App extends React.PureComponent {
             </header>
             <div className="row">
               <div className="col">
-                <p>
-                  เมื่อได้จำนวนส.ส.แล้ว ก็ถึงเวลาที่พรรคต่างๆจะจับมือกัน
-                  เพื่อเลือกนายกฯและจัดตั้งรัฐบาล กติกามีอยู่ว่า
-                </p>
+                <h4>
+                  กติกามีอยู่ว่า
+                </h4>
                 <ul>
                   <li>
                     ผู้โหวตเลือกนายกรัฐมนตรี คือ ส.ว. 250 คน และส.ส.จากการเลือกตั้ง 500 คน
@@ -101,8 +100,6 @@ class App extends React.PureComponent {
                   </li>
                 </ul>
                 <p />
-                <p>ลองเลือก พรรคหลัก, พรรคร่วมรัฐบาล และ จำนวนเสียงที่ได้จากส.ว. แล้วดูผล</p>
-
                 <GovernmentPanel
                   electionResult={electionResult}
                   governmentConfig={governmentConfig}
@@ -115,7 +112,7 @@ class App extends React.PureComponent {
               </div>
               <div className="col">
                 <div className="summary">
-                  <b>ผล:</b>&nbsp;
+                  <h4>สรุปผล</h4>&nbsp;
                   {simulation && this.renderSummary(simulation)}
                 </div>
                 <div style={{ textAlign: 'center' }}>

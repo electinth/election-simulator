@@ -34,9 +34,9 @@ class GovernmentVis extends SvgChart {
   visualize() {
     if (!this.hasData() || !this.hasNonZeroArea()) return;
 
-    const data = this.data();
+    const simulation = this.data();
 
-    const { mainParty, senatorVotes } = data;
+    const { mainParty, senatorVotes } = simulation;
 
     const gapBetweenCouncil = 5;
     const senateLeftColumnCount = Math.ceil(senatorVotes / COLUMN_SIZE);
@@ -118,7 +118,7 @@ class GovernmentVis extends SvgChart {
       .classed('rep-layer', true)
       .attr('transform', `translate(${R + GAP + senateLeftWidth}, ${R + GAP})`)
       .selectAll('g.representative')
-      .data(data.generateRepresentatives())
+      .data(simulation.generateRepresentatives())
       .enter()
       .append('g')
       .classed('representative', true)

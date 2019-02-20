@@ -57,7 +57,7 @@ export default class Simulation {
           r =>
             r.partyWithResult.party !== this.mainParty &&
             !this.allyParties.has(r.partyWithResult.party),
-        ),
+        ).reverse(),
       );
   }
 }

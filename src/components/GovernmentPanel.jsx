@@ -44,14 +44,14 @@ class GovernmentPanel extends React.PureComponent {
       <div className={className}>
         <div className="form-group">
           <div>
-            <label htmlFor=""> เลือกพรรคหลัก</label>
+            <label htmlFor=""><b>เลือกพรรคหลัก</b></label>
           </div>
           <div className="btn-group">
             {electionResult.getTopNParties().map(p => (
               <button
                 type="button"
                 key={p.party.name}
-                className={`btn btn-outline-secondary ${p.party === mainParty ? 'active' : ''}`}
+                className={`btn btn-outline-secondary party-name ${p.party === mainParty ? 'active' : ''}`}
                 onClick={() => {
                   this.update({
                     mainParty: p.party,
@@ -71,13 +71,13 @@ class GovernmentPanel extends React.PureComponent {
         </div>
         <div className="form-group">
           <div>
-            <label>เลือกพรรคร่วมรัฐบาล</label>
+            <label><b>เลือกพรรคร่วมรัฐบาล</b></label>
           </div>
           {electionResult.getPotentialAllies(mainParty && mainParty.name).map(p => (
             <button
               type="button"
               key={p.party.name}
-              className={`btn btn-sm btn-outline-secondary badge-pill ${
+              className={`btn btn-sm btn-outline-secondary badge-pill party-name ${
                 allyParties.has(p.party) ? 'active' : ''
               }`}
               style={ALLY_PARTY_BADGE_STYLE}
@@ -104,7 +104,7 @@ class GovernmentPanel extends React.PureComponent {
         </div>
         <div className="form-group">
           <div>
-            <label htmlFor="">จำนวนเสียงจากส.ว.</label>
+            <label htmlFor=""><b>จำนวนเสียงสนับสนุนจากส.ว.</b></label>
           </div>
           <SeatInput
             value={senatorVotes}
