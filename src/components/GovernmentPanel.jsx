@@ -53,7 +53,7 @@ class GovernmentPanel extends React.PureComponent {
               <button
                 type="button"
                 key={p.party.name}
-                className={`btn btn-sm btn-light party-name ${
+                className={`btn btn-sm btn-hard-light party-name ${
                   p.party === mainParty ? 'active' : ''
                 }`}
                 onClick={() => {
@@ -83,7 +83,7 @@ class GovernmentPanel extends React.PureComponent {
             <button
               type="button"
               key={p.party.name}
-              className={`btn btn-sm btn-outline-secondary badge-pill party-name ${
+              className={`btn btn-sm btn-outline-tertiary badge-pill party-name ${
                 allyParties.has(p.party) ? 'active' : ''
               }`}
               style={ALLY_PARTY_BADGE_STYLE}

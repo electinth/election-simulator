@@ -74,6 +74,41 @@ footer {
   font-family: "Noto Sans", "Noto Sans Thai", sans-serif;
 }
 
+.btn {
+  transition: all .3s;
+}
+
+button, button:focus {
+  outline: none !important;
+  outline-color: transparent !important;
+  outline-style: none !important;
+  box-shadow:none !important;
+}
+
+.btn-outline-tertiary {
+  border-color: #d3d9df;
+  color: #212529;
+}
+
+.btn-outline-tertiary:hover {
+  background-color: #d3d9df;
+}
+
+.btn-hard-light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.btn-hard-light:hover {
+  background-color: #d3d9df;
+}
+
+.btn-hard-light.active, .btn-outline-tertiary.active {
+  background-color: #212529;
+  border-color: #212529;
+  color: #fff;
+}
+
 html {
   visibility: visible;
   opacity: 1;
