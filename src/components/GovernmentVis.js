@@ -10,7 +10,7 @@ const R = 4;
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
     return helper.deepExtend(super.getDefaultOptions(), {
-      gapBetweenCouncil: 5,
+      gapBetweenCouncil: 0,
       columnSize: 25,
       margin: {
         left: 0,
@@ -160,6 +160,7 @@ class GovernmentVis extends SvgChart {
 
     const representatives = simulation.generateRepresentatives();
     representatives.forEach(r => {
+      r.isMainParty = r.partyWithResult.party === mainParty;
       r.isAlly = allyParties.has(r.partyWithResult.party);
     });
 
@@ -179,7 +180,8 @@ class GovernmentVis extends SvgChart {
             (2 * R + GAP)})`,
       )
       .append('circle')
-      .attr('r', d => (d.isAlly ? R - 1 : R))
+      .attr('r', d => (d.isMainParty || d.isAlly ? R : R-1))
+      .style('opacity', d => d.isMainParty || d.isAlly ? 1 : 0.5)
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'))
       .attr('stroke-width', '2px');
@@ -196,7 +198,8 @@ class GovernmentVis extends SvgChart {
     selection
       .select('circle')
       .transition()
-      .attr('r', d => (d.isAlly ? R - 1 : R))
+      .attr('r', d => (d.isMainParty || d.isAlly ? R : R - 1))
+      .style('opacity', d => d.isMainParty || d.isAlly ? 1 : 0.5)
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'));
   }
@@ -223,18 +226,18 @@ class GovernmentVis extends SvgChart {
       .get('council-annotation')
       .select('path.threshold')
       .transition()
-      .attr('d', `M${cutX},0 L${cutX},${cutY} L${cutX2},${cutY} L${cutX2},${height + 5}`)
+      .attr('d', `M${cutX},0 L${cutX},${cutY} L${cutX2},${cutY} L${cutX2},${height + 10}`)
       .attr('fill', 'none')
       .attr('stroke', '#000')
       .attr('stroke-width', '2px')
-      .attr('stroke-dasharray', '6,4');
+      .attr('stroke-dasharray', '8,4');
 
     this.layers
       .get('council-annotation')
       .select('text.caption')
       .transition()
       .attr('x', cutX)
-      .attr('y', height + 18)
+      .attr('y', height + 24)
       .attr('text-anchor', 'middle')
       .style('font-size', '11px')
       .style('font-weight', 'normal')
@@ -264,18 +267,18 @@ class GovernmentVis extends SvgChart {
       .get('pm-annotation')
       .select('path.threshold')
       .transition()
-      .attr('d', `M${cutX},-5 L${cutX},${cutY} L${cutX2},${cutY} L${cutX2},${height}`)
+      .attr('d', `M${cutX},-10 L${cutX},${cutY} L${cutX2},${cutY} L${cutX2},${height}`)
       .attr('fill', 'none')
       .attr('stroke', '#000')
       .attr('stroke-width', '2px')
-      .attr('stroke-dasharray', '6,4');
+      .attr('stroke-dasharray', '2,4');
 
     this.layers
       .get('pm-annotation')
       .select('text.caption')
       .transition()
       .attr('x', cutX)
-      .attr('y', -10)
+      .attr('y', -16)
       .attr('text-anchor', 'middle')
       .style('font-size', '11px')
       .style('font-weight', 'normal')
