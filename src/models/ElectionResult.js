@@ -37,6 +37,10 @@ export default class ElectionResult {
     }
   }
 
+  hasRemainder() {
+    return this.totalSeats < TOTAL_REPRESENTATIVE;
+  }
+
   isOverflow() {
     return this.totalSeats > TOTAL_REPRESENTATIVE;
   }

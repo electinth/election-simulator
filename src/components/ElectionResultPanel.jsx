@@ -54,20 +54,14 @@ class ElectionResultPanel extends React.PureComponent {
     const { className, onChange } = this.props;
     const { preset, result } = this.state;
 
-    const half =
-      result.totalSeats < TOTAL_REPRESENTATIVE
-        ? Math.floor(result.partyWithResults.length / 2)
-        : Math.ceil(result.partyWithResults.length / 2);
-    const sortedParties = result.partyWithResults.concat().sort((a, b) => {
-      if (a.party.name === REMAINDER_PARTY_NAME) {
-        return 1;
-      } else if (b.party.name === REMAINDER_PARTY_NAME) {
-        return -1;
-      }
+    const remainderParty = result.partyWithResults.filter(
+      p => p.party.name === REMAINDER_PARTY_NAME,
+    );
 
-      return a.party.name.localeCompare(b.party.name);
-    });
-    const columns = [sortedParties.slice(0, half), sortedParties.slice(half)];
+    const sortedParties = result.partyWithResults
+      .filter(p => p.party.name !== REMAINDER_PARTY_NAME)
+      .sort((a, b) => a.party.name.localeCompare(b.party.name))
+      .concat(remainderParty);
 
     return (
       <div className={className}>
@@ -92,32 +86,28 @@ class ElectionResultPanel extends React.PureComponent {
         <p />
         <div className="container">
           <div className="row">
-            {columns.map(parties => (
-              <div className="col" key={parties[0].party.name}>
-                <div className="form">
-                  {parties.map(p => (
-                    <div key={p.party.name} className="form-group row">
-                      <label
-                        className="col col-form-label col-form-label-sm party-name"
-                        style={{ textAlign: 'left' }}
-                      >
-                        {p.party.name}
-                      </label>
-                      <div className="col-md-auto">
-                        <SeatInput
-                          value={p.seats}
-                          onValueChange={value => {
-                            const newResult = result.cloneAndUpdateSeats(p.party.name, value);
-                            this.setState({
-                              preset: 'CUSTOM',
-                              result: newResult,
-                            });
-                            onChange(newResult);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+            {sortedParties.map(p => (
+              <div key={p.party.name} className="col-lg-3 col-md-4 col-sm-6">
+                <div className="form-group row">
+                  <label
+                    className="col col-form-label col-form-label-sm party-name"
+                    style={{ textAlign: 'left' }}
+                  >
+                    {p.party.name}
+                  </label>
+                  <div className="col-md-auto">
+                    <SeatInput
+                      value={p.seats}
+                      onValueChange={value => {
+                        const newResult = result.cloneAndUpdateSeats(p.party.name, value);
+                        this.setState({
+                          preset: 'CUSTOM',
+                          result: newResult,
+                        });
+                        onChange(newResult);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
