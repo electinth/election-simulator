@@ -53,7 +53,7 @@ class GovernmentPanel extends React.PureComponent {
               <button
                 type="button"
                 key={p.party.name}
-                className={`btn btn-outline-secondary party-name ${
+                className={`btn btn-sm btn-light party-name ${
                   p.party === mainParty ? 'active' : ''
                 }`}
                 onClick={() => {

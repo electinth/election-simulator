@@ -70,6 +70,10 @@ footer {
   font-family: 'Libre Baskerville', 'The Matter', serif;
 }
 
+.party-name .badge {
+  font-family: "Noto Sans", "Noto Sans Thai", sans-serif;
+}
+
 html {
   visibility: visible;
   opacity: 1;
