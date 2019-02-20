@@ -180,11 +180,11 @@ class GovernmentVis extends SvgChart {
             (2 * R + GAP)})`,
       )
       .append('circle')
-      .attr('r', d => (d.isMainParty || d.isAlly ? R : R-1))
+      .attr('r', d => (d.isMainParty ? R : R-1))
       .style('opacity', d => d.isMainParty || d.isAlly ? 1 : 0.5)
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'))
-      .attr('stroke-width', '2px');
+      .attr('stroke-width', '1.5px');
 
     selection
       .transition()
@@ -198,7 +198,7 @@ class GovernmentVis extends SvgChart {
     selection
       .select('circle')
       .transition()
-      .attr('r', d => (d.isMainParty || d.isAlly ? R : R - 1))
+      .attr('r', d => (d.isMainParty ? R : R - 1))
       .style('opacity', d => d.isMainParty || d.isAlly ? 1 : 0.5)
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'));
@@ -226,7 +226,7 @@ class GovernmentVis extends SvgChart {
       .get('council-annotation')
       .select('path.threshold')
       .transition()
-      .attr('d', `M${cutX},0 L${cutX},${cutY} L${cutX2},${cutY} L${cutX2},${height + 10}`)
+      .attr('d', `M${cutX},${GAP} L${cutX},${cutY} L${cutX2},${cutY} L${cutX2},${height + 10}`)
       .attr('fill', 'none')
       .attr('stroke', '#000')
       .attr('stroke-width', '2px')
