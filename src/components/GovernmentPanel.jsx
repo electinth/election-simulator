@@ -18,6 +18,8 @@ const defaultProps = {
   onChange() {},
 };
 
+const ALLY_PARTY_BADGE_STYLE = { marginBottom: 4, marginRight: 4 };
+
 class GovernmentPanel extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -56,74 +58,58 @@ class GovernmentPanel extends React.PureComponent {
           <div>
             <label htmlFor=""> เลือกพรรคหลัก</label>
           </div>
-          {electionResult.getTopNParties().map(p => (
-            <div key={p.party.name} className="custom-control custom-radio custom-control-inline">
-              <input
-                className="custom-control-input"
-                type="radio"
-                name="main-party-radio"
-                id={`main-party-radio-${p.party.name}`}
-                value={p.party.name}
-                checked={p.party === mainParty}
-                onChange={() => {
+          <div className="btn-group">
+            {electionResult.getTopNParties().map(p => (
+              <button
+                type="button"
+                key={p.party.name}
+                className={`btn btn-outline-secondary ${p.party === mainParty ? 'active' : ''}`}
+                onClick={() => {
                   this.update({
                     mainParty: p.party,
                   });
                 }}
-              />
-              <label
-                className="custom-control-label party-name"
-                htmlFor={`main-party-radio-${p.party.name}`}
-                style={{ fontSize: '0.9em' }}
               >
                 <svg width={R * 2 + 2} height={R * 2 + 2}>
                   <circle cx={R} cy={R} r={R} fill={p.party.color} />
                 </svg>
                 &nbsp;
-                {p.party.name} ({p.seats})
-              </label>
-            </div>
-          ))}
+                {p.party.name}
+                &nbsp;
+                <span className="badge badge-light">{p.seats}</span>
+              </button>
+            ))}
+          </div>
         </div>
         <div className="form-group">
           <div>
             <label>เลือกพรรคร่วมรัฐบาล</label>
           </div>
           {electionResult.getPotentialAllies(mainParty && mainParty.name).map(p => (
-            <div
+            <button
+              type="button"
               key={p.party.name}
-              className="custom-control custom-checkbox custom-control-inline"
+              className={`btn btn-sm btn-outline-secondary badge-pill ${allyParties.has(p.party) ? 'active' : ''}`}
+              style={ALLY_PARTY_BADGE_STYLE}
+              onClick={() => {
+                const newSet = new Set(allyParties.values());
+                if (allyParties.has(p.party)) {
+                  newSet.delete(p.party);
+                } else {
+                  newSet.add(p.party);
+                }
+                this.update({
+                  allyParties: newSet,
+                });
+              }}
             >
-              <input
-                className="custom-control-input"
-                type="checkbox"
-                id={`ally-party-${p.party.name}`}
-                value={p.party.name}
-                checked={allyParties.has(p.party)}
-                onChange={() => {
-                  const newSet = new Set(allyParties.values());
-                  if (allyParties.has(p.party)) {
-                    newSet.delete(p.party);
-                  } else {
-                    newSet.add(p.party);
-                  }
-                  this.update({
-                    allyParties: newSet,
-                  });
-                }}
-              />
-              <label
-                className="custom-control-label party-name"
-                htmlFor={`ally-party-${p.party.name}`}
-                style={{ fontSize: '0.9em' }}
-              >
-                <svg width={R * 2 + 2} height={R * 2 + 2}>
-                  <circle cx={R} cy={R} r={R} fill={p.party.color} />
-                </svg>
-                &nbsp;
-                {p.party.name} ({p.seats})
-              </label>
-            </div>
+              <svg width={R * 2 + 2} height={R * 2 + 2}>
+                <circle cx={R} cy={R} r={R} fill={p.party.color} />
+              </svg>
+              &nbsp;
+              {p.party.name}&nbsp;
+              <span className="badge badge-light">{p.seats}</span>
+            </button>
           ))}
         </div>
         <div className="form-group">
