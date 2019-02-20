@@ -17,7 +17,7 @@ const defaultProps = {
   className: '',
   maxValue: TOTAL_REPRESENTATIVE,
   onValueChange() {},
-  steppers: [-10, -1, 1, 10],
+  steppers: [1, 10],
   value: 0,
 };
 
@@ -34,11 +34,12 @@ const TEXT_INPUT_STYLE = {
   textAlign: 'right',
 };
 const BUTTON_STYLE = {
-  border: 'none',
+  // border: 'none',
   borderRadius: '4px',
   // color: '#fff',
   fontSize: '0.75em',
-  marginLeft: 4,
+  marginLeft: 2,
+  marginRight: 2,
   minWidth: '28px',
 };
 
@@ -72,6 +73,23 @@ class SeatInput extends React.PureComponent {
     return (
       <div className={className}>
         <div className="input-group seat-input">
+          <div className="input-group-append">
+            {steppers
+              .concat()
+              .reverse()
+              .map(step => step * -1)
+              .map(step => (
+                <button
+                  key={step}
+                  className="btn btn-sm btn-light"
+                  type="button"
+                  style={BUTTON_STYLE}
+                  onClick={() => this.handleButtonClick(step)}
+                >
+                  <i className="fas fa-minus fa-sm" /> {step < -1 ? Math.abs(step) : ''}
+                </button>
+              ))}
+          </div>
           <input
             type="text"
             className="form-control form-control-sm"
@@ -88,12 +106,12 @@ class SeatInput extends React.PureComponent {
             {steppers.map(step => (
               <button
                 key={step}
-                className="btn btn-sm btn-outline-secondary"
+                className="btn btn-sm btn-light"
                 type="button"
                 style={BUTTON_STYLE}
                 onClick={() => this.handleButtonClick(step)}
               >
-                {step > 0 ? `+${step > 1 ? step : ''}` : Math.abs(step) > 1 ? step : '-'}
+                <i className="fas fa-plus fa-sm" /> {step > 1 ? step : ''}
               </button>
             ))}
           </div>

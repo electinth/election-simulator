@@ -1,9 +1,9 @@
 .seat-input {
-  width: 200px;
+  width: 210px;
 }
 
 .seat-input .btn {
-  background: #e9ecef;
+  /* background: #e9ecef; */
   font-weight: bold;
   color: #999;
   transition: all .3s;
@@ -11,5 +11,4 @@
 
 .seat-input .btn:hover {
   color: #222;
-  /* background: rgba(239, 49, 74, 1); */
 }

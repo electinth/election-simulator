@@ -80,15 +80,16 @@ class ElectionResultPanel extends React.PureComponent {
         <div className="container">
           <div className="row">
             {sortedParties.map(p => (
-              <div key={p.party.name} className="col-lg-3 col-md-4 col-sm-6">
-                <div className="form-group row">
+              <div key={p.party.name} className="col-lg-3 col-md-4 col-sm-6" style={{ textAlign: 'center', marginTop: 8, marginBottom: 8, fontSize: '0.9em' }}>
+                  <div>
                   <label
-                    className="col col-form-label col-form-label-sm party-name"
-                    style={{ textAlign: 'left' }}
+                    className="party-name"
+
                   >
                     {p.party.name}
                   </label>
-                  <div className="col-md-auto">
+                  </div>
+                  <div style={{display: 'inline-block'}}>
                     <SeatInput
                       value={p.seats}
                       onValueChange={value => {
@@ -101,7 +102,6 @@ class ElectionResultPanel extends React.PureComponent {
                       }}
                     />
                   </div>
-                </div>
               </div>
             ))}
           </div>
