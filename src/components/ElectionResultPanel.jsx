@@ -8,12 +8,14 @@ import presets from '../data/electionResults';
 import SeatInput from './SeatInput';
 import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
+import { DEFAULT_ELECTION_PRESET_INDEX } from '../constants';
 
 const presetLookup = keyBy(presets, p => p.key);
 
 const propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
+  result: PropTypes.instanceOf(ElectionResult).isRequired,
 };
 const defaultProps = {
   className: '',
@@ -23,18 +25,9 @@ const defaultProps = {
 class ElectionResultPanel extends React.PureComponent {
   constructor(props) {
     super(props);
-    const preset = presets[0].key;
-    this.state = {
-      preset,
-      result: new ElectionResult(presetLookup[preset].result),
-    };
+    const preset = presets[DEFAULT_ELECTION_PRESET_INDEX].key;
+    this.state = { preset };
     this.handlePresetChange = this.handlePresetChange.bind(this);
-  }
-
-  componentDidMount() {
-    const { result } = this.state;
-    const { onChange } = this.props;
-    onChange(result);
   }
 
   handlePresetChange(ev) {
@@ -51,8 +44,8 @@ class ElectionResultPanel extends React.PureComponent {
   }
 
   render() {
-    const { className, onChange } = this.props;
-    const { preset, result } = this.state;
+    const { className, onChange, result } = this.props;
+    const { preset } = this.state;
 
     const remainderParty = result.partyWithResults.filter(
       p => p.party.name === REMAINDER_PARTY_NAME,

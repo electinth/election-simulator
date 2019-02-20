@@ -26,12 +26,12 @@ const TEXT_INPUT_STYLE = {
   borderRadius: 0,
   borderRight: 'none',
   borderTop: 'none',
-  fontWeight: 'bold',
-  textAlign: 'right',
-  paddingTop: 0,
-  paddingBottom: 0,
-  height: '28px',
   fontSize: '16px',
+  fontWeight: 'bold',
+  height: '28px',
+  paddingBottom: 0,
+  paddingTop: 0,
+  textAlign: 'right',
 };
 const BUTTON_STYLE = {
   border: 'none',

@@ -5,12 +5,18 @@ import PropTypes from 'prop-types';
 import ElectionResult from '../models/ElectionResult';
 import SeatInput from './SeatInput';
 import { TOTAL_SENATOR } from '../models/rules';
+import Party from '../models/Party';
 
 const R = 4;
 
 const propTypes = {
   className: PropTypes.string,
   electionResult: PropTypes.instanceOf(ElectionResult).isRequired,
+  governmentConfig: PropTypes.shape({
+    allyParties: PropTypes.instanceOf(Set),
+    mainParty: PropTypes.instanceOf(Party),
+    senatorVotes: PropTypes.number,
+  }).isRequired,
   onChange: PropTypes.func,
 };
 const defaultProps = {
@@ -21,32 +27,14 @@ const defaultProps = {
 const ALLY_PARTY_BADGE_STYLE = { marginBottom: 4, marginRight: 4 };
 
 class GovernmentPanel extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      allyParties: new Set(),
-      mainParty: null,
-      senatorVotes: 250,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { mainParty } = this.state;
-    const { electionResult } = nextProps;
-    if (electionResult && !mainParty) {
-      this.update({ mainParty: electionResult.getTopNParties(1)[0].party });
-    }
-  }
-
   update(newValue) {
-    const { onChange } = this.props;
-    this.setState(newValue);
-    onChange({ ...this.state, ...newValue });
+    const { governmentConfig, onChange } = this.props;
+    onChange({ ...governmentConfig, ...newValue });
   }
 
   render() {
-    const { className, electionResult } = this.props;
-    const { mainParty, allyParties, senatorVotes } = this.state;
+    const { className, electionResult, governmentConfig } = this.props;
+    const { mainParty, allyParties, senatorVotes } = governmentConfig;
 
     if (!electionResult) {
       return null;
@@ -89,7 +77,9 @@ class GovernmentPanel extends React.PureComponent {
             <button
               type="button"
               key={p.party.name}
-              className={`btn btn-sm btn-outline-secondary badge-pill ${allyParties.has(p.party) ? 'active' : ''}`}
+              className={`btn btn-sm btn-outline-secondary badge-pill ${
+                allyParties.has(p.party) ? 'active' : ''
+              }`}
               style={ALLY_PARTY_BADGE_STYLE}
               onClick={() => {
                 const newSet = new Set(allyParties.values());
