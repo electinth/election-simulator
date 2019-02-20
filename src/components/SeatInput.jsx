@@ -28,6 +28,10 @@ const TEXT_INPUT_STYLE = {
   borderTop: 'none',
   fontWeight: 'bold',
   textAlign: 'right',
+  paddingTop: 0,
+  paddingBottom: 0,
+  height: '28px',
+  fontSize: '16px',
 };
 const BUTTON_STYLE = {
   border: 'none',
