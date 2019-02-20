@@ -35,45 +35,62 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         <section className="container">
-          <header className="col">
-            <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
+          <header className="row">
+            <div className="col">
+              <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
+            </div>
           </header>
-          <div className="col">
-            <ElectionResultPanel
-              onChange={value => {
-                this.setState({ electionResult: value });
-              }}
-            />
+          <div className="row">
+            <div className="col">
+              <ElectionResultPanel
+                onChange={value => {
+                  this.setState({ electionResult: value });
+                }}
+              />
+            </div>
           </div>
         </section>
         <section className="container">
-          <header className="col">
-            <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
-            <p>
-              หลังจากการเลือกตั้งและนับคะแนน ก็ถึงเวลาที่บรรดาพรรคการเมืองจะจับมือกัน
-              เพื่อเลือกนายกรัฐมนตรีและจัดตั้งรัฐบาล ความเป็นไปได้มีมากมายหลายแบบ ลองเลือก พรรคหลัก,
-              พรรคร่วมรัฐบาล และ จำนวนเสียงที่ได้จากส.ว. แล้วดูผล
-            </p>
+          <header className="row">
+            <div className="col">
+              <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
+            </div>
           </header>
-          <div className="col">
-            <GovernmentPanel
-              electionResult={electionResult}
-              onChange={value => {
-                this.setState({
-                  governmentConfig: value,
-                });
-              }}
-            />
-          </div>
-          <div className="col">
-              ข้อมูลที่คุณระบุด้านบนถูกนำมาวาดเป็นแผนภาพต่อไปนี้ โดยใช้สี่เหลี่ยมแทนส.ว. วงกลมแทนส.ส. พรรคร่วมรัฐบาลและส.ว.ที่ร่วมเลือกนายกฯจะถูกนำมาเรียงรวมกันทางด้านซ้าย จะชนะเลือกตั้งได้หรือไม่นั้น ต้องดูว่ารวมกันแล้วได้เกินเส้นประที่ขีดไว้หรือไม่
-          </div>
-          <div className="col">
-            <GovernmentVis data={simulation} />
-          </div>
-          <div className="col">
-            <b>ผล:</b>&nbsp;
-            {simulation && simulation.printResult()}
+          <div className="row">
+            <div className="col">
+              <p>
+                เมื่อได้จำนวนส.ส.แล้ว ก็ถึงเวลาที่พรรคต่างๆจะจับมือกัน
+                เพื่อเลือกนายกฯและจัดตั้งรัฐบาล กติกามีอยู่ว่า
+              </p>
+              <ul>
+                <li>
+                  ผู้โหวตเลือกนายกรัฐมนตรี คือ ส.ว. 250 คน และส.ส.จากการเลือกตั้ง 500 คน
+                  ต้องมีเสียงเกินครึ่งหนึ่ง คืออย่างน้อย 376 เสียง
+                </li>
+                <li>ต้องการส.ส.อย่างน้อย 251 เสียง เพื่อให้มีเสียงในสภาผู้แทนราษฎรเกินครึ่ง</li>
+              </ul>
+              <p />
+              <p>ลองเลือก พรรคหลัก, พรรคร่วมรัฐบาล และ จำนวนเสียงที่ได้จากส.ว. แล้วดูผล</p>
+
+              <GovernmentPanel
+                electionResult={electionResult}
+                onChange={value => {
+                  this.setState({
+                    governmentConfig: value,
+                  });
+                }}
+              />
+            </div>
+            <div className="col">
+              แผนภาพต่อไปนี้ถูกสร้างจากสิ่งที่คุณเลือกมาทั้งหมด โดยใช้สี่เหลี่ยมแทนส.ว. วงกลมแทนส.ส.
+              พรรคร่วมรัฐบาลและส.ว.ที่ร่วมเลือกนายกฯจะถูกนำมาเรียงรวมกันทางด้านซ้าย
+              จะชนะเลือกตั้งได้หรือไม่นั้น ต้องดูว่ารวมกันแล้วได้เกินเส้นประที่ขีดไว้หรือไม่
+              <GovernmentVis data={simulation} />
+              <div className="summary">
+                <b>ผล:</b>&nbsp;
+                {simulation && simulation.printResult()}
+              </div>
+            </div>
           </div>
         </section>
       </React.Fragment>

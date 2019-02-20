@@ -89,7 +89,7 @@ class SeatInput extends React.PureComponent {
                 style={BUTTON_STYLE}
                 onClick={() => this.handleButtonClick(step)}
               >
-                {step > 0 ? `+${step > 1 ? step : ''}` : (Math.abs(step) > 1 ? step : '-')}
+                {step > 0 ? `+${step > 1 ? step : ''}` : Math.abs(step) > 1 ? step : '-'}
               </button>
             ))}
           </div>

@@ -52,94 +52,94 @@ class GovernmentPanel extends React.PureComponent {
 
     return (
       <div className={className}>
-        <div className="form-group row">
-          <legend htmlFor="" className="col-sm-3 col-form-label pt-0">
-            เลือกพรรคหลัก
-          </legend>
-          <div className="col-sm-9">
-            {electionResult.getTopNParties().map(p => (
-              <div key={p.party.name} className="custom-control custom-radio custom-control-inline">
-                <input
-                  className="custom-control-input"
-                  type="radio"
-                  name="main-party-radio"
-                  id={`main-party-radio-${p.party.name}`}
-                  value={p.party.name}
-                  checked={p.party === mainParty}
-                  onChange={() => {
-                    this.update({
-                      mainParty: p.party,
-                    });
-                  }}
-                />
-                <label
-                  className="custom-control-label party-name"
-                  htmlFor={`main-party-radio-${p.party.name}`}
-                  style={{ fontSize: '0.9em' }}
-                >
-                  <svg width={R * 2 + 2} height={R * 2 + 2}>
-                    <circle cx={R} cy={R} r={R} fill={p.party.color} />
-                  </svg>&nbsp;
-                  {p.party.name} ({p.seats})
-                </label>
-              </div>
-            ))}
+        <div className="form-group">
+          <div>
+            <label htmlFor=""> เลือกพรรคหลัก</label>
           </div>
-        </div>
-        <div className="form-group row">
-          <label htmlFor="" className="col-sm-3 col-form-label pt-0">
-            เลือกพรรคร่วมรัฐบาล
-          </label>
-          <div className="col-sm-9">
-            {electionResult.getPotentialAllies(mainParty && mainParty.name).map(p => (
-              <div
-                key={p.party.name}
-                className="custom-control custom-checkbox custom-control-inline"
+          {electionResult.getTopNParties().map(p => (
+            <div key={p.party.name} className="custom-control custom-radio custom-control-inline">
+              <input
+                className="custom-control-input"
+                type="radio"
+                name="main-party-radio"
+                id={`main-party-radio-${p.party.name}`}
+                value={p.party.name}
+                checked={p.party === mainParty}
+                onChange={() => {
+                  this.update({
+                    mainParty: p.party,
+                  });
+                }}
+              />
+              <label
+                className="custom-control-label party-name"
+                htmlFor={`main-party-radio-${p.party.name}`}
+                style={{ fontSize: '0.9em' }}
               >
-                <input
-                  className="custom-control-input"
-                  type="checkbox"
-                  id={`ally-party-${p.party.name}`}
-                  value={p.party.name}
-                  checked={allyParties.has(p.party)}
-                  onChange={() => {
-                    const newSet = new Set(allyParties.values());
-                    if (allyParties.has(p.party)) {
-                      newSet.delete(p.party);
-                    } else {
-                      newSet.add(p.party);
-                    }
-                    this.update({
-                      allyParties: newSet,
-                    });
-                  }}
-                />
-                <label className="custom-control-label party-name" htmlFor={`ally-party-${p.party.name}`} style={{ fontSize: '0.9em' }}>
-                  <svg width={ R*2 + 2} height={R*2 + 2}>
-                    <circle cx={R} cy={R} r={R} fill={p.party.color} />
-                  </svg>&nbsp;
-                  {p.party.name} ({p.seats})
-                </label>
-              </div>
-            ))}
-          </div>
+                <svg width={R * 2 + 2} height={R * 2 + 2}>
+                  <circle cx={R} cy={R} r={R} fill={p.party.color} />
+                </svg>
+                &nbsp;
+                {p.party.name} ({p.seats})
+              </label>
+            </div>
+          ))}
         </div>
-        <div className="form-group row">
-          <label htmlFor="" className="col-sm-3 col-form-label">
-            จำนวนเสียงจากส.ว.
-          </label>
-          <div className="col-sm-9">
-            <SeatInput
-              value={senatorVotes}
-              maxValue={TOTAL_SENATOR}
-              steppers={[-50, -1, 1, 50]}
-              onValueChange={newValue => {
-                this.update({
-                  senatorVotes: newValue,
-                });
-              }}
-            />
+        <div className="form-group">
+          <div>
+            <label>เลือกพรรคร่วมรัฐบาล</label>
           </div>
+          {electionResult.getPotentialAllies(mainParty && mainParty.name).map(p => (
+            <div
+              key={p.party.name}
+              className="custom-control custom-checkbox custom-control-inline"
+            >
+              <input
+                className="custom-control-input"
+                type="checkbox"
+                id={`ally-party-${p.party.name}`}
+                value={p.party.name}
+                checked={allyParties.has(p.party)}
+                onChange={() => {
+                  const newSet = new Set(allyParties.values());
+                  if (allyParties.has(p.party)) {
+                    newSet.delete(p.party);
+                  } else {
+                    newSet.add(p.party);
+                  }
+                  this.update({
+                    allyParties: newSet,
+                  });
+                }}
+              />
+              <label
+                className="custom-control-label party-name"
+                htmlFor={`ally-party-${p.party.name}`}
+                style={{ fontSize: '0.9em' }}
+              >
+                <svg width={R * 2 + 2} height={R * 2 + 2}>
+                  <circle cx={R} cy={R} r={R} fill={p.party.color} />
+                </svg>
+                &nbsp;
+                {p.party.name} ({p.seats})
+              </label>
+            </div>
+          ))}
+        </div>
+        <div className="form-group">
+          <div>
+            <label htmlFor="">จำนวนเสียงจากส.ว.</label>
+          </div>
+          <SeatInput
+            value={senatorVotes}
+            maxValue={TOTAL_SENATOR}
+            steppers={[-50, -1, 1, 50]}
+            onValueChange={newValue => {
+              this.update({
+                senatorVotes: newValue,
+              });
+            }}
+          />
         </div>
       </div>
     );

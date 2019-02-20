@@ -56,7 +56,7 @@ class GovernmentVis extends SvgChart {
       bottom: 40,
       top: 40,
     };
-    this.height(height + margin.bottom + margin.top);
+    this.dimension([width, height + margin.bottom + margin.top]);
 
     this.rootG.selectAll('*').remove();
 

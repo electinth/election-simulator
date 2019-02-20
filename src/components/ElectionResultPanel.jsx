@@ -67,7 +67,7 @@ class ElectionResultPanel extends React.PureComponent {
 
       return a.party.name.localeCompare(b.party.name);
     });
-    const halves = [sortedParties.slice(0, half), sortedParties.slice(half)];
+    const columns = [sortedParties.slice(0, half), sortedParties.slice(half)];
 
     return (
       <div className={className}>
@@ -92,7 +92,7 @@ class ElectionResultPanel extends React.PureComponent {
         <p />
         <div className="container">
           <div className="row">
-            {halves.map(parties => (
+            {columns.map(parties => (
               <div className="col" key={parties[0].party.name}>
                 <div className="form">
                   {parties.map(p => (

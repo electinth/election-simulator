@@ -28,7 +28,11 @@ export default class Simulation {
           })),
       )
       .concat(
-        representatives.filter(r => r.partyWithResult.party !== this.mainParty && !this.allyParties.has(r.partyWithResult.party)),
+        representatives.filter(
+          r =>
+            r.partyWithResult.party !== this.mainParty &&
+            !this.allyParties.has(r.partyWithResult.party),
+        ),
       );
   }
 }
