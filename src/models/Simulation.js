@@ -40,24 +40,18 @@ export default class Simulation {
 
     return representatives
       .filter(r => r.partyWithResult.party === this.mainParty)
-      .map(r => ({
-        ...r,
-        isSelected: true,
-      }))
       .concat(
         representatives
-          .filter(r => this.allyParties.has(r.partyWithResult.party))
-          .map(r => ({
-            ...r,
-            isAlly: true,
-          })),
+          .filter(r => this.allyParties.has(r.partyWithResult.party)),
       )
       .concat(
-        representatives.filter(
-          r =>
-            r.partyWithResult.party !== this.mainParty &&
-            !this.allyParties.has(r.partyWithResult.party),
-        ).reverse(),
+        representatives
+          .filter(
+            r =>
+              r.partyWithResult.party !== this.mainParty &&
+              !this.allyParties.has(r.partyWithResult.party),
+          )
+          .reverse(),
       );
   }
 }
