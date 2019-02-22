@@ -23,6 +23,11 @@ h1, h2, h3 {
   font-family: 'Libre Baskerville', 'The Matter', serif;
 }
 
+.big-number {
+  font-size: 40px;
+  font-weight: bold;
+}
+
 article a,
 article a:link,
 article a:visited {
@@ -107,6 +112,23 @@ button, button:focus {
   background-color: #212529;
   border-color: #212529;
   color: #fff;
+}
+
+.summary {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.result-card {
+  border: 1px #eee solid;
+  padding: 25px;
+  text-align: center;
+}
+
+@media screen and (max-device-width: 667px) {
+  .result-card {
+    padding: 25px 5px;
+  }
 }
 
 html {

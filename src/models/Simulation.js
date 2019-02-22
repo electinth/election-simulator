@@ -40,10 +40,7 @@ export default class Simulation {
 
     return representatives
       .filter(r => r.partyWithResult.party === this.mainParty)
-      .concat(
-        representatives
-          .filter(r => this.allyParties.has(r.partyWithResult.party)),
-      )
+      .concat(representatives.filter(r => this.allyParties.has(r.partyWithResult.party)))
       .concat(
         representatives
           .filter(

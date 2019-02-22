@@ -41,19 +41,22 @@ class App extends React.PureComponent {
     const { mainParty, senatorVotes, allyParties } = simulation;
 
     return (
-      <small className="party-name">
-        {senatorVotes > 0 && (
-          <span>
-            <PartyColorMark shape="round-rect" color={mainParty.color} /> ส.ว. &nbsp;
-          </span>
-        )}
-        <PartyColorMark color={mainParty.color} /> {mainParty.name}
-        {allyParties && allyParties.size > 0 && (
-          <React.Fragment>
-            &nbsp; <PartyColorMark shape="hollow-circle" color={mainParty.color} /> พรรคร่วมรัฐบาล ({allyParties.size} พรรค)
-          </React.Fragment>
-        )}
-      </small>
+      <div style={{ textAlign: 'center', marginBottom: 10 }}>
+        <small className="party-name">
+          {senatorVotes > 0 && (
+            <span>
+              <PartyColorMark shape="round-rect" color={mainParty.color} /> ส.ว. &nbsp;
+            </span>
+          )}
+          <PartyColorMark color={mainParty.color} /> {mainParty.name}
+          {allyParties && allyParties.size > 0 && (
+            <React.Fragment>
+              &nbsp; <PartyColorMark shape="hollow-circle" color={mainParty.color} /> พรรคร่วมรัฐบาล
+              ({allyParties.size} พรรค)
+            </React.Fragment>
+          )}
+        </small>
+      </div>
     );
   }
 
@@ -101,16 +104,9 @@ class App extends React.PureComponent {
         </section>
         {!electionResult.isOverflow() && (
           <section className="container">
-            <header className="row">
-              <div className="col">
-                <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
-              </div>
-            </header>
             <div className="row">
               <div className="col">
-                <h4>
-                  กติกามีอยู่ว่า
-                </h4>
+                <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
                 <ul>
                   <li>
                     ผู้โหวตเลือกนายกรัฐมนตรี คือ ส.ว. 250 คน และส.ส.จากการเลือกตั้ง 500 คน
@@ -132,22 +128,37 @@ class App extends React.PureComponent {
                 />
               </div>
               <div className="col">
-                <div className="summary">
-                  <h4>สรุปผล</h4>&nbsp;
-                  {simulation && this.renderSummary(simulation)}
+                <div className="row">
+                  <div className="col" />
+                  <div className="col-md-auto">
+                    <div className="result-card">
+                      <div className="row">
+                        <div className="col">
+                          เสียงส.ส. + ส.ว.
+                          <div className="big-number">
+                            {simulation.totalSeats + simulation.senatorVotes}&nbsp;
+                            <i className={`far ${simulation.canElectPrimeMinister() ? 'fa-check-circle' : 'fa-times-circle'}`} />
+                          </div>
+                        </div>
+                        <div className="col">
+                          เสียงส.ส.
+                          <div className="big-number">
+                            {simulation.totalSeats}&nbsp;
+                            <i className={`far ${simulation.winCouncil() ? 'fa-check-circle' : 'fa-times-circle'}`} />
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ width: 340 }}>
+                        <div className="summary">
+                          <b>สรุป</b> {simulation && this.renderSummary(simulation)}
+                        </div>
+                      </div>
+                      <GovernmentVis data={simulation} />
+                      {this.renderSimulationLegend(simulation)}
+                    </div>
+                  </div>
+                  <div className="col" />
                 </div>
-                <div style={{ textAlign: 'center' }}>
-                  {this.renderSimulationLegend(simulation)}
-                  <GovernmentVis data={simulation} />
-                </div>
-                <p>
-                  <small>
-                    <b>วิธีอ่าน: </b>
-                    สี่เหลี่ยมแทนส.ว. วงกลมแทนส.ส.
-                    พรรคร่วมรัฐบาลและส.ว.ที่ร่วมเลือกนายกฯจะถูกนำมาเรียงรวมกันทางด้านซ้าย
-                    จะชนะเลือกตั้งได้หรือไม่นั้น ต้องดูว่ารวมกันแล้วได้เกินเส้นประที่ขีดไว้หรือไม่
-                  </small>
-                </p>
               </div>
             </div>
           </section>

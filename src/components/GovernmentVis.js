@@ -180,8 +180,8 @@ class GovernmentVis extends SvgChart {
             (2 * R + GAP)})`,
       )
       .append('circle')
-      .attr('r', d => (d.isMainParty ? R : R-1))
-      .style('opacity', d => d.isMainParty || d.isAlly ? 1 : 0.5)
+      .attr('r', d => (d.isMainParty ? R : R - 1))
+      .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'))
       .attr('stroke-width', '1.5px');
@@ -199,7 +199,7 @@ class GovernmentVis extends SvgChart {
       .select('circle')
       .transition()
       .attr('r', d => (d.isMainParty ? R : R - 1))
-      .style('opacity', d => d.isMainParty || d.isAlly ? 1 : 0.5)
+      .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'));
   }
