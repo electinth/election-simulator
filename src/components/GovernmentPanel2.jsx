@@ -20,7 +20,7 @@ const propTypes = {
 };
 const defaultProps = {
   className: '',
-  onChange() { },
+  onChange() {},
 };
 
 const ALLY_PARTY_BADGE_STYLE = { marginBottom: 4, marginRight: 4 };
@@ -41,15 +41,15 @@ class GovernmentPanel extends React.PureComponent {
 
     return (
       <div className={className}>
-        <table className={className} style={{marginTop: 20, marginBottom: 20}}>
+        <table className={className} style={{ marginTop: 20, marginBottom: 20 }}>
           <thead>
             <tr>
               <th />
               <th>พรรค</th>
               <th>เสียง</th>
               <th>
-                <div style={{ marginLeft: 20, marginRight: 20 }}>
-                  เป็นพรรคหลัก</div></th>
+                <div style={{ marginLeft: 20, marginRight: 20 }}>เป็นพรรคหลัก</div>
+              </th>
               <th>เป็นพรรคร่วมรัฐบาล</th>
             </tr>
           </thead>
@@ -62,25 +62,33 @@ class GovernmentPanel extends React.PureComponent {
                 <td className="party-name">{p.party.name}</td>
                 <td style={{ textAlign: 'right' }}>{p.seats}</td>
                 <td style={{ textAlign: 'center' }}>
-                  <i className={`${p.party === mainParty ? 'fas' : 'far'} fa-star`} onClick={() => {
-                    this.update({
-                      mainParty: p.party,
-                    });
-                  }}/>
+                  <i
+                    className={`${p.party === mainParty ? 'fas' : 'far'} fa-star`}
+                    onClick={() => {
+                      this.update({
+                        mainParty: p.party,
+                      });
+                    }}
+                  />
                 </td>
                 <td style={{ textAlign: 'center' }}>
                   {p.party !== mainParty && (
-                    <i className={`far ${allyParties.has(p.party) ? 'fa-check-square' : 'fa-square'}`} onClick={() => {
-                      const newSet = new Set(allyParties.values());
-                      if (allyParties.has(p.party)) {
-                        newSet.delete(p.party);
-                      } else {
-                        newSet.add(p.party);
-                      }
-                      this.update({
-                        allyParties: newSet,
-                      });
-                    }} />
+                    <i
+                      className={`far ${
+                        allyParties.has(p.party) ? 'fa-check-square' : 'fa-square'
+                      }`}
+                      onClick={() => {
+                        const newSet = new Set(allyParties.values());
+                        if (allyParties.has(p.party)) {
+                          newSet.delete(p.party);
+                        } else {
+                          newSet.add(p.party);
+                        }
+                        this.update({
+                          allyParties: newSet,
+                        });
+                      }}
+                    />
                   )}
                 </td>
               </tr>

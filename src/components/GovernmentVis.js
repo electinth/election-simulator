@@ -136,10 +136,10 @@ class GovernmentVis extends SvgChart {
       .attr('transform', d => `translate(${d.x}, ${d.y})`)
       .append('rect')
       // .attr('transform', 'rotate(45)')
-      .attr('height', (R-.5) * 2)
-      .attr('width', (R-.5) * 2)
+      .attr('height', (R - 0.5) * 2)
+      .attr('width', (R - 0.5) * 2)
       .attr('x', 1 - R + 1)
-      .attr('y', 1 - R )
+      .attr('y', 1 - R)
       .attr('rx', 1)
       .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
 
@@ -180,7 +180,11 @@ class GovernmentVis extends SvgChart {
             (2 * R + GAP)})`,
       )
       .append('path')
-      .attr('d', d => d.isMainParty || d.isAlly ? `m${-R},0 a ${R},${R} 0 1,0 ${R*2},0 a ${R},${R} 0 1,0 ${-R*2},0` : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`)
+      .attr('d', d =>
+        d.isMainParty || d.isAlly
+          ? `m ${-R},0 a ${R},${R} 0 1,0 ${R * 2},0 a ${R},${R} 0 1,0 ${-R * 2},0`
+          : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`,
+      )
       // .attr('r', d => (d.isMainParty ? R : R - 1))
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
@@ -199,10 +203,14 @@ class GovernmentVis extends SvgChart {
     selection
       .select('path')
       .transition()
-      .attr('d', d => d.isMainParty || d.isAlly ? `m${-R},0 a ${R},${R} 0 1,0 ${R*2},0 a ${R},${R} 0 1,0 ${-R*2},0` : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`)
+      .attr('d', d =>
+        d.isMainParty || d.isAlly
+          ? `m${-R},0 a ${R},${R} 0 1,0 ${R * 2},0 a ${R},${R} 0 1,0 ${-R * 2},0`
+          : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`,
+      )
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
-      .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color))
+      .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color));
   }
 
   renderCouncilAnnotation() {
