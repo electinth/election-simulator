@@ -5,7 +5,7 @@ import 'd3-transition';
 import { TOTAL_SENATOR } from '../models/rules';
 
 const GAP = 4;
-const R = 3.5;
+const R = 3;
 
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
@@ -138,7 +138,7 @@ class GovernmentVis extends SvgChart {
       // .attr('transform', 'rotate(45)')
       .attr('height', (R - 0.5) * 2)
       .attr('width', (R - 0.5) * 2)
-      .attr('x', 1 - R + 1)
+      .attr('x', 1 - R)
       .attr('y', 1 - R)
       .attr('rx', 1)
       .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));

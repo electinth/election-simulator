@@ -127,7 +127,16 @@ button, button:focus {
 
 @media screen and (max-device-width: 667px) {
   .result-card {
-    padding: 25px 5px;
+    margin-top: 30px;
+    padding: 25px 15px;
+  }
+}
+@media screen and (max-device-width: 340px) {
+  .result-card {
+    border-left: none;
+    border-right: none;
+    padding: 25px 0px;
+    width: 320px;
   }
 }
 

@@ -32,7 +32,7 @@ class App extends React.PureComponent {
           electionResult && electionResult.partyWithResults.length > 0
             ? electionResult.getTopNParties(1)[0].party
             : null,
-        senatorVotes: 250,
+        senatorVotes: 0,
       },
     };
   }
@@ -106,7 +106,7 @@ class App extends React.PureComponent {
           <section className="container">
             <div className="row">
               <div className="col">
-                <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
+                <h3>ขั้นที่ 2. ลองตั้งรัฐบาล</h3>
                 <ul style={{paddingLeft: 24}}>
                   <li>
                     ผู้โหวตเลือกนายกรัฐมนตรี คือ ส.ว. 250 คน และส.ส.จากการเลือกตั้ง 500 คน
@@ -148,7 +148,7 @@ class App extends React.PureComponent {
                           </div>
                         </div>
                       </div>
-                      <div style={{ width: 340 }}>
+                      <div style={{ width: 320 }}>
                         <div className="summary">
                           <b>สรุป</b> {simulation && this.renderSummary(simulation)}
                         </div>
