@@ -6,7 +6,7 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
 import ElectionResultPanel from './components/ElectionResultPanel';
-import GovernmentPanel from './components/GovernmentPanel';
+import GovernmentPanel from './components/GovernmentPanel2';
 import RawGovernmentVis from './components/GovernmentVis';
 import Simulation from './models/Simulation';
 import ElectionResult from './models/ElectionResult';
