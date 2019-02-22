@@ -41,7 +41,7 @@ class App extends React.PureComponent {
     const { mainParty, senatorVotes, allyParties } = simulation;
 
     return (
-      <div style={{ textAlign: 'center', marginBottom: 10 }}>
+      <div style={{ textAlign: 'center' }}>
         <small className="party-name">
           {senatorVotes > 0 && (
             <span>

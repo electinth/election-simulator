@@ -4,8 +4,8 @@ import { SvgChart, helper } from 'd3kit';
 import 'd3-transition';
 import { TOTAL_SENATOR } from '../models/rules';
 
-const GAP = 3;
-const R = 4;
+const GAP = 4;
+const R = 3.5;
 
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
@@ -136,10 +136,10 @@ class GovernmentVis extends SvgChart {
       .attr('transform', d => `translate(${d.x}, ${d.y})`)
       .append('rect')
       // .attr('transform', 'rotate(45)')
-      .attr('height', (R - 1) * 2)
-      .attr('width', (R - 1) * 2)
-      .attr('x', 1 - R)
-      .attr('y', 1 - R)
+      .attr('height', (R-.5) * 2)
+      .attr('width', (R-.5) * 2)
+      .attr('x', 1 - R + 1)
+      .attr('y', 1 - R )
       .attr('rx', 1)
       .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
 
@@ -179,11 +179,12 @@ class GovernmentVis extends SvgChart {
           `translate(${Math.floor(i / columnSize) * (2 * R + GAP)}, ${(i % columnSize) *
             (2 * R + GAP)})`,
       )
-      .append('circle')
-      .attr('r', d => (d.isMainParty ? R : R - 1))
+      .append('path')
+      .attr('d', d => d.isMainParty || d.isAlly ? `m${-R},0 a ${R},${R} 0 1,0 ${R*2},0 a ${R},${R} 0 1,0 ${-R*2},0` : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`)
+      // .attr('r', d => (d.isMainParty ? R : R - 1))
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
-      .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'))
+      .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color))
       .attr('stroke-width', '1.5px');
 
     selection
@@ -196,12 +197,12 @@ class GovernmentVis extends SvgChart {
       );
 
     selection
-      .select('circle')
+      .select('path')
       .transition()
-      .attr('r', d => (d.isMainParty ? R : R - 1))
+      .attr('d', d => d.isMainParty || d.isAlly ? `m${-R},0 a ${R},${R} 0 1,0 ${R*2},0 a ${R},${R} 0 1,0 ${-R*2},0` : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`)
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
-      .attr('stroke', d => (d.isAlly ? mainParty.color : 'none'));
+      .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color))
   }
 
   renderCouncilAnnotation() {
