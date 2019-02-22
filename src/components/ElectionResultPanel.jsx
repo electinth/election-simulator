@@ -10,6 +10,7 @@ import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
 import { DEFAULT_ELECTION_PRESET_INDEX } from '../constants';
 import ElectionResultTable from './ElectionResultTable';
+import PartyColorMark from './PartyColorMark';
 
 const presetLookup = keyBy(presets, p => p.key);
 
@@ -69,7 +70,9 @@ class ElectionResultPanel extends React.PureComponent {
               style={{ textAlign: 'center', marginTop: 8, marginBottom: 8, fontSize: '0.9em' }}
             >
               <div>
-                <label className="party-name">{p.party.name}</label>
+                <label className="party-name">
+                  <PartyColorMark radius={4} color={p.party.color} /> {p.party.name}
+                </label>
               </div>
               <div style={{ display: 'inline-block' }}>
                 <SeatInput

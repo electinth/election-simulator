@@ -6,8 +6,7 @@ import ElectionResult from '../models/ElectionResult';
 import SeatInput from './SeatInput';
 import { TOTAL_SENATOR } from '../models/rules';
 import Party from '../models/Party';
-
-const R = 4;
+import PartyColorMark from './PartyColorMark';
 
 const propTypes = {
   className: PropTypes.string,
@@ -44,9 +43,7 @@ class GovernmentPanel extends React.PureComponent {
       <div className={className}>
         <div className="form-group">
           <div>
-            <label htmlFor="">
-              <b>เลือกพรรคหลัก</b>
-            </label>
+            <label htmlFor="">เลือกพรรคหลัก</label>
           </div>
           <div className="btn-group">
             {electionResult.getTopNParties().map(p => (
@@ -62,9 +59,7 @@ class GovernmentPanel extends React.PureComponent {
                   });
                 }}
               >
-                <svg width={R * 2 + 2} height={R * 2 + 2}>
-                  <circle cx={R} cy={R} r={R} fill={p.party.color} />
-                </svg>
+                <PartyColorMark radius={4} color={p.party.color} />
                 &nbsp;
                 {p.party.name}
                 &nbsp;
@@ -75,9 +70,7 @@ class GovernmentPanel extends React.PureComponent {
         </div>
         <div className="form-group">
           <div>
-            <label>
-              <b>เลือกพรรคร่วมรัฐบาล</b>
-            </label>
+            <label>เลือกพรรคร่วมรัฐบาล</label>
           </div>
           {electionResult.getPotentialAllies(mainParty && mainParty.name).map(p => (
             <button
@@ -99,9 +92,7 @@ class GovernmentPanel extends React.PureComponent {
                 });
               }}
             >
-              <svg width={R * 2 + 2} height={R * 2 + 2}>
-                <circle cx={R} cy={R} r={R} fill={p.party.color} />
-              </svg>
+              <PartyColorMark radius={4} color={p.party.color} />
               &nbsp;
               {p.party.name}&nbsp;
               <span className="badge badge-light">{p.seats}</span>
@@ -110,9 +101,7 @@ class GovernmentPanel extends React.PureComponent {
         </div>
         <div className="form-group">
           <div>
-            <label htmlFor="">
-              <b>จำนวนเสียงสนับสนุนจากส.ว.</b>
-            </label>
+            <label htmlFor="">จำนวนเสียงสนับสนุนจากส.ว.</label>
           </div>
           <SeatInput
             value={senatorVotes}
