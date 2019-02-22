@@ -107,7 +107,7 @@ class App extends React.PureComponent {
             <div className="row">
               <div className="col">
                 <h3>ขั้นที่ 2. ลองจัดตั้งรัฐบาล</h3>
-                <ul>
+                <ul style={{paddingLeft: 24}}>
                   <li>
                     ผู้โหวตเลือกนายกรัฐมนตรี คือ ส.ว. 250 คน และส.ส.จากการเลือกตั้ง 500 คน
                     ต้องมีเสียงเกินครึ่งหนึ่ง คือ<u>อย่างน้อย 376 เสียง</u>

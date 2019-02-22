@@ -41,7 +41,7 @@ class GovernmentPanel extends React.PureComponent {
 
     return (
       <div className={className}>
-        <table className={className} style={{marginBottom: 20}}>
+        <table className={className} style={{marginTop: 20, marginBottom: 20}}>
           <thead>
             <tr>
               <th />
@@ -49,8 +49,8 @@ class GovernmentPanel extends React.PureComponent {
               <th>เสียง</th>
               <th>
                 <div style={{ marginLeft: 20, marginRight: 20 }}>
-                  พรรคหลัก</div></th>
-              <th>ร่วมรัฐบาล</th>
+                  เป็นพรรคหลัก</div></th>
+              <th>เป็นพรรคร่วมรัฐบาล</th>
             </tr>
           </thead>
           <tbody>
