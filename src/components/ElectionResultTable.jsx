@@ -28,7 +28,7 @@ class ElectionResultTable extends React.Component {
                 </svg>
               </td>
               <td className="party-name">{p.party.name}</td>
-              <td>{p.seats}</td>
+              <td style={{ textAlign: 'right' }}>{p.seats}</td>
             </tr>
           ))}
         </tbody>
