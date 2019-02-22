@@ -12,6 +12,7 @@ import Simulation from './models/Simulation';
 import ElectionResult from './models/ElectionResult';
 import electionResultPresets from './data/electionResults';
 import { DEFAULT_ELECTION_PRESET_INDEX } from './constants';
+import PartyColorMark from './components/PartyColorMark';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
 
@@ -34,6 +35,26 @@ class App extends React.PureComponent {
         senatorVotes: 250,
       },
     };
+  }
+
+  renderSimulationLegend(simulation) {
+    const { mainParty, senatorVotes, allyParties } = simulation;
+
+    return (
+      <small className="party-name">
+        {senatorVotes > 0 && (
+          <span>
+            <PartyColorMark shape="round-rect" color={mainParty.color} /> ส.ว. &nbsp;
+          </span>
+        )}
+        <PartyColorMark color={mainParty.color} /> {mainParty.name}
+        {allyParties && allyParties.size > 0 && (
+          <React.Fragment>
+            &nbsp; <PartyColorMark shape="hollow-circle" color={mainParty.color} /> พรรคร่วมรัฐบาล ({allyParties.size} พรรค)
+          </React.Fragment>
+        )}
+      </small>
+    );
   }
 
   renderSummary(simulation) {
@@ -116,6 +137,7 @@ class App extends React.PureComponent {
                   {simulation && this.renderSummary(simulation)}
                 </div>
                 <div style={{ textAlign: 'center' }}>
+                  {this.renderSimulationLegend(simulation)}
                   <GovernmentVis data={simulation} />
                 </div>
                 <p>
