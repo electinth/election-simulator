@@ -9,6 +9,7 @@ import SeatInput from './SeatInput';
 import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
 import { DEFAULT_ELECTION_PRESET_INDEX } from '../constants';
+import ElectionResultTable from './ElectionResultTable';
 
 const presetLookup = keyBy(presets, p => p.key);
 
@@ -26,7 +27,7 @@ class ElectionResultPanel extends React.PureComponent {
   constructor(props) {
     super(props);
     const preset = presets[DEFAULT_ELECTION_PRESET_INDEX].key;
-    this.state = { preset };
+    this.state = { isEditing: false, preset };
     this.handlePresetChange = this.handlePresetChange.bind(this);
   }
 
@@ -43,9 +44,56 @@ class ElectionResultPanel extends React.PureComponent {
     onChange(newResult);
   }
 
+  renderEditor(sortedParties) {
+    const { onChange, result } = this.props;
+    const { isEditing } = this.state;
+
+    if (!isEditing) return null;
+
+    return (
+      <React.Fragment>
+        <div className="row">
+          <div className="col" style={{ textAlign: 'center' }}>
+            <p>
+              <small>
+                (สามารถปรับตัวเลขได้ตามใจชอบ โดยกดปุ่มเพิ่ม/ลด หรือ กดที่ช่องตัวเลขแล้วพิมพ์)
+              </small>
+            </p>
+          </div>
+        </div>
+        <div className="row">
+          {sortedParties.map(p => (
+            <div
+              key={p.party.name}
+              className="col-lg-3 col-md-4 col-sm-6"
+              style={{ textAlign: 'center', marginTop: 8, marginBottom: 8, fontSize: '0.9em' }}
+            >
+              <div>
+                <label className="party-name">{p.party.name}</label>
+              </div>
+              <div style={{ display: 'inline-block' }}>
+                <SeatInput
+                  value={p.seats}
+                  onValueChange={value => {
+                    const newResult = result.cloneAndUpdateSeats(p.party.name, value);
+                    this.setState({
+                      preset: 'CUSTOM',
+                      result: newResult,
+                    });
+                    onChange(newResult);
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </React.Fragment>
+    );
+  }
+
   render() {
-    const { className, onChange, result } = this.props;
-    const { preset } = this.state;
+    const { className, result } = this.props;
+    const { preset, isEditing } = this.state;
 
     const remainderParty = result.partyWithResults.filter(
       p => p.party.name === REMAINDER_PARTY_NAME,
@@ -58,54 +106,43 @@ class ElectionResultPanel extends React.PureComponent {
 
     return (
       <div className={className}>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <label className="input-group-text">ใช้ตัวเลขจาก</label>
-          </div>
-          <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
-            {presets.map(rs => (
-              <option value={rs.key} key={rs.key}>
-                {rs.name}
-              </option>
-            ))}
-            <option value="CUSTOM">กำหนดเอง</option>
-          </select>
-        </div>
-        <p>
-          <small>
-            (สามารถปรับตัวเลขได้ตามใจชอบ โดยกดปุ่มเพิ่ม/ลด หรือ กดที่ช่องตัวเลขแล้วพิมพ์)
-          </small>
-        </p>
-        <p />
-        <div className="container">
-          <div className="row">
-            {sortedParties.map(p => (
-              <div key={p.party.name} className="col-lg-3 col-md-4 col-sm-6" style={{ textAlign: 'center', marginTop: 8, marginBottom: 8, fontSize: '0.9em' }}>
-                  <div>
-                  <label
-                    className="party-name"
-
-                  >
-                    {p.party.name}
-                  </label>
-                  </div>
-                  <div style={{display: 'inline-block'}}>
-                    <SeatInput
-                      value={p.seats}
-                      onValueChange={value => {
-                        const newResult = result.cloneAndUpdateSeats(p.party.name, value);
-                        this.setState({
-                          preset: 'CUSTOM',
-                          result: newResult,
-                        });
-                        onChange(newResult);
-                      }}
-                    />
-                  </div>
+        <div className="row">
+          <div className="col-md-auto">
+            <div className="input-group" style={{ marginBottom: 10 }}>
+              <div className="input-group-prepend">
+                <label className="input-group-text">ใช้ตัวเลขจาก</label>
               </div>
-            ))}
+              <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
+                {presets.map(rs => (
+                  <option value={rs.key} key={rs.key}>
+                    {rs.name}
+                  </option>
+                ))}
+                <option value="CUSTOM">กำหนดเอง</option>
+              </select>
+            </div>
+          </div>
+          <div className="col">
+            <button
+              type="button"
+              className={`btn btn-outline-secondary ${isEditing ? 'active' : ''}`}
+              onClick={() => {
+                this.setState({ isEditing: !isEditing });
+              }}
+            >
+              <i className="fa fa-edit" /> แก้ไข
+            </button>
           </div>
         </div>
+        <p />
+        {!isEditing && (
+          <div className="row">
+            <div className="col">
+              <ElectionResultTable sortedParties={sortedParties} />
+            </div>
+          </div>
+        )}
+        {this.renderEditor(sortedParties)}
         {result.isOverflow() && (
           <h3 style={{ marginTop: '20px', padding: '20px 0', textAlign: 'center' }}>
             เกิน! ส.ส.มีได้ {TOTAL_REPRESENTATIVE} คน ตอนนี้มี {result.totalSeats}
