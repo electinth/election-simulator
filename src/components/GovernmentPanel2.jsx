@@ -48,9 +48,9 @@ class GovernmentPanel extends React.PureComponent {
               <th>พรรค</th>
               <th>เสียง</th>
               <th>
-                <div style={{ marginLeft: 20, marginRight: 20 }}>เป็นพรรคหลัก</div>
+                <div style={{ textAlign: 'center', marginLeft: 20, marginRight: 20 }}>เป็นพรรคหลัก</div>
               </th>
-              <th>เป็นพรรคร่วมรัฐบาล</th>
+              <th style={{ textAlign: 'center' }}>ร่วมรัฐบาล</th>
             </tr>
           </thead>
           <tbody>

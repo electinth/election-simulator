@@ -114,6 +114,14 @@ button, button:focus {
   color: #fff;
 }
 
+.fa-icon-green {
+  color: #4cd137;
+}
+
+.fa-icon-red {
+  color: #c23616;
+}
+
 .summary {
   text-align: center;
   padding: 20px 0;

@@ -107,15 +107,6 @@ class App extends React.PureComponent {
             <div className="row">
               <div className="col">
                 <h3>ขั้นที่ 2. ลองตั้งรัฐบาล</h3>
-                <ul style={{paddingLeft: 24}}>
-                  <li>
-                    ผู้โหวตเลือกนายกรัฐมนตรี คือ ส.ว. 250 คน และส.ส.จากการเลือกตั้ง 500 คน
-                    ต้องมีเสียงเกินครึ่งหนึ่ง คือ<u>อย่างน้อย 376 เสียง</u>
-                  </li>
-                  <li>
-                    ต้องการส.ส. <u>อย่างน้อย 251 เสียง</u> เพื่อให้มีเสียงในสภาผู้แทนราษฎรเกินครึ่ง
-                  </li>
-                </ul>
                 <p />
                 <GovernmentPanel
                   electionResult={electionResult}
@@ -135,24 +126,58 @@ class App extends React.PureComponent {
                       <div className="row">
                         <div className="col">
                           เสียงส.ส. + ส.ว.
-                          <div className="big-number">
+                          <div className={`big-number ${simulation.canElectPrimeMinister() ? 'fa-icon-green' : 'fa-icon-red'}`}>
                             {simulation.totalSeats + simulation.senatorVotes}&nbsp;
-                            <i className={`far ${simulation.canElectPrimeMinister() ? 'fa-check-circle' : 'fa-times-circle'}`} />
+                            <i
+                              className={`far ${
+                                simulation.canElectPrimeMinister()
+                                  ? 'fa-check-circle fa-icon-green'
+                                  : 'fa-times-circle fa-icon-red'
+                              }`}
+                            />
+                          </div>
+                          <div>
+                            {simulation.canElectPrimeMinister() ? (
+                              'ได้เลือกนายก!'
+                            ) : (
+                              <span>
+                                ไม่ได้เลือกนายก
+                                <br />
+                                <small>
+                                (ขาด {simulation.seatsToElectPrimeMinister()} เสียง)
+                                </small>
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="col">
                           เสียงส.ส.
-                          <div className="big-number">
+                          <div className={`big-number ${simulation.winCouncil() ? 'fa-icon-green' : 'fa-icon-red'}`}>
                             {simulation.totalSeats}&nbsp;
-                            <i className={`far ${simulation.winCouncil() ? 'fa-check-circle' : 'fa-times-circle'}`} />
+                            <i
+                              className={`far ${
+                                simulation.winCouncil()
+                                  ? 'fa-check-circle fa-icon-green'
+                                  : 'fa-times-circle fa-icon-red'
+                              }`}
+                            />
+                          </div>
+                          <div>
+                            {simulation.winCouncil() ? (
+                              'ทำงานได้!'
+                            ) : (
+                              <span>
+                                ทำงานไม่ได้
+                                <br />
+                                <small>
+                                (ขาด {simulation.seatsToWinCouncil()} เสียง)
+                                </small>
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>
-                      <div style={{ width: 320 }}>
-                        <div className="summary">
-                          <b>สรุป</b> {simulation && this.renderSummary(simulation)}
-                        </div>
-                      </div>
+                      <br />
                       <GovernmentVis data={simulation} />
                       {this.renderSimulationLegend(simulation)}
                     </div>
