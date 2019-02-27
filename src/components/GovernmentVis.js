@@ -10,8 +10,8 @@ const R = 3;
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
     return helper.deepExtend(super.getDefaultOptions(), {
-      gapBetweenCouncil: 0,
       columnSize: 25,
+      gapBetweenCouncil: 0,
       margin: {
         left: 0,
         right: 0,
@@ -138,7 +138,7 @@ class GovernmentVis extends SvgChart {
       // .attr('transform', 'rotate(45)')
       .attr('height', (R - 0.5) * 2)
       .attr('width', (R - 0.5) * 2)
-      .attr('x', 1 - R)
+      .attr('x', 1 - R + 1)
       .attr('y', 1 - R)
       .attr('rx', 1)
       .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
@@ -211,6 +211,8 @@ class GovernmentVis extends SvgChart {
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
       .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
       .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color));
+
+    selection.exit().remove();
   }
 
   renderCouncilAnnotation() {
@@ -245,7 +247,7 @@ class GovernmentVis extends SvgChart {
       .get('council-annotation')
       .select('text.caption')
       .transition()
-      .attr('x', cutX)
+      .attr('x', cutX2)
       .attr('y', height + 24)
       .attr('text-anchor', 'middle')
       .style('font-size', '11px')
