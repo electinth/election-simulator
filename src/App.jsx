@@ -86,26 +86,22 @@ class App extends React.PureComponent {
     return (
       <React.Fragment>
         <section className="container">
-          <header className="row">
-            <div className="col">
-              <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
-            </div>
-          </header>
-          <div className="row">
-            <div className="col">
-              <ElectionResultPanel
-                result={electionResult}
-                onChange={value => {
-                  this.setState({ electionResult: value });
-                }}
-              />
-            </div>
-          </div>
         </section>
         {!electionResult.isOverflow() && (
           <section className="container">
             <div className="row">
               <div className="col">
+                <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
+                <div className="row">
+                  <div className="col">
+                    <ElectionResultPanel
+                      result={electionResult}
+                      onChange={value => {
+                        this.setState({ electionResult: value });
+                      }}
+                    />
+                  </div>
+                </div>
                 <h3>ขั้นที่ 2. ลองตั้งรัฐบาล</h3>
                 <p />
                 <GovernmentPanel
@@ -118,7 +114,7 @@ class App extends React.PureComponent {
                   }}
                 />
               </div>
-              <div className="col">
+              <div className="col-lg-5 col-md-6">
                 <div className="row">
                   <div className="col" />
                   <div className="col-md-auto">
@@ -126,7 +122,11 @@ class App extends React.PureComponent {
                       <div className="row">
                         <div className="col">
                           เสียงส.ส. + ส.ว.
-                          <div className={`big-number ${simulation.canElectPrimeMinister() ? 'fa-icon-green' : 'fa-icon-red'}`}>
+                          <div
+                            className={`big-number ${
+                              simulation.canElectPrimeMinister() ? 'fa-icon-green' : 'fa-icon-red'
+                            }`}
+                          >
                             {simulation.totalSeats + simulation.senatorVotes}&nbsp;
                             <i
                               className={`far ${
@@ -143,16 +143,18 @@ class App extends React.PureComponent {
                               <span>
                                 ไม่ได้เลือกนายก
                                 <br />
-                                <small>
-                                (ขาด {simulation.seatsToElectPrimeMinister()} เสียง)
-                                </small>
+                                <small>(ขาด {simulation.seatsToElectPrimeMinister()} เสียง)</small>
                               </span>
                             )}
                           </div>
                         </div>
                         <div className="col">
                           เสียงส.ส.
-                          <div className={`big-number ${simulation.winCouncil() ? 'fa-icon-green' : 'fa-icon-red'}`}>
+                          <div
+                            className={`big-number ${
+                              simulation.winCouncil() ? 'fa-icon-green' : 'fa-icon-red'
+                            }`}
+                          >
                             {simulation.totalSeats}&nbsp;
                             <i
                               className={`far ${
@@ -169,9 +171,7 @@ class App extends React.PureComponent {
                               <span>
                                 ทำงานไม่ได้
                                 <br />
-                                <small>
-                                (ขาด {simulation.seatsToWinCouncil()} เสียง)
-                                </small>
+                                <small>(ขาด {simulation.seatsToWinCouncil()} เสียง)</small>
                               </span>
                             )}
                           </div>

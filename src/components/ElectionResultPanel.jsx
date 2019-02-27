@@ -62,11 +62,11 @@ class ElectionResultPanel extends React.PureComponent {
             </p>
           </div>
         </div>
-        <div className="row">
+        <div className="row" style={{ marginBottom: 30 }}>
           {sortedParties.map(p => (
             <div
               key={p.party.name}
-              className="col-lg-3 col-md-4 col-sm-6"
+              className="col-lg-6 col-md-12 col-sm-6"
               style={{ textAlign: 'center', marginTop: 8, marginBottom: 8, fontSize: '0.9em' }}
             >
               <div>

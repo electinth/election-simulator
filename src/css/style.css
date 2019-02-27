@@ -23,6 +23,10 @@ h1, h2, h3 {
   font-family: 'Libre Baskerville', 'The Matter', serif;
 }
 
+h3 {
+  margin-top: 20px;
+}
+
 .big-number {
   font-size: 40px;
   font-weight: bold;
@@ -50,7 +54,6 @@ article>header {
 }
 
 section {
-  margin: 40px 0;
 }
 
 section.introduction {
@@ -59,6 +62,10 @@ section.introduction {
 
 footer {
   text-align: center;
+}
+
+footer section {
+  margin: 20px 0;
 }
 
 #footnote {
@@ -130,13 +137,14 @@ button, button:focus {
 .result-card {
   border: 1px #eee solid;
   padding: 25px;
+  margin-top: 20px;
   text-align: center;
 }
 
 @media screen and (max-device-width: 667px) {
   .result-card {
     margin-top: 30px;
-    padding: 25px 15px;
+    padding: 25px 10px;
   }
 }
 @media screen and (max-device-width: 340px) {

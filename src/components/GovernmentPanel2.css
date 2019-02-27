@@ -1,0 +1,7 @@
+.government-panel {
+  position: relative;
+}
+
+.government-panel .table-container {
+  overflow-y: auto;
+}
