@@ -166,10 +166,10 @@ class App extends React.PureComponent {
                           </div>
                           <div>
                             {simulation.winCouncil() ? (
-                              'ทำงานได้!'
+                              'คุมสภาผู้แทนฯได้!'
                             ) : (
                               <span>
-                                ทำงานไม่ได้
+                                คุมสภาผู้แทนฯไม่ได้
                                 <br />
                                 <small>(ขาด {simulation.seatsToWinCouncil()} เสียง)</small>
                               </span>
