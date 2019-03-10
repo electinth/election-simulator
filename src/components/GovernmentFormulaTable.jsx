@@ -8,6 +8,7 @@ import { TOTAL_SENATOR } from '../models/rules';
 import Party from '../models/Party';
 import PartyColorMark from './PartyColorMark';
 import './GovernmentFormulaTable.css';
+import Breadcrumb from './Breadcrumb';
 
 const propTypes = {
   className: PropTypes.string,
@@ -42,6 +43,7 @@ class GovernmentFormulaTable extends React.PureComponent {
       <div className={`government-formula-table ${className}`}>
         <div className="table-subsection">
           <div className="page-content">
+            <Breadcrumb page={2} />
             <h3>2. จัดตั้งรัฐบาล</h3>
           <div className="table-container">
             <table className={className} style={{ marginTop: 20, marginBottom: 20 }}>

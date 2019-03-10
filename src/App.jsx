@@ -13,6 +13,7 @@ import Simulation from './models/Simulation';
 import SimulationLegend from './components/SimulationLegend';
 import ElectHeader from './components/ElectHeader';
 import PartyColorMark from './components/PartyColorMark';
+import Breadcrumb from './components/Breadcrumb';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
 
@@ -53,16 +54,6 @@ class App extends AppBase {
     }
   }
 
-  renderHeader() {
-    const { currentPage } = this.state;
-    switch(currentPage) {
-      case 0: return (
-        <ElectHeader />
-      );
-      default: return null;
-    }
-  }
-
   render() {
     const { electionResult, governmentConfig, currentPage } = this.state;
 
@@ -92,6 +83,7 @@ class App extends AppBase {
             </section>
             <section className={this.getPageClass(1)}>
               <div className="page-content">
+              <Breadcrumb page={1} />
               <h3>1. สัดส่วนส.ส.แต่ละพรรคในสภา</h3>
               <div className="row">
                 <div className="col">
@@ -119,6 +111,7 @@ class App extends AppBase {
             </section>
             <section className={this.getPageClass(3)}>
                 <div className="page-content">
+                <Breadcrumb page={3} />
               <h3>3. สรุป</h3>
               <p>
                 {simulation.printSummary()}

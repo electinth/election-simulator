@@ -109,12 +109,10 @@ class ElectionResultPanel extends React.PureComponent {
 
     return (
       <div className={className}>
+        ใช้ตัวเลขจาก
         <div className="row">
           <div className="col-md-auto">
             <div className="input-group" style={{ marginBottom: 10 }}>
-              <div className="input-group-prepend">
-                <label className="input-group-text">ใช้ตัวเลขจาก</label>
-              </div>
               <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
                 {presets.map(rs => (
                   <option value={rs.key} key={rs.key}>
