@@ -31,20 +31,22 @@ h4 {
   margin-top: 10px;
 }
 
-.credit-pane a,
-.credit-pane a:link,
-.credit-pane a:visited,
-.content-pane a,
-.content-pane a:link,
-.content-pane a:visited {
+.site-header a,
+.site-header a:focus,
+.site-header a:link,
+.site-header a:visited,
+.site-header a:hover {
+  border-bottom: none;
+}
+
+a, a:link, a:visited {
   color: rgb(239, 49, 74);
   border-bottom: 1px dotted rgba(239, 49, 74, 0.2);
   text-decoration: none;
   transition: all .3s;
 }
 
-.credit-pane a:hover,
-.content-pane a:hover {
+a:hover {
   border-bottom: 1px solid rgba(239, 49, 74, 1);
 }
 

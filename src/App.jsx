@@ -53,6 +53,16 @@ class App extends AppBase {
     }
   }
 
+  renderHeader() {
+    const { currentPage } = this.state;
+    switch(currentPage) {
+      case 0: return (
+        <ElectHeader />
+      );
+      default: return null;
+    }
+  }
+
   render() {
     const { electionResult, governmentConfig, currentPage } = this.state;
 
@@ -69,11 +79,9 @@ class App extends AppBase {
     return (
       <div className="frame-container">
         <article className="frame">
-          <header className="header-pane">
-            <ElectHeader />
-          </header>
           <div className="content-pane">
             <section className={this.getPageClass(0)}>
+              <ElectHeader />
               <div className="page-content">
               <h1>ทำนายผลเลือกตั้ง 2562</h1>
               <p>
