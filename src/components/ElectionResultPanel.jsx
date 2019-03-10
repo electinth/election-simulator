@@ -138,13 +138,13 @@ class ElectionResultPanel extends React.PureComponent {
           </div>
         </div>
         <p />
-        {/* {!isEditing && (
+        {!isEditing && (
           <div className="row">
             <div className="col">
               <ElectionResultTable sortedParties={sortedParties} />
             </div>
           </div>
-        )} */}
+        )}
         {this.renderEditor(sortedParties)}
         {result.isOverflow() && (
           <h3 style={{ marginTop: '20px', padding: '20px 0', textAlign: 'center' }}>

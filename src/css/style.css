@@ -19,29 +19,32 @@ svg text {
   font-weight: normal;
 }
 
-h1, h2, h3 {
+h1 {
   font-family: 'Libre Baskerville', 'The Matter', serif;
 }
 
-h3 {
-  margin-top: 20px;
+h2, h3, h4, h5 {
+  font-weight: 700;
 }
 
-.big-number {
-  font-size: 40px;
-  font-weight: bold;
+h4 {
+  margin-top: 10px;
 }
 
-article a,
-article a:link,
-article a:visited {
+.credit-pane a,
+.credit-pane a:link,
+.credit-pane a:visited,
+.content-pane a,
+.content-pane a:link,
+.content-pane a:visited {
   color: rgb(239, 49, 74);
   border-bottom: 1px dotted rgba(239, 49, 74, 0.2);
   text-decoration: none;
   transition: all .3s;
 }
 
-article a:hover {
+.credit-pane a:hover,
+.content-pane a:hover {
   border-bottom: 1px solid rgba(239, 49, 74, 1);
 }
 
@@ -53,7 +56,88 @@ article>header {
   text-align: center;
 }
 
-section {
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.frame-container {
+  margin: auto;
+  padding: 60px;
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+}
+
+.frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column
+}
+
+.header-pane {
+  background: red;
+  flex: 0 0 auto;
+}
+
+.content-pane {
+  border: 1px solid #eee;
+  /* background: #eee; */
+  flex: 1 1 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.content-pane .page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  transition: left .3s;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.content-pane .page.previous-page {
+  left: -100%;
+}
+
+.content-pane .page.next-page {
+  left: 100%;
+}
+
+.nav-pane {
+  border: 1px solid #eee;
+  border-top: none;
+  flex: 0 0 50px;
+  display: flex;
+}
+
+.nav-pane button {
+  height: 100%;
+  flex: 1 1 50%;
+  border: none;
+  color: #F0324B;
+}
+
+.nav-pane button.next-btn {
+  background-color: #F0324B;
+  color: #fff;
+}
+
+.credit-pane {
+  flex: 0 0 auto;
+  font-size: 0.9em;
+  color: #ccc;
+  padding: 10px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.page-content {
+  padding: 20px;
 }
 
 section.introduction {
@@ -69,7 +153,7 @@ footer section {
 }
 
 #footnote {
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: #999;
 }
 
@@ -78,8 +162,12 @@ footer section {
   font-size: 12px;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 .party-name {
-  font-family: 'Libre Baskerville', 'The Matter', serif;
+  /* font-family: 'Libre Baskerville', 'The Matter', serif; */
 }
 
 .party-name .badge {
@@ -147,7 +235,39 @@ button, button:focus {
     padding: 25px 10px;
   }
 }
-@media screen and (max-device-width: 340px) {
+@media screen and (max-device-width: 450px) {
+  body {
+    font-size: 14px;
+  }
+
+  h3 {
+    font-size: 1.25em;
+  }
+
+  h4 {
+    font-size: 1.125em;
+  }
+
+  .frame-container {
+    margin: auto;
+    padding: 0px;
+    width: 100%;
+    max-width: auto;
+    height: 100%;
+  }
+
+  .content-pane, .nav-pane {
+    border: none;
+  }
+
+  .credit-pane {
+    display: none;
+  }
+
+  .page-content {
+    padding: 10px;
+  }
+
   .result-card {
     border-left: none;
     border-right: none;

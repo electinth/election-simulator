@@ -1,0 +1,34 @@
+.government-formula-table {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.table-subsection {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.header-subsection, .senator-subsection, .result-subsection {
+  flex: 0 0 auto;
+}
+
+.result-subsection {
+  display: flex;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  padding: 10px 0;
+}
+
+.government-formula-table .table-container {
+  overflow-y: auto;
+}
+
+.big-number {
+  font-family: 'Libre Baskerville',
+    'The Matter',
+    serif;
+  font-size: 2em;
+  font-weight: bold;
+}

@@ -5,75 +5,56 @@ import './css/style.css';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
+import AppBase from './AppBase';
 import ElectionResultPanel from './components/ElectionResultPanel';
-import GovernmentPanel from './components/GovernmentPanel2';
+import GovernmentFormulaTable from './components/GovernmentFormulaTable';
 import RawGovernmentVis from './components/GovernmentVis';
 import Simulation from './models/Simulation';
-import ElectionResult from './models/ElectionResult';
-import electionResultPresets from './data/electionResults';
-import { DEFAULT_ELECTION_PRESET_INDEX } from './constants';
+import SimulationLegend from './components/SimulationLegend';
+import ElectHeader from './components/ElectHeader';
 import PartyColorMark from './components/PartyColorMark';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
 
-class App extends React.PureComponent {
+class App extends AppBase {
   constructor(props) {
     super(props);
-
-    const electionResult = new ElectionResult(
-      electionResultPresets[DEFAULT_ELECTION_PRESET_INDEX].result,
-    );
-
-    this.state = {
-      electionResult,
-      governmentConfig: {
-        allyParties: new Set(),
-        mainParty:
-          electionResult && electionResult.partyWithResults.length > 0
-            ? electionResult.getTopNParties(1)[0].party
-            : null,
-        senatorVotes: 0,
-      },
-    };
+    this.state.currentPage = 0;
+    this.previousPage = this.previousPage.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
-  renderSimulationLegend(simulation) {
-    const { mainParty, senatorVotes, allyParties } = simulation;
-
-    return (
-      <div style={{ textAlign: 'center' }}>
-        <small className="party-name">
-          {senatorVotes > 0 && (
-            <span>
-              <PartyColorMark shape="round-rect" color={mainParty.color} /> ส.ว. &nbsp;
-            </span>
-          )}
-          <PartyColorMark color={mainParty.color} /> {mainParty.name}
-          {allyParties && allyParties.size > 0 && (
-            <React.Fragment>
-              &nbsp; <PartyColorMark shape="hollow-circle" color={mainParty.color} /> พรรคร่วมรัฐบาล
-              ({allyParties.size} พรรค)
-            </React.Fragment>
-          )}
-        </small>
-      </div>
-    );
-  }
-
-  renderSummary(simulation) {
-    if (simulation.canElectPrimeMinister() && simulation.winCouncil()) {
-      return 'ได้จัดตั้งรัฐบาล!';
-    } else if (simulation.canElectPrimeMinister()) {
-      return `มีเสียงพอเลือกนายกฯ แต่ไม่ได้เสียงส่วนใหญ่ในสภา (ขาดอีก ${simulation.seatsToWinCouncil()})`;
-    } else if (simulation.winCouncil()) {
-      return `ได้เสียงข้างมากในสภา แต่ไม่ได้เลือกนายกฯ (ขาดอีก ${simulation.seatsToElectPrimeMinister()})!`;
+  getPageClass(index) {
+    const { currentPage } = this.state;
+    if (currentPage > index) {
+      return 'page previous-page';
+    } else if (currentPage < index) {
+      return 'page next-page';
     }
 
-    return `ได้เสียงไม่พอ (ขาดอีก ${simulation.seatsToElectPrimeMinister()} เพื่อเลือกนายกฯ และ ขาดอีก ${simulation.seatsToWinCouncil()} เพื่อให้ได้เสียงข้างมากในสภาฯ)`;
+    return 'page';
+  }
+
+  previousPage() {
+    const { currentPage } = this.state;
+    if (currentPage > 0) {
+      this.setState({
+        currentPage: currentPage - 1,
+      });
+    }
+  }
+
+  nextPage() {
+    const { currentPage } = this.state;
+    if (currentPage < 3) {
+      this.setState({
+        currentPage: currentPage + 1,
+      });
+    }
   }
 
   render() {
-    const { electionResult, governmentConfig } = this.state;
+    const { electionResult, governmentConfig, currentPage } = this.state;
 
     let simulation;
     if (electionResult && governmentConfig) {
@@ -83,112 +64,125 @@ class App extends React.PureComponent {
       });
     }
 
+    const mainPartyResult = simulation.getMainPartyResult();
+
     return (
-      <React.Fragment>
-        <section className="container">
-        </section>
-        {!electionResult.isOverflow() && (
-          <section className="container">
-            <div className="row">
-              <div className="col">
-                <h3>ขั้นที่ 1. สมมติว่าแต่ละพรรคได้ส.ส.เท่านี้</h3>
-                <div className="row">
-                  <div className="col">
-                    <ElectionResultPanel
-                      result={electionResult}
-                      onChange={value => {
-                        this.setState({ electionResult: value });
-                      }}
-                    />
-                  </div>
-                </div>
-                <h3>ขั้นที่ 2. ลองตั้งรัฐบาล</h3>
-                <p />
-                <GovernmentPanel
-                  electionResult={electionResult}
-                  governmentConfig={governmentConfig}
-                  onChange={value => {
-                    this.setState({
-                      governmentConfig: value,
-                    });
-                  }}
-                />
+      <div className="frame-container">
+        <article className="frame">
+          <header className="header-pane">
+            <ElectHeader />
+          </header>
+          <div className="content-pane">
+            <section className={this.getPageClass(0)}>
+              <div className="page-content">
+              <h1>ทำนายผลเลือกตั้ง 2562</h1>
+              <p>
+                คำโปรย คำโปรยคำโปรย คำโปรยคำโปรย คำโปรยคำโปรย คำโปรยคำโปรย คำโปรยคำโปรย คำโปรยคำโปรย
+                คำโปรยคำโปรย คำโปรยคำโปรย คำโปรย
+              </p>
               </div>
-              <div className="col-lg-5 col-md-6">
-                <div className="row">
-                  <div className="col" />
-                  <div className="col-md-auto">
-                    <div className="result-card">
-                      <div className="row">
-                        <div className="col">
-                          เสียงส.ส. + ส.ว.
-                          <div
-                            className={`big-number ${
-                              simulation.canElectPrimeMinister() ? 'fa-icon-green' : 'fa-icon-red'
-                            }`}
-                          >
-                            {simulation.totalSeats + simulation.senatorVotes}&nbsp;
-                            <i
-                              className={`far ${
-                                simulation.canElectPrimeMinister()
-                                  ? 'fa-check-circle fa-icon-green'
-                                  : 'fa-times-circle fa-icon-red'
-                              }`}
-                            />
-                          </div>
-                          <div>
-                            {simulation.canElectPrimeMinister() ? (
-                              'ได้เลือกนายก!'
-                            ) : (
-                              <span>
-                                ไม่ได้เลือกนายก
-                                <br />
-                                <small>(ขาด {simulation.seatsToElectPrimeMinister()} เสียง)</small>
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="col">
-                          เสียงส.ส.
-                          <div
-                            className={`big-number ${
-                              simulation.winCouncil() ? 'fa-icon-green' : 'fa-icon-red'
-                            }`}
-                          >
-                            {simulation.totalSeats}&nbsp;
-                            <i
-                              className={`far ${
-                                simulation.winCouncil()
-                                  ? 'fa-check-circle fa-icon-green'
-                                  : 'fa-times-circle fa-icon-red'
-                              }`}
-                            />
-                          </div>
-                          <div>
-                            {simulation.winCouncil() ? (
-                              'คุมสภาผู้แทนฯได้!'
-                            ) : (
-                              <span>
-                                คุมสภาผู้แทนฯไม่ได้
-                                <br />
-                                <small>(ขาด {simulation.seatsToWinCouncil()} เสียง)</small>
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <br />
-                      <GovernmentVis data={simulation} />
-                      {this.renderSimulationLegend(simulation)}
-                    </div>
-                  </div>
-                  <div className="col" />
+            </section>
+            <section className={this.getPageClass(1)}>
+              <div className="page-content">
+              <h3>1. สัดส่วนส.ส.แต่ละพรรคในสภา</h3>
+              <div className="row">
+                <div className="col">
+                  <ElectionResultPanel
+                    result={electionResult}
+                    onChange={value => {
+                      this.setState({ electionResult: value });
+                    }}
+                  />
                 </div>
               </div>
-            </div>
-          </section>
-        )}
-      </React.Fragment>
+              </div>
+            </section>
+            <section className={this.getPageClass(2)}>
+              <GovernmentFormulaTable
+                simulation={simulation}
+                electionResult={electionResult}
+                governmentConfig={governmentConfig}
+                onChange={value => {
+                  this.setState({
+                    governmentConfig: value,
+                  });
+                }}
+              />
+            </section>
+            <section className={this.getPageClass(3)}>
+                <div className="page-content">
+              <h3>3. สรุป</h3>
+              <p>
+                {simulation.printSummary()}
+              </p>
+              <div className="text-align-center">
+                <SimulationLegend simulation={simulation} />
+                <GovernmentVis data={simulation} />
+              </div>
+              <h4>พรรคหลัก</h4>
+              <PartyColorMark radius={4} color={mainPartyResult.party.color} />
+              {mainPartyResult.party.name}
+              ({mainPartyResult.seats})
+              {simulation.allyParties.size > 0 && (
+                <React.Fragment>
+                  <h4>พรรคร่วมรัฐบาล</h4>
+                  {simulation.getAllyPartyResults().map(p => (
+                    <React.Fragment>
+                      <PartyColorMark radius={4} color={p.party.color} />
+                      {p.party.name}
+                      ({p.seats})
+                    </React.Fragment>
+                  ))}
+                </React.Fragment>
+              )}
+              </div>
+            </section>
+          </div>
+          <nav className="nav-pane">
+            {currentPage === 0 && (
+              <button type="button" className="next-btn" onClick={this.nextPage}>
+                เริ่ม <i className="fas fa-chevron-right" />
+              </button>
+            )}
+            {currentPage === 1 && (
+              <React.Fragment>
+                <button type="button" className="" onClick={this.previousPage}>
+                  <i className="fas fa-chevron-left" /> หน้าแรก
+                </button>
+                <button type="button" className="next-btn" onClick={this.nextPage}>
+                  จัดตั้งรัฐบาล <i className="fas fa-chevron-right" />
+                </button>
+              </React.Fragment>
+            )}
+            {currentPage === 2 && (
+              <React.Fragment>
+                <button type="button" className="" onClick={this.previousPage}>
+                  <i className="fas fa-chevron-left" /> ปรับสัดส่วน
+                </button>
+                <button type="button" className="next-btn" onClick={this.nextPage}>
+                  สรุป <i className="fas fa-chevron-right" />
+                </button>
+              </React.Fragment>
+            )}
+            {currentPage === 3 && (
+              <React.Fragment>
+                <button type="button" className="" onClick={this.previousPage}>
+                  <i className="fas fa-chevron-left" /> จัดตั้งรัฐบาล
+                </button>
+                <button type="button" className="next-btn">
+                  แชร์ <i className="fas fa-share" />
+                </button>
+              </React.Fragment>
+            )}
+          </nav>
+          <div className="credit-pane">
+            Visualization by&nbsp;
+            <a href="https://twitter.com/kristw" rel="noopener noreferrer" target="_blank">
+              Krist Wongsuphasawat
+            </a>
+          </div>
+        </article>
+      </div>
     );
   }
 }

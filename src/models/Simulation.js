@@ -31,8 +31,16 @@ export default class Simulation {
     return Math.max(0, COUNCIL_THRESHOLD - this.totalSeats);
   }
 
-  printResult() {
-    return 'lorem ipsum dolor sit amet';
+  printSummary() {
+    if (this.canElectPrimeMinister() && this.winCouncil()) {
+      return 'ได้จัดตั้งรัฐบาล!';
+    } else if (this.canElectPrimeMinister()) {
+      return `มีเสียงพอเลือกนายกฯ แต่ไม่ได้เสียงส่วนใหญ่ในสภา (ขาดอีก ${this.seatsToWinCouncil()})`;
+    } else if (this.winCouncil()) {
+      return `ได้เสียงข้างมากในสภา แต่ไม่ได้เลือกนายกฯ (ขาดอีก ${this.seatsToElectPrimeMinister()})!`;
+    }
+
+    return `ได้เสียงไม่พอ (ขาดอีก ${this.seatsToElectPrimeMinister()} เพื่อเลือกนายกฯ และ ขาดอีก ${this.seatsToWinCouncil()} เพื่อให้ได้เสียงข้างมากในสภาฯ)`;
   }
 
   generateRepresentatives() {
@@ -50,5 +58,15 @@ export default class Simulation {
           )
           .reverse(),
       );
+  }
+
+  getMainPartyResult() {
+    return this.electionResult.getPartiesWithSeats().filter(p => p.party === this.mainParty)[0];
+  }
+
+  getAllyPartyResults() {
+    return this.electionResult
+      .getPartiesWithSeats()
+      .filter(p => this.allyParties.has(p.party));
   }
 }
