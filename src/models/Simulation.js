@@ -65,8 +65,6 @@ export default class Simulation {
   }
 
   getAllyPartyResults() {
-    return this.electionResult
-      .getPartiesWithSeats()
-      .filter(p => this.allyParties.has(p.party));
+    return this.electionResult.getPartiesWithSeats().filter(p => this.allyParties.has(p.party));
   }
 }
