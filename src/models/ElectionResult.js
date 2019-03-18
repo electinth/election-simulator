@@ -77,4 +77,13 @@ export default class ElectionResult {
   clone() {
     return new ElectionResult(this.partyWithResults.map(p => p.clone()));
   }
+
+  toObject() {
+    return this.partyWithResults.reduce((prev, curr) => {
+      const output = prev;
+      output[curr.party.name] = curr.seats;
+
+      return output;
+    }, {});
+  }
 }
