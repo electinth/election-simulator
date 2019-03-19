@@ -24,7 +24,7 @@ class ElectionResultTable extends React.Component {
           {parties.map(p => (
             <tr key={p.party.name} className="table table-sm">
               <td>
-                <PartyColorMark radius={4} color={p.party.color} />
+                <PartyColorMark radius={5} color={p.party.color} />
               </td>
               <td className="party-name">{p.party.name}</td>
               <td style={{ textAlign: 'right' }}>{p.seats}</td>

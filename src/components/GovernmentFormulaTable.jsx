@@ -101,7 +101,7 @@ class GovernmentFormulaTable extends React.PureComponent {
                       </td>
                       <td style={{ textAlign: 'right' }}>{p.seats}</td>
                       <td>
-                        <PartyColorMark radius={4} color={p.party.color} />
+                        <PartyColorMark radius={5} color={p.party.color} />
                       </td>
                       <td className="party-name">{p.party.name}</td>
                     </tr>

@@ -59,11 +59,11 @@ class ElectionResultPanel extends React.PureComponent {
             <div
               key={p.party.name}
               className="col-lg-6 col-md-12 col-sm-6"
-              style={{  marginTop: 8, marginBottom: 8 }}
+              style={{ marginTop: 8, marginBottom: 8 }}
             >
               <div>
                 <label className="party-name">
-                  <PartyColorMark radius={4} color={p.party.color} /> {p.party.name}
+                  <PartyColorMark radius={5} color={p.party.color} /> {p.party.name}
                 </label>
               </div>
               <div style={{ display: 'inline-block' }}>

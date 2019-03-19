@@ -59,7 +59,7 @@ class GovernmentPanel extends React.PureComponent {
                   });
                 }}
               >
-                <PartyColorMark radius={4} color={p.party.color} />
+                <PartyColorMark radius={5} color={p.party.color} />
                 &nbsp;
                 {p.party.name}
                 &nbsp;
@@ -92,7 +92,7 @@ class GovernmentPanel extends React.PureComponent {
                 });
               }}
             >
-              <PartyColorMark radius={4} color={p.party.color} />
+              <PartyColorMark radius={5} color={p.party.color} />
               &nbsp;
               {p.party.name}&nbsp;
               <span className="badge badge-light">{p.seats}</span>

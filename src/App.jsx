@@ -166,15 +166,17 @@ class App extends React.PureComponent {
                   <GovernmentVis data={simulation} />
                 </div>
                 <h4>พรรคหลัก</h4>
-                <PartyColorMark radius={4} color={mainPartyResult.party.color} />
-                {mainPartyResult.party.name}({mainPartyResult.seats})
+                <PartyColorMark radius={5} color={mainPartyResult.party.color} />
+                &nbsp;
+                {mainPartyResult.party.name} ({mainPartyResult.seats})
                 {simulation.allyParties.size > 0 && (
                   <React.Fragment>
                     <h4>พรรคร่วมรัฐบาล</h4>
                     {simulation.getAllyPartyResults().map(p => (
                       <React.Fragment key={p.party.name}>
-                        <PartyColorMark radius={4} color={p.party.color} />
-                        {p.party.name}({p.seats})
+                        <PartyColorMark radius={5} color={p.party.color} />
+                        &nbsp;
+                        {p.party.name} ({p.seats}) &nbsp; &nbsp;
                       </React.Fragment>
                     ))}
                   </React.Fragment>
