@@ -8,7 +8,7 @@ import { createComponent } from 'react-d3kit';
 // import AppBase from './AppBase';
 import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentFormulaTable from './components/GovernmentFormulaTable';
-import RawGovernmentVis from './components/GovernmentVis';
+import RawGovernmentVis from './components/GovernmentArcVis';
 import Simulation from './models/Simulation';
 import SimulationLegend from './components/SimulationLegend';
 import ElectHeader from './components/ElectHeader';
@@ -221,8 +221,8 @@ class App extends React.PureComponent {
                   onClick={() => {
                     FB.ui(
                       {
-                        method: 'share',
                         href: window.location.toString(),
+                        method: 'share',
                       },
                       function(response) {},
                     );

@@ -15,9 +15,7 @@ const defaultProps = {
 };
 
 class ElectionResultTable extends React.Component {
-  renderTable(parties) {
-    const { className } = this.props;
-
+  renderTable(parties, className) {
     return (
       <table className={`${className} election-result-table`}>
         <tbody>
@@ -50,12 +48,13 @@ class ElectionResultTable extends React.Component {
     const half = partiesSortedBySeats.length / 2;
 
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-xs-auto">{this.renderTable(partiesSortedBySeats.slice(0, half))}</div>
-          <div className="col">
-            {this.renderTable(partiesSortedBySeats.slice(half, partiesSortedBySeats.length))}
-          </div>
+      <div className="row">
+        <div className="col">{this.renderTable(partiesSortedBySeats.slice(0, half))}</div>
+        <div className="col">
+          {this.renderTable(
+            partiesSortedBySeats.slice(half, partiesSortedBySeats.length),
+            'no-margin-right',
+          )}
         </div>
       </div>
     );

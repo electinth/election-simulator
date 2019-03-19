@@ -72,8 +72,13 @@ class GovernmentFormulaTable extends React.PureComponent {
                           role="button"
                           className={`${p.party === mainParty ? 'fas' : 'far'} fa-star`}
                           onClick={() => {
+                            const newSet = new Set(allyParties.values());
+                            if (allyParties.has(p.party)) {
+                              newSet.delete(p.party);
+                            }
                             this.update({
                               mainParty: p.party,
+                              allyParties: newSet,
                             });
                           }}
                         />
