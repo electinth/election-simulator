@@ -215,7 +215,19 @@ class App extends React.PureComponent {
                 <button type="button" className="" onClick={this.handlePrevPage}>
                   <i className="fas fa-chevron-left" /> จัดตั้งรัฐบาล
                 </button>
-                <button type="button" className="next-btn">
+                <button
+                  type="button"
+                  className="next-btn"
+                  onClick={() => {
+                    FB.ui(
+                      {
+                        method: 'share',
+                        href: window.location.toString(),
+                      },
+                      function(response) {},
+                    );
+                  }}
+                >
                   แชร์ <i className="fas fa-share" />
                 </button>
               </React.Fragment>
