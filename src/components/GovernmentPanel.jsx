@@ -106,7 +106,7 @@ class GovernmentPanel extends React.PureComponent {
           <SeatInput
             value={senatorVotes}
             maxValue={TOTAL_SENATOR}
-            steppers={[1, 50]}
+            steppers={[250]}
             onValueChange={newValue => {
               this.update({
                 senatorVotes: newValue,
