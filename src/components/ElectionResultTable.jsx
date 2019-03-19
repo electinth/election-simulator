@@ -50,14 +50,14 @@ class ElectionResultTable extends React.Component {
     const half = partiesSortedBySeats.length / 2;
 
     return (
-      <React.Fragment>
+      <div className="container">
         <div className="row">
-          <div className="col-sm-auto">{this.renderTable(partiesSortedBySeats.slice(0, half))}</div>
+          <div className="col-xs-auto">{this.renderTable(partiesSortedBySeats.slice(0, half))}</div>
           <div className="col">
             {this.renderTable(partiesSortedBySeats.slice(half, partiesSortedBySeats.length))}
           </div>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

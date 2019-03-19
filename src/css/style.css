@@ -21,6 +21,12 @@ svg text {
 
 h1 {
   font-family: 'Libre Baskerville', 'The Matter', serif;
+  font-size: 2em;
+  font-weight: 800;
+  letter-spacing: 0.06px;
+  line-height: 1.35em;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 h2, h3, h4, h5 {
@@ -122,6 +128,7 @@ article>header {
   height: 100%;
   flex: 1 1 50%;
   border: none;
+  background-color: #fff;
   color: #F0324B;
 }
 
@@ -143,8 +150,19 @@ article>header {
   padding: 26px;
 }
 
-section.introduction {
-  margin-top: 40px;
+.helper-text {
+  color: #9B9B9B;
+  font-size: 11px;
+  letter-spacing: 0.02px;
+  line-height: 20px;
+}
+
+p.introduction {
+  padding: 20px 20px 0 20px;
+  font-size: 16px;
+  letter-spacing: 0.02px;
+  line-height: 20px;
+  text-align: center;
 }
 
 footer {
@@ -268,7 +286,7 @@ button, button:focus {
   }
 
   .page-content {
-    padding: 10px;
+    padding: 16px;
   }
 
   .result-card {

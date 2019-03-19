@@ -8,9 +8,9 @@ import presets from '../data/electionResults';
 import SeatInput from './SeatInput';
 import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
-import { DEFAULT_ELECTION_PRESET } from '../constants';
 import ElectionResultTable from './ElectionResultTable';
 import PartyColorMark from './PartyColorMark';
+import './ElectionResultPanel.css';
 
 const listOfPresets = entries(presets).map(([key, value]) => ({ key, value }));
 
@@ -50,12 +50,8 @@ class ElectionResultPanel extends React.PureComponent {
     return (
       <React.Fragment>
         <div className="row">
-          <div className="col" style={{ textAlign: 'center' }}>
-            <p>
-              <small>
-                (สามารถปรับตัวเลขได้ตามใจชอบ โดยกดปุ่มเพิ่ม/ลด หรือ กดที่ช่องตัวเลขแล้วพิมพ์)
-              </small>
-            </p>
+          <div className="col">
+            <p className="helper-text">(กดปุ่ม +/- หรือ กดที่ช่องตัวเลขแล้วพิมพ์)</p>
           </div>
         </div>
         <div className="row" style={{ marginBottom: 30 }}>
@@ -108,8 +104,8 @@ class ElectionResultPanel extends React.PureComponent {
       <div className={className}>
         ใช้ตัวเลขจาก
         <div className="row">
-          <div className="col-md-auto">
-            <div className="input-group" style={{ marginBottom: 10 }}>
+          <div className="col-sm-auto">
+            <div className="input-group select-box">
               <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
                 {listOfPresets.map(rs => (
                   <option value={rs.key} key={rs.key}>
@@ -118,21 +114,19 @@ class ElectionResultPanel extends React.PureComponent {
                 ))}
                 <option value="CUSTOM">กำหนดเอง</option>
               </select>
+              <button
+                type="button"
+                className={`btn btn-outline-secondary preset-btn ${isEditing ? 'active' : ''}`}
+                onClick={() => {
+                  this.setState({ isEditing: !isEditing });
+                }}
+              >
+                {isEditing ? 'หยุดแก้ไข' : 'แก้ไข'}
+              </button>
             </div>
           </div>
-          <div className="col">
-            <button
-              type="button"
-              className={`btn btn-outline-secondary ${isEditing ? 'active' : ''}`}
-              onClick={() => {
-                this.setState({ isEditing: !isEditing });
-              }}
-            >
-              <i className="fa fa-edit" /> แก้ไข
-            </button>
-          </div>
+          <div className="col" />
         </div>
-        <p />
         {!isEditing && (
           <div className="row">
             <div className="col">

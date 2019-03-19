@@ -1,3 +1,8 @@
+.election-result-table {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
 .election-result-table td {
   border: none;
 }

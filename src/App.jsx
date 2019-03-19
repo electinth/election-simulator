@@ -105,13 +105,19 @@ class App extends React.PureComponent {
             <section className={this.getPageClass(0)}>
               <ElectHeader />
               <div className="page-content">
-                <h1>ทำนายผลเลือกตั้ง 62</h1>
-                <p>
+                <h1>
+                  ทำนายผล
+                  <br />
+                  เลือกตั้ง 2562
+                </h1>
+                <p className="introduction">
                   24 มีนาคม 62 คนไทยจะได้ใช้สิทธิเลือก ‘ผู้แทน’ เข้าไปทำหน้าที่ในสภาฯ
                   พรรคไหนจะได้ส.ส. เท่าไหร่? ใครจะอยู่พรรคร่วมรัฐบาลบ้าง?
                   รัฐบาลและนายกรัฐมนตรีคนต่อไปของประเทศไทยจะหน้าตาแบบไหน?
                 </p>
-                <p>ก่อนจะรู้ผลอย่างเป็นทางการ ลองมาทำนายผลการเลือกตั้งด้วยตัวคุณเอง</p>
+                <p className="introduction">
+                  ก่อนจะรู้ผลอย่างเป็นทางการ ลองมาทำนายผลการเลือกตั้งด้วยตัวคุณเอง
+                </p>
               </div>
             </section>
             <section className={this.getPageClass(1)}>

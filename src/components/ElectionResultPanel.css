@@ -1,0 +1,14 @@
+.select-box {
+  margin: 10px 0;
+}
+
+.custom-select {
+  margin-right: 10px;
+  font-size: 0.9em;
+  border-radius: 3px !important;
+}
+
+.preset-btn {
+  font-size: 0.9em;
+  border-radius: 3px;
+}

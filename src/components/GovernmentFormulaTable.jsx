@@ -42,7 +42,7 @@ class GovernmentFormulaTable extends React.PureComponent {
             <Breadcrumb page={2} />
             <h3>2. จัดตั้งรัฐบาล</h3>
             <div className="table-container">
-              <table className={className} style={{ marginTop: 20, marginBottom: 20 }}>
+              <table className={className} style={{ marginBottom: 20 }}>
                 <thead>
                   <tr>
                     <th>
