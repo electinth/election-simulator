@@ -36,8 +36,10 @@ class SeatInput extends React.PureComponent {
 
   handleTextChange(value) {
     const newValue = Number(value);
-    const { onValueChange } = this.props;
-    onValueChange(this.boundValue(newValue));
+    if (!Number.isNaN(newValue)) {
+      const { onValueChange } = this.props;
+      onValueChange(this.boundValue(newValue));
+    }
   }
 
   handleButtonClick(diff) {
@@ -71,6 +73,7 @@ class SeatInput extends React.PureComponent {
             type="text"
             className="form-control form-control-sm seat-input-number"
             placeholder=""
+            pattern="\d*"
             aria-label="Example text with button addon"
             aria-describedby="button-addon1"
             value={value}

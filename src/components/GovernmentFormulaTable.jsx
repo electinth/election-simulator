@@ -41,6 +41,19 @@ class GovernmentFormulaTable extends React.PureComponent {
           <div className="page-content">
             <Breadcrumb page={2} />
             <h3>2. จัดตั้งรัฐบาล</h3>
+            <div className="form-group">
+              <label htmlFor="">จำนวนเสียงสนับสนุนจากส.ว.</label>
+              <SeatInput
+                value={senatorVotes}
+                maxValue={TOTAL_SENATOR}
+                steppers={[250]}
+                onValueChange={newValue => {
+                  this.update({
+                    senatorVotes: newValue,
+                  });
+                }}
+              />
+            </div>
             <div className="table-container">
               <table className={className} style={{ marginBottom: 20 }}>
                 <thead>
@@ -113,19 +126,6 @@ class GovernmentFormulaTable extends React.PureComponent {
                   ))}
                 </tbody>
               </table>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">จำนวนเสียงสนับสนุนจากส.ว.</label>
-              <SeatInput
-                value={senatorVotes}
-                maxValue={TOTAL_SENATOR}
-                steppers={[250]}
-                onValueChange={newValue => {
-                  this.update({
-                    senatorVotes: newValue,
-                  });
-                }}
-              />
             </div>
           </div>
         </div>
