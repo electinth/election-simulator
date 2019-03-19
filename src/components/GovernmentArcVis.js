@@ -338,7 +338,7 @@ class GovernmentVis extends SvgChart {
         }),
       )
       .attr('fill', mainParty.color)
-      .style('opacity', 0.5);
+      .style('opacity', 0.3);
   }
 }
 

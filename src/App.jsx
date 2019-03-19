@@ -173,11 +173,14 @@ class App extends React.PureComponent {
                   <React.Fragment>
                     <h4>พรรคร่วมรัฐบาล</h4>
                     {simulation.getAllyPartyResults().map(p => (
-                      <React.Fragment key={p.party.name}>
+                      <div
+                        key={p.party.name}
+                        style={{ display: 'inline-block', marginRight: '8px' }}
+                      >
                         <PartyColorMark radius={5} color={p.party.color} />
                         &nbsp;
-                        {p.party.name} ({p.seats}) &nbsp; &nbsp;
-                      </React.Fragment>
+                        {p.party.name} ({p.seats})
+                      </div>
                     ))}
                   </React.Fragment>
                 )}
