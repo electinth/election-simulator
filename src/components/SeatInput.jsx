@@ -3,8 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
-import './SeatInput.css';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
+import './SeatInput.css';
 
 const propTypes = {
   className: PropTypes.string,
@@ -19,28 +19,6 @@ const defaultProps = {
   onValueChange() {},
   steppers: [1, 10],
   value: 0,
-};
-
-const TEXT_INPUT_STYLE = {
-  borderLeft: 'none',
-  borderRadius: 0,
-  borderRight: 'none',
-  borderTop: 'none',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  height: '28px',
-  paddingBottom: 0,
-  paddingTop: 0,
-  textAlign: 'right',
-};
-const BUTTON_STYLE = {
-  // border: 'none',
-  borderRadius: '4px',
-  // color: '#fff',
-  fontSize: '0.75em',
-  marginLeft: 2,
-  marginRight: 2,
-  minWidth: '28px',
 };
 
 class SeatInput extends React.PureComponent {
@@ -81,23 +59,21 @@ class SeatInput extends React.PureComponent {
               .map(step => (
                 <button
                   key={step}
-                  className="btn btn-sm btn-light"
+                  className="btn seat-input-btn minus-btn"
                   type="button"
-                  style={BUTTON_STYLE}
                   onClick={() => this.handleButtonClick(step)}
                 >
-                  <i className="fas fa-minus fa-sm" /> {step < -1 ? Math.abs(step) : ''}
+                  -{step < -1 ? Math.abs(step) : ''}
                 </button>
               ))}
           </div>
           <input
             type="text"
-            className="form-control form-control-sm"
+            className="form-control form-control-sm seat-input-number"
             placeholder=""
             aria-label="Example text with button addon"
             aria-describedby="button-addon1"
             value={value}
-            style={TEXT_INPUT_STYLE}
             onChange={ev => {
               this.handleTextChange(ev.target.value);
             }}
@@ -106,12 +82,11 @@ class SeatInput extends React.PureComponent {
             {steppers.map(step => (
               <button
                 key={step}
-                className="btn btn-sm btn-light"
+                className="btn seat-input-btn plus-btn"
                 type="button"
-                style={BUTTON_STYLE}
                 onClick={() => this.handleButtonClick(step)}
               >
-                <i className="fas fa-plus fa-sm" /> {step > 1 ? step : ''}
+                +{step > 1 ? step : ''}
               </button>
             ))}
           </div>
