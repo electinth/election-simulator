@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PartyWithResult from '../models/PartyWithResult';
 import PartyColorMark from './PartyColorMark';
+import './ElectionResultTable.css';
+import Party, { REMAINDER_PARTY_NAME } from '../models/Party';
 
 const propTypes = {
   className: PropTypes.string,
@@ -13,13 +15,13 @@ const defaultProps = {
 };
 
 class ElectionResultTable extends React.Component {
-  render() {
-    const { className, sortedParties } = this.props;
+  renderTable(parties) {
+    const { className } = this.props;
 
     return (
-      <table className={className}>
+      <table className={`${className} election-result-table`}>
         <tbody>
-          {sortedParties.map(p => (
+          {parties.map(p => (
             <tr key={p.party.name} className="table table-sm">
               <td>
                 <PartyColorMark radius={4} color={p.party.color} />
@@ -30,6 +32,32 @@ class ElectionResultTable extends React.Component {
           ))}
         </tbody>
       </table>
+    );
+  }
+
+  render() {
+    const { sortedParties } = this.props;
+
+    const partiesSortedBySeats = sortedParties.concat().sort((a, b) => {
+      if (a.party.name === REMAINDER_PARTY_NAME) {
+        return 1;
+      } else if (b.party.name === REMAINDER_PARTY_NAME) {
+        return -1;
+      }
+
+      return b.seats - a.seats;
+    });
+    const half = partiesSortedBySeats.length / 2;
+
+    return (
+      <React.Fragment>
+        <div className="row">
+          <div className="col-sm-auto">{this.renderTable(partiesSortedBySeats.slice(0, half))}</div>
+          <div className="col">
+            {this.renderTable(partiesSortedBySeats.slice(half, partiesSortedBySeats.length))}
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
