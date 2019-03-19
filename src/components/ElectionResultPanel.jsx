@@ -2,17 +2,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { keyBy } from 'lodash';
+import { entries } from 'lodash';
 import ElectionResult from '../models/ElectionResult';
 import presets from '../data/electionResults';
 import SeatInput from './SeatInput';
 import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
-import { DEFAULT_ELECTION_PRESET_INDEX } from '../constants';
+import { DEFAULT_ELECTION_PRESET } from '../constants';
 import ElectionResultTable from './ElectionResultTable';
 import PartyColorMark from './PartyColorMark';
 
-const presetLookup = keyBy(presets, p => p.key);
+const listOfPresets = entries(presets).map(([key, value]) => ({ key, value }));
 
 const propTypes = {
   className: PropTypes.string,
@@ -27,8 +27,7 @@ const defaultProps = {
 class ElectionResultPanel extends React.PureComponent {
   constructor(props) {
     super(props);
-    const preset = presets[DEFAULT_ELECTION_PRESET_INDEX].key;
-    this.state = { isEditing: false, preset };
+    this.state = { isEditing: false, preset: DEFAULT_ELECTION_PRESET };
     this.handlePresetChange = this.handlePresetChange.bind(this);
   }
 
@@ -37,12 +36,12 @@ class ElectionResultPanel extends React.PureComponent {
     const { onChange } = this.props;
     const preset = ev.target.value;
     const newResult =
-      preset === 'CUSTOM' ? result.clone() : new ElectionResult(presetLookup[preset].result);
+      preset === 'CUSTOM' ? result.clone() : new ElectionResult(presets[preset].result);
     this.setState({
       preset,
       result: newResult,
     });
-    onChange(newResult);
+    onChange({ preset, result: newResult });
   }
 
   renderEditor(sortedParties) {
@@ -79,11 +78,12 @@ class ElectionResultPanel extends React.PureComponent {
                   value={p.seats}
                   onValueChange={value => {
                     const newResult = result.cloneAndUpdateSeats(p.party.name, value);
-                    this.setState({
+                    const partialState = {
                       preset: 'CUSTOM',
                       result: newResult,
-                    });
-                    onChange(newResult);
+                    };
+                    this.setState(partialState);
+                    onChange(partialState);
                   }}
                 />
               </div>
@@ -114,9 +114,9 @@ class ElectionResultPanel extends React.PureComponent {
           <div className="col-md-auto">
             <div className="input-group" style={{ marginBottom: 10 }}>
               <select className="custom-select" onChange={this.handlePresetChange} value={preset}>
-                {presets.map(rs => (
+                {listOfPresets.map(rs => (
                   <option value={rs.key} key={rs.key}>
-                    {rs.name}
+                    {rs.value.name}
                   </option>
                 ))}
                 <option value="CUSTOM">กำหนดเอง</option>

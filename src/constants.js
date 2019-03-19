@@ -1,3 +1,3 @@
 /* eslint-disable import/prefer-default-export */
 
-export const DEFAULT_ELECTION_PRESET_INDEX = 0;
+export const DEFAULT_ELECTION_PRESET = 'demo';

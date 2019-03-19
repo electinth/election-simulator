@@ -1,8 +1,7 @@
 /* eslint-disable sort-keys */
 
-export default [
-  {
-    key: 'demo',
+export default {
+  demo: {
     name: 'The Matter นั่งเทียนมา',
     description: 'demo',
     result: {
@@ -17,8 +16,7 @@ export default [
       เพื่อชาติ: 30,
     },
   },
-  {
-    key: 'siripan',
+  siripan: {
     name: 'รศ.ดร. สิริพรรณ นกสวน สวัสดี',
     description: 'demo',
     result: {
@@ -32,8 +30,7 @@ export default [
       อนาคตใหม่: 10,
     },
   },
-  {
-    key: 'sarunee',
+  sarunee: {
     name: 'สฤณี อาชวานันทกุล',
     description: 'demo',
     result: {
@@ -47,8 +44,7 @@ export default [
       อนาคตใหม่: 10,
     },
   },
-  {
-    key: 'yingcheap',
+  yingcheap: {
     name: 'ยิ่งชีพ อัชฌานนท์',
     description: 'demo',
     result: {
@@ -62,7 +58,7 @@ export default [
       อนาคตใหม่: 10,
     },
   },
-  {
+  satithorn: {
     key: 'satithorn',
     name: 'สติธร ธนานิธิโชติ',
     description: 'demo',
@@ -77,4 +73,4 @@ export default [
       อนาคตใหม่: 10,
     },
   },
-];
+};

@@ -74,30 +74,29 @@ class App extends AppBase {
             <section className={this.getPageClass(0)}>
               <ElectHeader />
               <div className="page-content">
-              <h1>ทำนายผลเลือกตั้ง 62</h1>
-              <p>
-                24 มีนาคม 62 คนไทยจะได้ใช้สิทธิเลือก ‘ผู้แทน’ เข้าไปทำหน้าที่ในสภาฯ
-  พรรคไหนจะได้ส.ส. เท่าไหร่? ใครจะอยู่พรรคร่วมรัฐบาลบ้าง?
-  รัฐบาลและนายกรัฐมนตรีคนต่อไปของประเทศไทยจะหน้าตาแบบไหน?
-  </p><p>
-  ก่อนจะรู้ผลอย่างเป็นทางการ ลองมาทำนายผลการเลือกตั้งด้วยตัวคุณเอง
-              </p>
+                <h1>ทำนายผลเลือกตั้ง 62</h1>
+                <p>
+                  24 มีนาคม 62 คนไทยจะได้ใช้สิทธิเลือก ‘ผู้แทน’ เข้าไปทำหน้าที่ในสภาฯ
+                  พรรคไหนจะได้ส.ส. เท่าไหร่? ใครจะอยู่พรรคร่วมรัฐบาลบ้าง?
+                  รัฐบาลและนายกรัฐมนตรีคนต่อไปของประเทศไทยจะหน้าตาแบบไหน?
+                </p>
+                <p>ก่อนจะรู้ผลอย่างเป็นทางการ ลองมาทำนายผลการเลือกตั้งด้วยตัวคุณเอง</p>
               </div>
             </section>
             <section className={this.getPageClass(1)}>
               <div className="page-content">
-              <Breadcrumb page={1} />
-              <h3>1. สัดส่วนส.ส.แต่ละพรรคในสภา</h3>
-              <div className="row">
-                <div className="col">
-                  <ElectionResultPanel
-                    result={electionResult}
-                    onChange={value => {
-                      this.setState({ electionResult: value });
-                    }}
-                  />
+                <Breadcrumb page={1} />
+                <h3>1. สัดส่วนส.ส.แต่ละพรรคในสภา</h3>
+                <div className="row">
+                  <div className="col">
+                    <ElectionResultPanel
+                      result={electionResult}
+                      onChange={({ preset, result }) => {
+                        this.setState({ electionResult: result, electionResultPreset: preset });
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
               </div>
             </section>
             <section className={this.getPageClass(2)}>
@@ -113,32 +112,28 @@ class App extends AppBase {
               />
             </section>
             <section className={this.getPageClass(3)}>
-                <div className="page-content">
+              <div className="page-content">
                 <Breadcrumb page={3} />
-              <h3>3. สรุป</h3>
-              <p>
-                {simulation.printSummary()}
-              </p>
-              <div className="text-align-center">
-                <SimulationLegend simulation={simulation} />
-                <GovernmentVis data={simulation} />
-              </div>
-              <h4>พรรคหลัก</h4>
-              <PartyColorMark radius={4} color={mainPartyResult.party.color} />
-              {mainPartyResult.party.name}
-              ({mainPartyResult.seats})
-              {simulation.allyParties.size > 0 && (
-                <React.Fragment>
-                  <h4>พรรคร่วมรัฐบาล</h4>
-                  {simulation.getAllyPartyResults().map(p => (
-                    <React.Fragment>
-                      <PartyColorMark radius={4} color={p.party.color} />
-                      {p.party.name}
-                      ({p.seats})
-                    </React.Fragment>
-                  ))}
-                </React.Fragment>
-              )}
+                <h3>3. สรุป</h3>
+                <p>{simulation.printSummary()}</p>
+                <div className="text-align-center">
+                  <SimulationLegend simulation={simulation} />
+                  <GovernmentVis data={simulation} />
+                </div>
+                <h4>พรรคหลัก</h4>
+                <PartyColorMark radius={4} color={mainPartyResult.party.color} />
+                {mainPartyResult.party.name}({mainPartyResult.seats})
+                {simulation.allyParties.size > 0 && (
+                  <React.Fragment>
+                    <h4>พรรคร่วมรัฐบาล</h4>
+                    {simulation.getAllyPartyResults().map(p => (
+                      <React.Fragment key={p.party.name}>
+                        <PartyColorMark radius={4} color={p.party.color} />
+                        {p.party.name}({p.seats})
+                      </React.Fragment>
+                    ))}
+                  </React.Fragment>
+                )}
               </div>
             </section>
           </div>
