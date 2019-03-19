@@ -79,7 +79,7 @@ State.fromUrlParams = function fromUrlParams(paramsString) {
     .replace('?', '')
     .split('&')
     .filter(x => x.length > 0)
-    .map(pair => {
+    .forEach(pair => {
       const [key, value] = pair.split('=');
       params[key] = JSON.parse(decodeURIComponent(value));
     });

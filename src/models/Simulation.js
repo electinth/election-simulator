@@ -50,13 +50,11 @@ export default class Simulation {
       .filter(r => r.partyWithResult.party === this.mainParty)
       .concat(representatives.filter(r => this.allyParties.has(r.partyWithResult.party)))
       .concat(
-        representatives
-          .filter(
-            r =>
-              r.partyWithResult.party !== this.mainParty &&
-              !this.allyParties.has(r.partyWithResult.party),
-          )
-          .reverse(),
+        representatives.filter(
+          r =>
+            r.partyWithResult.party !== this.mainParty &&
+            !this.allyParties.has(r.partyWithResult.party),
+        ),
       );
   }
 
