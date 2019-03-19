@@ -1,8 +1,14 @@
 /* eslint-disable no-magic-numbers */
 import { range as d3Range } from 'd3-array';
+import { arc as d3Arc } from 'd3-shape';
 import { SvgChart, helper } from 'd3kit';
 import 'd3-transition';
-import { TOTAL_SENATOR, PRIME_MINISTER_THRESHOLD, COUNCIL_THRESHOLD } from '../models/rules';
+import {
+  TOTAL_SENATOR,
+  PRIME_MINISTER_THRESHOLD,
+  COUNCIL_THRESHOLD,
+  TOTAL_REPRESENTATIVE,
+} from '../models/rules';
 
 function compare(a, b) {
   const diff = a.angle - b.angle;
@@ -18,12 +24,12 @@ class GovernmentVis extends SvgChart {
     return helper.deepExtend(super.getDefaultOptions(), {
       glyphRadius: 2.5,
       innerRadius: 80,
-      outerRadius: 160,
+      outerRadius: 154,
       rings: [64, 62, 56, 52, 50, 50, 48, 44, 38, 36],
       gapBetweenCouncil: 10,
       margin: {
-        left: 0,
-        right: 0,
+        left: 6,
+        right: 6,
         bottom: 10,
       },
     });
@@ -36,7 +42,7 @@ class GovernmentVis extends SvgChart {
   constructor(element, options) {
     super(element, options);
 
-    this.layers.create(['senator', 'representative', 'council-annotation', 'pm-annotation']);
+    this.layers.create(['arc', 'senator', 'representative', 'council-annotation', 'pm-annotation']);
     this.layers
       .get('council-annotation')
       .append('path')
@@ -53,6 +59,10 @@ class GovernmentVis extends SvgChart {
       .get('pm-annotation')
       .append('text')
       .classed('caption', true);
+    this.layers
+      .get('arc')
+      .append('path')
+      .classed('progress', true);
 
     this.visualize = this.visualize.bind(this);
     this.on('data', this.visualize);
@@ -111,6 +121,7 @@ class GovernmentVis extends SvgChart {
     this.renderSenators();
     this.renderPMAnnotation();
     this.renderCouncilAnnotation();
+    this.renderArc();
   }
 
   renderRepresentatives() {
@@ -303,6 +314,31 @@ class GovernmentVis extends SvgChart {
       .style('font-size', '11px')
       .style('font-weight', 'normal')
       .text('ได้สภาฯ');
+  }
+
+  renderArc() {
+    const simulation = this.data();
+    const { innerRadius, outerRadius, gapBetweenCouncil } = this.options();
+    const { totalSeats, senatorVotes, mainParty } = simulation;
+
+    const layer = this.layers
+      .get('arc')
+      .attr('transform', `translate(${this.getInnerWidth() / 2},${this.getInnerHeight() / 2})`);
+
+    layer
+      .select('path.progress')
+      .attr(
+        'd',
+        d3Arc()({
+          y: -gapBetweenCouncil / 2,
+          innerRadius: innerRadius - 5,
+          outerRadius: outerRadius + 10,
+          startAngle: ((-90 - (senatorVotes / TOTAL_SENATOR) * 90) * Math.PI) / 180,
+          endAngle: ((-90 + (totalSeats / TOTAL_REPRESENTATIVE) * 180) * Math.PI) / 180,
+        }),
+      )
+      .attr('fill', mainParty.color)
+      .style('opacity', 0.5);
   }
 }
 
