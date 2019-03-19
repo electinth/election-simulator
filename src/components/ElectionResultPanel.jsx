@@ -17,6 +17,7 @@ const listOfPresets = entries(presets).map(([key, value]) => ({ key, value }));
 const propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
+  preset: PropTypes.string.isRequired,
   result: PropTypes.instanceOf(ElectionResult).isRequired,
 };
 const defaultProps = {
@@ -27,20 +28,16 @@ const defaultProps = {
 class ElectionResultPanel extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { isEditing: false, preset: DEFAULT_ELECTION_PRESET };
+    this.state = { isEditing: false };
     this.handlePresetChange = this.handlePresetChange.bind(this);
   }
 
   handlePresetChange(ev) {
-    const { result } = this.state;
+    const { result } = this.props;
     const { onChange } = this.props;
     const preset = ev.target.value;
     const newResult =
       preset === 'CUSTOM' ? result.clone() : new ElectionResult(presets[preset].result);
-    this.setState({
-      preset,
-      result: newResult,
-    });
     onChange({ preset, result: newResult });
   }
 
@@ -95,8 +92,8 @@ class ElectionResultPanel extends React.PureComponent {
   }
 
   render() {
-    const { className, result } = this.props;
-    const { preset, isEditing } = this.state;
+    const { className, preset, result } = this.props;
+    const { isEditing } = this.state;
 
     const remainderParty = result.partyWithResults.filter(
       p => p.party.name === REMAINDER_PARTY_NAME,

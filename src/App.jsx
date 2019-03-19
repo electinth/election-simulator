@@ -5,7 +5,7 @@ import './css/style.css';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
-import AppBase from './AppBase';
+// import AppBase from './AppBase';
 import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentFormulaTable from './components/GovernmentFormulaTable';
 import RawGovernmentVis from './components/GovernmentVis';
@@ -14,19 +14,30 @@ import SimulationLegend from './components/SimulationLegend';
 import ElectHeader from './components/ElectHeader';
 import PartyColorMark from './components/PartyColorMark';
 import Breadcrumb from './components/Breadcrumb';
+import State from './models/State';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
 
-class App extends AppBase {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state.currentPage = 0;
-    this.previousPage = this.previousPage.bind(this);
-    this.nextPage = this.nextPage.bind(this);
+
+    this.state = { state: State.fromUrlParams(window.location.search.toString()) };
+    this.handlePrevPage = this.handlePrevPage.bind(this);
+    this.handleNextPage = this.handleNextPage.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateUrl();
+  }
+
+  componentDidUpdate() {
+    this.updateUrl();
   }
 
   getPageClass(index) {
-    const { currentPage } = this.state;
+    const { state } = this.state;
+    const { currentPage } = state;
     if (currentPage > index) {
       return 'page previous-page';
     } else if (currentPage < index) {
@@ -36,26 +47,46 @@ class App extends AppBase {
     return 'page';
   }
 
-  previousPage() {
-    const { currentPage } = this.state;
+  updateUrl() {
+    if (window.history && window.history.pushState) {
+      const { state } = this.state;
+      const prevParams = `${window.location.search}`;
+      const newParams = `?${state.toUrlParams()}`;
+
+      if (prevParams !== newParams) {
+        const url = `${window.location.toString().split('?')[0]}${newParams}`;
+        window.history.pushState({}, null, url);
+      }
+    }
+  }
+
+  handlePrevPage() {
+    const { state } = this.state;
+    const { currentPage } = state;
     if (currentPage > 0) {
       this.setState({
-        currentPage: currentPage - 1,
+        state: state.set({
+          currentPage: currentPage - 1,
+        }),
       });
     }
   }
 
-  nextPage() {
-    const { currentPage } = this.state;
+  handleNextPage() {
+    const { state } = this.state;
+    const { currentPage } = state;
     if (currentPage < 3) {
       this.setState({
-        currentPage: currentPage + 1,
+        state: state.set({
+          currentPage: currentPage + 1,
+        }),
       });
     }
   }
 
   render() {
-    const { electionResult, governmentConfig, currentPage } = this.state;
+    const { state } = this.state;
+    const { electionResultPreset, electionResult, governmentConfig, currentPage } = state;
 
     let simulation;
     if (electionResult && governmentConfig) {
@@ -90,9 +121,15 @@ class App extends AppBase {
                 <div className="row">
                   <div className="col">
                     <ElectionResultPanel
+                      preset={electionResultPreset}
                       result={electionResult}
                       onChange={({ preset, result }) => {
-                        this.setState({ electionResult: result, electionResultPreset: preset });
+                        this.setState({
+                          state: state.set({
+                            electionResult: result,
+                            electionResultPreset: preset,
+                          }),
+                        });
                       }}
                     />
                   </div>
@@ -106,7 +143,9 @@ class App extends AppBase {
                 governmentConfig={governmentConfig}
                 onChange={value => {
                   this.setState({
-                    governmentConfig: value,
+                    state: state.set({
+                      governmentConfig: value,
+                    }),
                   });
                 }}
               />
@@ -139,33 +178,33 @@ class App extends AppBase {
           </div>
           <nav className="nav-pane">
             {currentPage === 0 && (
-              <button type="button" className="next-btn" onClick={this.nextPage}>
+              <button type="button" className="next-btn" onClick={this.handleNextPage}>
                 เริ่ม <i className="fas fa-chevron-right" />
               </button>
             )}
             {currentPage === 1 && (
               <React.Fragment>
-                <button type="button" className="" onClick={this.previousPage}>
+                <button type="button" className="" onClick={this.handlePrevPage}>
                   <i className="fas fa-chevron-left" /> หน้าแรก
                 </button>
-                <button type="button" className="next-btn" onClick={this.nextPage}>
+                <button type="button" className="next-btn" onClick={this.handleNextPage}>
                   จัดตั้งรัฐบาล <i className="fas fa-chevron-right" />
                 </button>
               </React.Fragment>
             )}
             {currentPage === 2 && (
               <React.Fragment>
-                <button type="button" className="" onClick={this.previousPage}>
+                <button type="button" className="" onClick={this.handlePrevPage}>
                   <i className="fas fa-chevron-left" /> ปรับสัดส่วน
                 </button>
-                <button type="button" className="next-btn" onClick={this.nextPage}>
+                <button type="button" className="next-btn" onClick={this.handleNextPage}>
                   สรุป <i className="fas fa-chevron-right" />
                 </button>
               </React.Fragment>
             )}
             {currentPage === 3 && (
               <React.Fragment>
-                <button type="button" className="" onClick={this.previousPage}>
+                <button type="button" className="" onClick={this.handlePrevPage}>
                   <i className="fas fa-chevron-left" /> จัดตั้งรัฐบาล
                 </button>
                 <button type="button" className="next-btn">

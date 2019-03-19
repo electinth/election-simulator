@@ -5,19 +5,15 @@ import PropTypes from 'prop-types';
 import ElectionResult from '../models/ElectionResult';
 import SeatInput from './SeatInput';
 import { TOTAL_SENATOR } from '../models/rules';
-import Party from '../models/Party';
 import PartyColorMark from './PartyColorMark';
 import './GovernmentFormulaTable.css';
 import Breadcrumb from './Breadcrumb';
+import GovernmentConfig from '../models/GovernmentConfig';
 
 const propTypes = {
   className: PropTypes.string,
   electionResult: PropTypes.instanceOf(ElectionResult).isRequired,
-  governmentConfig: PropTypes.shape({
-    allyParties: PropTypes.instanceOf(Set),
-    mainParty: PropTypes.instanceOf(Party),
-    senatorVotes: PropTypes.number,
-  }).isRequired,
+  governmentConfig: PropTypes.instanceOf(GovernmentConfig).isRequired,
   onChange: PropTypes.func,
 };
 const defaultProps = {
@@ -28,7 +24,7 @@ const defaultProps = {
 class GovernmentFormulaTable extends React.PureComponent {
   update(newValue) {
     const { governmentConfig, onChange } = this.props;
-    onChange({ ...governmentConfig, ...newValue });
+    onChange(governmentConfig.set(newValue));
   }
 
   render() {
