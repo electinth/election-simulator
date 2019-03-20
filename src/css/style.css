@@ -101,7 +101,7 @@ article>header {
   width: 100%;
   height: 100%;
   left: 0;
-  transition: left .3s;
+  transition: all .3s;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -122,6 +122,14 @@ article>header {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
 }
 
+.btn-red {
+  background-color: #F0324B;
+  color: #fff;
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+}
+
 .nav-pane button {
   height: 100%;
   flex: 1 1 50%;
@@ -137,7 +145,7 @@ article>header {
 
 .credit-pane {
   flex: 0 0 auto;
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: #ccc;
   padding: 10px;
   padding-top: 20px;
@@ -197,6 +205,10 @@ footer section {
   transition: all .3s;
 }
 
+.large-display-only {
+  display: none;
+}
+
 button, button:focus {
   outline: none !important;
   outline-color: transparent !important;
@@ -246,6 +258,74 @@ button, button:focus {
   padding: 25px;
   margin-top: 20px;
   text-align: center;
+}
+
+.share-floater {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.share-floater button.btn.btn-red {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@media screen and (min-width: 1080px) {
+  .frame-container{
+    max-width: 1500px;
+    padding: 20px 20px 20px;
+  }
+  .k-breadcrumb {
+    display: none;
+  }
+  .nav-pane {
+    display: none;
+  }
+
+  .content-pane {
+    border-radius: 4px;
+    /* overflow: visible; */
+  }
+
+  .content-pane .page.page-0 {
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    border: none;
+    background-color: #fff;
+    transition: left .6s;
+  }
+  .content-pane .page.page-1,
+  .content-pane .page.page-1.next-page,
+  .content-pane .page.page-1.previous-page {
+    left: 0;
+  }
+  .content-pane .page.page-2,
+  .content-pane .page.page-2.next-page,
+  .content-pane .page.page-2.previous-page {
+    left: 33.33%;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+  }
+  .content-pane .page.page-3,
+  .content-pane .page.page-3.next-page,
+  .content-pane .page.page-3.previous-page {
+    left: 66.67%;
+  }
+
+  .content-pane .page.page-0.previous-page {
+    left: -100%;
+  }
+  .content-pane .page {
+    width: 33.33%;
+  }
+
+  .large-display-only {
+    display: block;
+  }
 }
 
 @media screen and (max-device-width: 667px) {

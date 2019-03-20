@@ -28,10 +28,10 @@ class GovernmentVis extends SvgChart {
       rings: [64, 62, 56, 52, 50, 50, 48, 44, 38, 36],
       gapBetweenCouncil: 2,
       margin: {
-        // top: 60,
+        top: 30,
         left: 6,
         right: 6,
-        bottom: 10,
+        bottom: 5,
       },
     });
   }
@@ -259,7 +259,7 @@ class GovernmentVis extends SvgChart {
       .transition()
       .attr('d', `M${x2},${y2} L${x},${y}`)
       .attr('fill', 'none')
-      .attr('stroke', '#222')
+      .attr('stroke', '#666')
       .attr('stroke-width', '1px');
     // .attr('stroke-dasharray', '4,4');
 
@@ -273,7 +273,8 @@ class GovernmentVis extends SvgChart {
       // .attr('y', y - 2)
       .attr('text-anchor', 'middle')
       .style('font-size', '13px')
-      .text('ได้นายกฯ');
+      .style('fill', '#999')
+      .text('ได้นายกฯ (376)');
   }
 
   renderCouncilAnnotation() {
@@ -292,7 +293,7 @@ class GovernmentVis extends SvgChart {
     const radius = outerRadius + 10;
     const x = Math.cos(radianAngle) * radius;
     const y = Math.sin(radianAngle) * radius;
-    const radius2 = innerRadius - 20;
+    const radius2 = innerRadius - 24;
     const x2 = Math.cos(radianAngle) * radius2;
     const y2 = Math.sin(radianAngle) * radius2;
 
@@ -301,7 +302,7 @@ class GovernmentVis extends SvgChart {
       .transition()
       .attr('d', `M${x2},${y2} L${x},${y}`)
       .attr('fill', 'none')
-      .attr('stroke', '#222')
+      .attr('stroke', '#666')
       .attr('stroke-width', '1px');
     // .attr('stroke-dasharray', '4,4');
 
@@ -315,7 +316,8 @@ class GovernmentVis extends SvgChart {
       // .attr('y', y - 2)
       .attr('text-anchor', 'middle')
       .style('font-size', '13px')
-      .text('ได้สภาฯ');
+      .style('fill', '#999')
+      .text('ได้สภาฯ (251)');
   }
 
   renderArc() {

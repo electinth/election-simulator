@@ -37,13 +37,14 @@ class App extends React.PureComponent {
   getPageClass(index) {
     const { state } = this.state;
     const { currentPage } = state;
+    const base = `page-${index}`;
     if (currentPage > index) {
-      return 'page previous-page';
+      return `${base} page previous-page`;
     } else if (currentPage < index) {
-      return 'page next-page';
+      return `${base} page next-page`;
     }
 
-    return 'page';
+    return `${base} page`;
   }
 
   updateUrl() {
@@ -110,7 +111,7 @@ class App extends React.PureComponent {
       <div className="frame-container">
         <article className="frame">
           <div className="content-pane">
-            <section className={this.getPageClass(0)}>
+            <section className={`first-page ${this.getPageClass(0)}`}>
               <ElectHeader />
               <div className="page-content">
                 <h1>
@@ -127,12 +128,17 @@ class App extends React.PureComponent {
                 <p className="introduction">
                   ก่อนจะรู้ผลอย่างเป็นทางการ ลองมาทำนายผลการเลือกตั้งด้วยตัวคุณเอง
                 </p>
+                <p className="introduction large-display-only">
+                  <button type="button" className="btn btn-red" onClick={this.handleNextPage}>
+                    เริ่ม <i className="fas fa-chevron-right" />
+                  </button>
+                </p>
               </div>
             </section>
             <section className={this.getPageClass(1)}>
               <div className="page-content">
                 <Breadcrumb page={1} />
-                <h3>1. สัดส่วนส.ส.แต่ละพรรคในสภา</h3>
+                <h3>1. สัดส่วนส.ส.แต่ละพรรค</h3>
                 <div className="row">
                   <div className="col">
                     <ElectionResultPanel
@@ -168,11 +174,16 @@ class App extends React.PureComponent {
             <section className={this.getPageClass(3)}>
               <div className="page-content">
                 <Breadcrumb page={3} />
+                <div className="share-floater float-right large-display-only">
+                  <button type="button" className="btn btn-red" onClick={this.handleShare}>
+                    แชร์ <i className="fas fa-share" />
+                  </button>
+                </div>
                 <h3>3. สรุป</h3>
-                <p>{simulation.printSummary()}</p>
+                <p style={{ height: 48, marginBottom: 0 }}>{simulation.printSummary()}</p>
                 <div className="text-align-center">
-                  <SimulationLegend simulation={simulation} />
                   <GovernmentVis data={simulation} />
+                  <SimulationLegend simulation={simulation} />
                 </div>
               </div>
             </section>

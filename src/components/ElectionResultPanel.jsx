@@ -58,7 +58,7 @@ class ElectionResultPanel extends React.PureComponent {
           {sortedParties.map(p => (
             <div
               key={p.party.name}
-              className="col-lg-6 col-md-12 col-sm-6"
+              className="col-lg-12 col-md-12 col-sm-6"
               style={{ marginTop: 8, marginBottom: 8 }}
             >
               <div>
