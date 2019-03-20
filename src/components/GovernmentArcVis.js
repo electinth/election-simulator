@@ -26,7 +26,7 @@ class GovernmentVis extends SvgChart {
       innerRadius: 80,
       outerRadius: 154,
       rings: [64, 62, 56, 52, 50, 50, 48, 44, 38, 36],
-      gapBetweenCouncil: 10,
+      gapBetweenCouncil: 2,
       margin: {
         // top: 60,
         left: 6,
@@ -191,13 +191,16 @@ class GovernmentVis extends SvgChart {
     const { glyphRadius, gapBetweenCouncil } = this.options();
     const { senatorVotes, mainParty } = simulation;
 
+    const OFFSET = 10;
     const len = this.senatorPositions.length;
     const senators = d3Range(0, TOTAL_SENATOR).map(id => {
       const isAlly = id < senatorVotes;
 
       return {
         isAlly,
-        position: this.senatorPositions[isAlly ? len - id - 1 : id - senatorVotes],
+        position: this.senatorPositions[
+          isAlly ? len - id - 1 - OFFSET : id - senatorVotes + OFFSET
+        ],
       };
     });
 
@@ -244,7 +247,7 @@ class GovernmentVis extends SvgChart {
 
     const angle = ((PRIME_MINISTER_THRESHOLD - senatorVotes) / 500) * 180;
     const radianAngle = ((angle + 180) * Math.PI) / 180;
-    const radius = outerRadius + 10;
+    const radius = outerRadius + 20;
     const x = Math.cos(radianAngle) * radius;
     const y = Math.sin(radianAngle) * radius;
     const radius2 = innerRadius - 10;
@@ -256,9 +259,9 @@ class GovernmentVis extends SvgChart {
       .transition()
       .attr('d', `M${x2},${y2} L${x},${y}`)
       .attr('fill', 'none')
-      .attr('stroke', '#000')
-      .attr('stroke-width', '2px')
-      .attr('stroke-dasharray', '4,4');
+      .attr('stroke', '#222')
+      .attr('stroke-width', '1px');
+    // .attr('stroke-dasharray', '4,4');
 
     layer
       .select('text.caption')
@@ -290,7 +293,7 @@ class GovernmentVis extends SvgChart {
     const radius = outerRadius + 10;
     const x = Math.cos(radianAngle) * radius;
     const y = Math.sin(radianAngle) * radius;
-    const radius2 = innerRadius - 10;
+    const radius2 = innerRadius - 20;
     const x2 = Math.cos(radianAngle) * radius2;
     const y2 = Math.sin(radianAngle) * radius2;
 
@@ -299,9 +302,9 @@ class GovernmentVis extends SvgChart {
       .transition()
       .attr('d', `M${x2},${y2} L${x},${y}`)
       .attr('fill', 'none')
-      .attr('stroke', '#000')
-      .attr('stroke-width', '2px')
-      .attr('stroke-dasharray', '4,4');
+      .attr('stroke', '#222')
+      .attr('stroke-width', '1px');
+    // .attr('stroke-dasharray', '4,4');
 
     layer
       .select('text.caption')
@@ -330,17 +333,15 @@ class GovernmentVis extends SvgChart {
       .select('path.progress')
       .attr(
         'd',
-        d3Arc()({
-          y: -gapBetweenCouncil / 2,
-          innerRadius: innerRadius - 5,
-          outerRadius: outerRadius + 10,
-          startAngle: ((-90 - (senatorVotes / TOTAL_SENATOR) * 90) * Math.PI) / 180,
-          endAngle: ((-90 + (totalSeats / TOTAL_REPRESENTATIVE) * 180) * Math.PI) / 180,
-          cornerRadius: 3,
-        }),
+        d3Arc()
+          .innerRadius(innerRadius - 10)
+          .outerRadius(outerRadius + 10)
+          .startAngle(((-90 - ((senatorVotes + 10) / TOTAL_SENATOR) * 90) * Math.PI) / 180)
+          .endAngle(((-90 + (totalSeats / TOTAL_REPRESENTATIVE) * 180) * Math.PI) / 180)
+          .cornerRadius(4),
       )
       .attr('fill', mainParty.color)
-      .style('opacity', 0.3);
+      .style('opacity', 0.2);
   }
 }
 

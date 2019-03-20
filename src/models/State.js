@@ -13,7 +13,7 @@ export default class State {
       this.electionResult = electionResult;
       this.governmentConfig = governmentConfig;
     } else {
-      const { currentPage = 0, electionResultPreset, electionResult, governmentConfig } = input;
+      const { currentPage = 3, electionResultPreset, electionResult, governmentConfig } = input;
       this.currentPage = currentPage;
 
       if (electionResultPreset) {

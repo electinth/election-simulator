@@ -13,20 +13,33 @@ export default function SimulationLegend(props) {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <small className="party-name">
         {senatorVotes > 0 && (
           <span>
-            <PartyColorMark shape="round-rect" color={mainParty.color} /> ส.ว. &nbsp;
+            <PartyColorMark shape="diamond" color={mainParty.color} /> ส.ว. &nbsp;
           </span>
         )}
-        <PartyColorMark color={mainParty.color} /> {mainParty.name}
+        <PartyColorMark color={mainParty.color} /> {mainParty.name} ({simulation.getMainPartyResult().seats})
         {allyParties && allyParties.size > 0 && (
           <React.Fragment>
-            &nbsp; <PartyColorMark shape="hollow-circle" color={mainParty.color} /> พรรคร่วมรัฐบาล (
-            {allyParties.size} พรรค)
+            &nbsp; <PartyColorMark shape="hollow-circle" color={mainParty.color} /> พรรคร่วมรัฐบาล:&nbsp;
+            {simulation.getAllyPartyResults().map(p => (
+              <div
+                key={p.party.name}
+                style={{ display: 'inline-block', margin: '0 2px' }}
+              >
+                <small>
+                {p.party.name} ({p.seats})
+                </small>
+              </div>
+            ))}
           </React.Fragment>
         )}
-      </small>
+        {allyParties && allyParties.size < simulation.electionResult.partyWithResults.length && (
+          <React.Fragment>
+            &nbsp;
+            <PartyColorMark shape="cross" color='#aaa' /> พรรคฝ่ายค้าน
+          </React.Fragment>
+        )}
     </div>
   );
 }

@@ -26,6 +26,15 @@ class PartyColorMark extends React.Component {
       return (
         <rect x="2" y="2" rx="2" width={(radius - 1) * 2} height={(radius - 1) * 2} fill={color} />
       );
+    } else if (shape === 'diamond') {
+      return (
+        <rect x={-radius+1} y={-radius+1} rx="2" width={(radius - 1) * 2} height={(radius - 1) * 2} fill={color} transform={`translate(${radius},${radius})rotate(45)`} />
+      );
+    } else if (shape === 'cross') {
+      const shortRadius = radius - 1;
+      return (
+        <path transform={`translate(${radius},${radius})`} d={`M${-shortRadius},${-shortRadius} L${shortRadius},${shortRadius} M${-shortRadius},${shortRadius} L${shortRadius},${-shortRadius}`} stroke={color} strokeWidth={1.5} />
+      );
     }
 
     return <circle cx={radius} cy={radius} r={radius} fill={color} />;
