@@ -5,14 +5,12 @@ import './css/style.css';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
-// import AppBase from './AppBase';
 import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentFormulaTable from './components/GovernmentFormulaTable';
 import RawGovernmentVis from './components/GovernmentArcVis';
 import Simulation from './models/Simulation';
 import SimulationLegend from './components/SimulationLegend';
 import ElectHeader from './components/ElectHeader';
-import PartyColorMark from './components/PartyColorMark';
 import Breadcrumb from './components/Breadcrumb';
 import State from './models/State';
 
@@ -25,6 +23,7 @@ class App extends React.PureComponent {
     this.state = { state: State.fromUrlParams(window.location.search.toString()) };
     this.handlePrevPage = this.handlePrevPage.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
+    this.handleShare = this.handleShare.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +83,17 @@ class App extends React.PureComponent {
     }
   }
 
+  handleShare() {
+    // eslint-disable-next-line no-undef
+    FB.ui(
+      {
+        href: window.location.toString(),
+        method: 'share',
+      },
+      function handleResponse() {},
+    );
+  }
+
   render() {
     const { state } = this.state;
     const { electionResultPreset, electionResult, governmentConfig, currentPage } = state;
@@ -95,8 +105,6 @@ class App extends React.PureComponent {
         ...governmentConfig,
       });
     }
-
-    const mainPartyResult = simulation.getMainPartyResult();
 
     return (
       <div className="frame-container">
@@ -199,19 +207,7 @@ class App extends React.PureComponent {
                 <button type="button" className="" onClick={this.handlePrevPage}>
                   <i className="fas fa-chevron-left" /> จัดตั้งรัฐบาล
                 </button>
-                <button
-                  type="button"
-                  className="next-btn"
-                  onClick={() => {
-                    FB.ui(
-                      {
-                        href: window.location.toString(),
-                        method: 'share',
-                      },
-                      function(response) {},
-                    );
-                  }}
-                >
+                <button type="button" className="next-btn" onClick={this.handleShare}>
                   แชร์ <i className="fas fa-share" />
                 </button>
               </React.Fragment>

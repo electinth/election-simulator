@@ -12,10 +12,8 @@ html, body {
 
 svg text {
   font-family: "Noto Sans",
-  'Noto Sans Thai UI',
-  'Libre Baskerville',
-  'The Matter',
-  serif;
+  'Noto Sans Thai',
+  sans-serif;
   font-weight: normal;
 }
 

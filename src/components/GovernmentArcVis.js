@@ -272,8 +272,7 @@ class GovernmentVis extends SvgChart {
       // .attr('x', x + 2)
       // .attr('y', y - 2)
       .attr('text-anchor', 'middle')
-      .style('font-size', '11px')
-      .style('font-weight', 'normal')
+      .style('font-size', '13px')
       .text('ได้นายกฯ');
   }
 
@@ -315,8 +314,7 @@ class GovernmentVis extends SvgChart {
       // .attr('x', x + 2)
       // .attr('y', y - 2)
       .attr('text-anchor', 'middle')
-      .style('font-size', '11px')
-      .style('font-weight', 'normal')
+      .style('font-size', '13px')
       .text('ได้สภาฯ');
   }
 
