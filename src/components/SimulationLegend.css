@@ -1,0 +1,10 @@
+.simulation-legend {
+  /* margin-bottom: 10px; */
+  font-size: 0.85em;
+}
+
+.legend-column {
+  width: 160px;
+  padding: 10px;
+  vertical-align: top;
+}

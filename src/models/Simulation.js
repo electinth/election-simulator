@@ -65,4 +65,10 @@ export default class Simulation {
   getAllyPartyResults() {
     return this.electionResult.getPartiesWithSeats().filter(p => this.allyParties.has(p.party));
   }
+
+  getOppositePartyResults() {
+    return this.electionResult
+      .getPartiesWithSeats()
+      .filter(p => !this.allyParties.has(p.party) && p.party !== this.mainParty);
+  }
 }
