@@ -71,4 +71,10 @@ export default class Simulation {
       .getPartiesWithSeats()
       .filter(p => !this.allyParties.has(p.party) && p.party !== this.mainParty);
   }
+
+  toFormula() {
+    return [this.mainParty.name]
+      .concat(this.getAllyPartyResults().map(p => p.party.name))
+      .join(' + ');
+  }
 }

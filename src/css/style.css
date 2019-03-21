@@ -266,10 +266,27 @@ button, button:focus {
   top: 0px;
 }
 
-.share-floater button.btn.btn-red {
+.share-floater .btn.btn-red {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.share-floater .btn.btn-red:hover {
+  color: #fff;
+}
+
+.share-buttons-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.SocialMediaShareButton {
+  /* width: 32px; */
+  display: inline-block;
+  cursor: pointer;
+  margin: -2px 5px 0px 5px;
+  vertical-align: middle;
 }
 
 @media screen and (min-width: 1080px) {
@@ -325,6 +342,11 @@ button, button:focus {
 
   .large-display-only {
     display: block;
+  }
+
+  .SocialMediaShareButton {
+    margin: -5px 5px 0px 5px;
+    vertical-align: middle;
   }
 }
 

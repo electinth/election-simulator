@@ -5,6 +5,14 @@ import './css/style.css';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  LineShareButton,
+  LineIcon,
+} from 'react-share';
 import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentFormulaTable from './components/GovernmentFormulaTable';
 import RawGovernmentVis from './components/GovernmentArcVis';
@@ -15,6 +23,8 @@ import Breadcrumb from './components/Breadcrumb';
 import State from './models/State';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
+const SHARE_ICON_SIZE = 32;
+const ICON_BG_STYLE = { fill: 'rgba(255,255,255,0.4)' };
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -45,6 +55,32 @@ class App extends React.PureComponent {
     }
 
     return `${base} page`;
+  }
+
+  createShareButtons(size, simulation) {
+    const title = `ทำนายผลเลือกตั้ง 2562: ${simulation.toFormula()}`;
+    const url = window.location.toString();
+
+    return (
+      <React.Fragment>
+        <a
+          href="#"
+          className="SocialMediaShareButton"
+          onClick={e => {
+            e.preventDefault();
+            this.handleShare(title);
+          }}
+        >
+          <FacebookIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+        </a>
+        <TwitterShareButton title={title} url={url} hashtags={['electinth']}>
+          <TwitterIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+        </TwitterShareButton>
+        <LineShareButton title={title} url={url}>
+          <LineIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+        </LineShareButton>
+      </React.Fragment>
+    );
   }
 
   updateUrl() {
@@ -84,12 +120,14 @@ class App extends React.PureComponent {
     }
   }
 
-  handleShare() {
+  handleShare(title) {
     // eslint-disable-next-line no-undef
     FB.ui(
       {
+        hashtag: '#electinth',
         href: window.location.toString(),
         method: 'share',
+        quote: title,
       },
       function handleResponse() {},
     );
@@ -121,9 +159,12 @@ class App extends React.PureComponent {
                 </h1>
                 <p className="introduction">
                   24 มีนาคม 62 คนไทยจะได้ใช้สิทธิเลือก &quot;ผู้แทน&quot; เข้าไปทำหน้าที่ในสภาฯ
-                  <div>พรรคไหนจะได้ส.ส. เท่าไหร่?</div>
-                  <div>ใครจะอยู่พรรคร่วมรัฐบาลบ้าง?</div>
-                  <div>รัฐบาลและนายกรัฐมนตรีคนต่อไปของประเทศไทยจะหน้าตาแบบไหน?</div>
+                  <br />
+                  พรรคไหนจะได้ส.ส. เท่าไหร่?
+                  <br />
+                  ใครจะอยู่พรรคร่วมรัฐบาลบ้าง?
+                  <br />
+                  รัฐบาลและนายกรัฐมนตรีคนต่อไปของประเทศไทยจะหน้าตาแบบไหน?
                 </p>
                 <p className="introduction">
                   ก่อนจะรู้ผลอย่างเป็นทางการ ลองมาทำนายผลการเลือกตั้งด้วยตัวคุณเอง
@@ -175,9 +216,10 @@ class App extends React.PureComponent {
               <div className="page-content">
                 <Breadcrumb page={3} />
                 <div className="share-floater float-right large-display-only">
-                  <button type="button" className="btn btn-red" onClick={this.handleShare}>
-                    แชร์ <i className="fas fa-share" />
-                  </button>
+                  <div className="btn btn-red">
+                    แชร์ &nbsp;
+                    {this.createShareButtons(24, simulation)}
+                  </div>
                 </div>
                 <h3>3. สรุป</h3>
                 <p style={{ height: 48, marginBottom: 0 }}>{simulation.printSummary()}</p>
@@ -219,8 +261,9 @@ class App extends React.PureComponent {
                 <button type="button" className="" onClick={this.handlePrevPage}>
                   <i className="fas fa-chevron-left" /> จัดตั้งรัฐบาล
                 </button>
-                <button type="button" className="next-btn" onClick={this.handleShare}>
-                  แชร์ <i className="fas fa-share" />
+                <button type="button" className="next-btn">
+                  แชร์ &nbsp;
+                  {this.createShareButtons(30, simulation)}
                 </button>
               </React.Fragment>
             )}
