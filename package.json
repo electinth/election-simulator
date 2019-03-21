@@ -63,6 +63,7 @@
     "react": "^16.8.2",
     "react-d3kit": "^2.0.0",
     "react-dom": "^16.8.2",
+    "react-ga": "^2.5.7",
     "react-hot-loader": "^4.6.5",
     "react-share": "^2.4.0"
   }

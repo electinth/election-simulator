@@ -3,6 +3,7 @@ import './css/style-header-white.css';
 import './css/style.css';
 
 import React from 'react';
+import ReactGA from 'react-ga';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
 import {
@@ -58,7 +59,8 @@ class App extends React.PureComponent {
   }
 
   createShareButtons(size, simulation) {
-    const title = `ทำนายผลเลือกตั้ง 2562: ${simulation.toFormula()}`;
+    const formula = simulation.toFormula();
+    const title = `ทำนายผลเลือกตั้ง 2562: ${formula}`;
     const url = window.location.toString();
 
     return (
@@ -69,15 +71,44 @@ class App extends React.PureComponent {
           onClick={e => {
             e.preventDefault();
             this.handleShare(title);
+            ReactGA.event({
+              category: 'Share',
+              action: 'Facebook',
+              label: formula,
+            });
           }}
         >
           <FacebookIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
         </a>
         <TwitterShareButton title={title} url={url} hashtags={['electinth']}>
-          <TwitterIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+          <a
+            href="#"
+            onClick={e => {
+              e.preventDefault();
+              ReactGA.event({
+                action: 'Twitter',
+                category: 'Share',
+                label: formula,
+              });
+            }}
+          >
+            <TwitterIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+          </a>
         </TwitterShareButton>
         <LineShareButton title={title} url={url}>
-          <LineIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+          <a
+            href="#"
+            onClick={e => {
+              e.preventDefault();
+              ReactGA.event({
+                action: 'Line',
+                category: 'Share',
+                label: formula,
+              });
+            }}
+          >
+            <LineIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
+          </a>
         </LineShareButton>
       </React.Fragment>
     );
