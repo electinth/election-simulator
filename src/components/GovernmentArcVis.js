@@ -246,22 +246,24 @@ class GovernmentVis extends SvgChart {
     const { senatorVotes } = this.data();
     const { innerRadius, outerRadius, gapBetweenCouncil } = this.options();
 
+    const angle = ((PRIME_MINISTER_THRESHOLD - senatorVotes) / 500) * 180 + 90;
+    const radianAngle = ((angle + 180) * Math.PI) / 180;
+    const radius = outerRadius + 20;
+    const x = 0;
+    const y = radius;
+    const radius2 = innerRadius - 10;
+    const x2 = 0;
+    const y2 = radius2;
+
     const layer = this.layers
       .get('pm-annotation')
+      .transition()
+      .duration(500)
       .attr(
         'transform',
         `translate(${this.getInnerWidth() / 2},${this.getInnerHeight() / 2 -
-          gapBetweenCouncil / 2})`,
+          gapBetweenCouncil / 2})rotate(${angle})`,
       );
-
-    const angle = ((PRIME_MINISTER_THRESHOLD - senatorVotes) / 500) * 180;
-    const radianAngle = ((angle + 180) * Math.PI) / 180;
-    const radius = outerRadius + 20;
-    const x = Math.cos(radianAngle) * radius;
-    const y = Math.sin(radianAngle) * radius;
-    const radius2 = innerRadius - 10;
-    const x2 = Math.cos(radianAngle) * radius2;
-    const y2 = Math.sin(radianAngle) * radius2;
 
     layer
       .select('path.threshold')
@@ -275,7 +277,7 @@ class GovernmentVis extends SvgChart {
     layer
       .select('text.caption')
       // .transition()
-      .attr('transform', `translate(${x},${y})rotate(${angle + 270})`)
+      .attr('transform', `translate(${x},${y})rotate(180)`)
       .attr('dy', -5)
       .attr('dx', 0)
       // .attr('x', x + 2)
@@ -368,6 +370,7 @@ class GovernmentVis extends SvgChart {
     path
       .transition()
       .delay(300)
+      .duration(500)
       .attrTween(
         'd',
         arcTween({
