@@ -5,11 +5,13 @@ import './Breadcrumb.css';
 const propTypes = {
   className: PropTypes.string,
   padding: PropTypes.number,
+  page: PropTypes.number,
   radius: PropTypes.number,
 };
 const defaultProps = {
   className: '',
   padding: 4,
+  page: 0,
   radius: 6,
 };
 
@@ -36,7 +38,7 @@ class Breadcrumb extends React.Component {
     const w = radius * 2 + padding;
 
     return (
-      <div className="k-breadcrumb">
+      <div className={`${className} k-breadcrumb`}>
         {this.renderCircle(page === 1)}
         <svg width="50" height={w}>
           <line x2="50" y1={w / 2} y2={w / 2} stroke="#ccc" strokeDasharray="2 2" />

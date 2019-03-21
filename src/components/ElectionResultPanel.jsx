@@ -59,7 +59,7 @@ class ElectionResultPanel extends React.PureComponent {
             <div
               key={p.party.name}
               className="col-lg-12 col-md-12 col-sm-6"
-              style={{ marginTop: 8, marginBottom: 8 }}
+              style={{ marginBottom: 8, marginTop: 8 }}
             >
               <div>
                 <label className="party-name">

@@ -22,17 +22,17 @@ function compare(a, b) {
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
     return helper.deepExtend(super.getDefaultOptions(), {
+      gapBetweenCouncil: 2,
       glyphRadius: 2.5,
       innerRadius: 80,
-      outerRadius: 154,
-      rings: [64, 62, 56, 52, 50, 50, 48, 44, 38, 36],
-      gapBetweenCouncil: 2,
       margin: {
-        top: 30,
+        bottom: 5,
         left: 6,
         right: 6,
-        bottom: 5,
+        top: 30,
       },
+      outerRadius: 154,
+      rings: [64, 62, 56, 52, 50, 50, 48, 44, 38, 36],
     });
   }
 
@@ -109,8 +109,6 @@ class GovernmentVis extends SvgChart {
 
     const { glyphRadius, outerRadius, margin, gapBetweenCouncil } = this.options();
 
-    const simulation = this.data();
-
     const size = outerRadius * 2 + glyphRadius * 2 + 4;
     this.dimension([
       size + margin.left + margin.right,
@@ -131,7 +129,8 @@ class GovernmentVis extends SvgChart {
     const { mainParty, allyParties } = simulation;
 
     const representatives = simulation.generateRepresentatives();
-    representatives.forEach((r, i) => {
+    representatives.forEach((rep, i) => {
+      const r = rep;
       r.position = this.repPositions[i];
       r.isMainParty = r.partyWithResult.party === mainParty;
       r.isAlly = allyParties.has(r.partyWithResult.party);
@@ -164,7 +163,7 @@ class GovernmentVis extends SvgChart {
       )
       // .attr('r', d => (d.isMainParty ? R : R - 1))
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
-      .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
+      .attr('fill', d => (d.isAlly ? 'rgba(0,0,0,0)' : d.partyWithResult.party.color))
       .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color))
       .attr('stroke-width', '1.5px');
 
@@ -182,7 +181,7 @@ class GovernmentVis extends SvgChart {
           : `M${-glyphRadius},${-glyphRadius} L${glyphRadius},${glyphRadius} M${-glyphRadius},${glyphRadius} L${glyphRadius},${-glyphRadius}`,
       )
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
-      .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
+      .attr('fill', d => (d.isAlly ? 'rgba(0,0,0,0)' : d.partyWithResult.party.color))
       .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color));
   }
 
@@ -197,6 +196,7 @@ class GovernmentVis extends SvgChart {
       const isAlly = id < senatorVotes;
 
       return {
+        id,
         isAlly,
         position: this.senatorPositions[
           isAlly ? len - id - 1 - OFFSET : id - senatorVotes + OFFSET
@@ -212,7 +212,7 @@ class GovernmentVis extends SvgChart {
           gapBetweenCouncil / 2})`,
       )
       .selectAll('g')
-      .data(senators);
+      .data(senators, d => d.id);
 
     selection.exit().remove();
 
@@ -322,7 +322,7 @@ class GovernmentVis extends SvgChart {
 
   renderArc() {
     const simulation = this.data();
-    const { innerRadius, outerRadius, gapBetweenCouncil } = this.options();
+    const { innerRadius, outerRadius } = this.options();
     const { totalSeats, senatorVotes, mainParty } = simulation;
 
     const layer = this.layers
@@ -331,6 +331,7 @@ class GovernmentVis extends SvgChart {
 
     layer
       .select('path.progress')
+      .transition()
       .attr(
         'd',
         d3Arc()
