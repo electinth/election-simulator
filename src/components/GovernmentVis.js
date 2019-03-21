@@ -159,7 +159,8 @@ class GovernmentVis extends SvgChart {
     const { mainParty, allyParties } = simulation;
 
     const representatives = simulation.generateRepresentatives();
-    representatives.forEach(r => {
+    representatives.forEach(rep => {
+      const r = rep;
       r.isMainParty = r.partyWithResult.party === mainParty;
       r.isAlly = allyParties.has(r.partyWithResult.party);
     });
@@ -187,7 +188,7 @@ class GovernmentVis extends SvgChart {
       )
       // .attr('r', d => (d.isMainParty ? R : R - 1))
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
-      .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
+      .attr('fill', d => (d.isAlly ? 'rgba(0,0,0,0)' : d.partyWithResult.party.color))
       .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color))
       .attr('stroke-width', '1.5px');
 
@@ -209,7 +210,7 @@ class GovernmentVis extends SvgChart {
           : `M${-R},${-R} L${R},${R} M${-R},${R} L${R},${-R}`,
       )
       .style('opacity', d => (d.isMainParty || d.isAlly ? 1 : 0.5))
-      .attr('fill', d => (!d.isAlly ? d.partyWithResult.party.color : 'rgba(0,0,0,0)'))
+      .attr('fill', d => (d.isAlly ? 'rgba(0,0,0,0)' : d.partyWithResult.party.color))
       .attr('stroke', d => (d.isAlly ? mainParty.color : d.partyWithResult.party.color));
 
     selection.exit().remove();

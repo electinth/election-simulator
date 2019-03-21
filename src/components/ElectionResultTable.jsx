@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import PartyWithResult from '../models/PartyWithResult';
 import PartyColorMark from './PartyColorMark';
 import './ElectionResultTable.css';
-import Party, { REMAINDER_PARTY_NAME } from '../models/Party';
+import { REMAINDER_PARTY_NAME } from '../models/Party';
 
 const propTypes = {
-  className: PropTypes.string,
   sortedParties: PropTypes.arrayOf(PropTypes.instanceOf(PartyWithResult)),
 };
 const defaultProps = {
-  className: '',
   sortedParties: [],
 };
 

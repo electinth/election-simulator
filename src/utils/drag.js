@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* eslint-disable no-magic-numbers */
 
 import d3 from 'd3';

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for, no-magic-numbers */
 
 import React from 'react';
@@ -9,12 +11,14 @@ import PartyColorMark from './PartyColorMark';
 import './GovernmentFormulaTable.css';
 import Breadcrumb from './Breadcrumb';
 import GovernmentConfig from '../models/GovernmentConfig';
+import Simulation from '../models/Simulation';
 
 const propTypes = {
   className: PropTypes.string,
   electionResult: PropTypes.instanceOf(ElectionResult).isRequired,
   governmentConfig: PropTypes.instanceOf(GovernmentConfig).isRequired,
   onChange: PropTypes.func,
+  simulation: PropTypes.instanceOf(Simulation).isRequired,
 };
 const defaultProps = {
   className: '',
@@ -58,21 +62,9 @@ class GovernmentFormulaTable extends React.PureComponent {
               <table className={className} style={{ marginBottom: 20 }}>
                 <thead>
                   <tr>
-                    <th>
-                      <div style={{ textAlign: 'center', marginLeft: 5, marginRight: 5 }}>
-                        <small>พรรคหลัก</small>
-                      </div>
-                    </th>
-                    <th style={{ textAlign: 'center' }}>
-                      <div style={{ textAlign: 'center', marginLeft: 5, marginRight: 5 }}>
-                        <small>ร่วมรัฐบาล</small>
-                      </div>
-                    </th>
-                    <th>
-                      <div style={{ textAlign: 'center', marginLeft: 5, marginRight: 5 }}>
-                        <small>เสียง</small>
-                      </div>
-                    </th>
+                    <th className="government-formula-table-title">พรรคหลัก</th>
+                    <th className="government-formula-table-title">ร่วมรัฐบาล</th>
+                    <th className="government-formula-table-title">เสียง</th>
                     <th />
                     <th />
                   </tr>
@@ -84,14 +76,15 @@ class GovernmentFormulaTable extends React.PureComponent {
                         <i
                           role="button"
                           className={`${p.party === mainParty ? 'fas' : 'far'} fa-star`}
-                          onClick={() => {
+                          onClick={e => {
+                            e.preventDefault();
                             const newSet = new Set(allyParties.values());
                             if (allyParties.has(p.party)) {
                               newSet.delete(p.party);
                             }
                             this.update({
-                              mainParty: p.party,
                               allyParties: newSet,
+                              mainParty: p.party,
                             });
                           }}
                         />
