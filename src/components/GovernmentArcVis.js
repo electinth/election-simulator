@@ -76,7 +76,6 @@ class GovernmentVis extends SvgChart {
 
   computeLayout() {
     this.repPositions = [];
-    this.senatorPositions = [];
     const { innerRadius, outerRadius, rings } = this.options();
 
     const gapBetweenRings = (outerRadius - innerRadius) / (rings.length - 1);
@@ -104,7 +103,7 @@ class GovernmentVis extends SvgChart {
     });
 
     this.repPositions.sort(compare);
-    this.senatorPositions.sort(compare);
+    // this.senatorPositions.sort(compare);
   }
 
   visualize() {
@@ -197,11 +196,14 @@ class GovernmentVis extends SvgChart {
     const len = this.repPositions.length;
     const senators = d3Range(0, TOTAL_SENATOR).map(id => {
       const isAlly = id < senatorVotes;
+      const oppositeSenatorVotes = TOTAL_SENATOR - senatorVotes;
 
       return {
         id,
         isAlly,
-        position: this.repPositions[isAlly ? len - id - 1 - OFFSET : id - senatorVotes + OFFSET],
+        position: this.repPositions[
+          isAlly ? len - id - 1 - OFFSET : oppositeSenatorVotes - 1 - id + senatorVotes + OFFSET
+        ],
       };
     });
 
@@ -234,10 +236,12 @@ class GovernmentVis extends SvgChart {
 
     selection
       .transition()
+      .duration(500)
       .attr('transform', ({ position }) => `translate(${position.x}, ${position.y})`);
 
     selection
       .select('rect')
+      .transition()
       .attr('transform', ({ position }) => `rotate(${position.angle + 45})`)
       .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
   }
@@ -247,7 +251,6 @@ class GovernmentVis extends SvgChart {
     const { innerRadius, outerRadius, gapBetweenCouncil } = this.options();
 
     const angle = ((PRIME_MINISTER_THRESHOLD - senatorVotes) / 500) * 180 + 90;
-    const radianAngle = ((angle + 180) * Math.PI) / 180;
     const radius = outerRadius + 20;
     const x = 0;
     const y = radius;
