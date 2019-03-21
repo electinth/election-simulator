@@ -256,7 +256,7 @@ class GovernmentVis extends SvgChart {
 
     layer
       .select('path.threshold')
-      .transition()
+      // .transition()
       .attr('d', `M${x2},${y2} L${x},${y}`)
       .attr('fill', 'none')
       .attr('stroke', '#666')
@@ -265,7 +265,7 @@ class GovernmentVis extends SvgChart {
 
     layer
       .select('text.caption')
-      .transition()
+      // .transition()
       .attr('transform', `translate(${x},${y})rotate(${angle + 270})`)
       .attr('dy', -5)
       .attr('dx', 0)
@@ -299,7 +299,7 @@ class GovernmentVis extends SvgChart {
 
     layer
       .select('path.threshold')
-      .transition()
+      // .transition()
       .attr('d', `M${x2},${y2} L${x},${y}`)
       .attr('fill', 'none')
       .attr('stroke', '#666')
@@ -308,7 +308,7 @@ class GovernmentVis extends SvgChart {
 
     layer
       .select('text.caption')
-      .transition()
+      // .transition()
       .attr('transform', `translate(${x},${y2})rotate(${angle + 270})`)
       .attr('dy', 14)
       .attr('dx', 0)
@@ -331,7 +331,7 @@ class GovernmentVis extends SvgChart {
 
     layer
       .select('path.progress')
-      .transition()
+      // .transition()
       .attr(
         'd',
         d3Arc()
