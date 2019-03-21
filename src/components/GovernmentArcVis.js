@@ -1,8 +1,10 @@
 /* eslint-disable no-magic-numbers */
 import { range as d3Range } from 'd3-array';
+import { interpolate } from 'd3-interpolate';
 import { arc as d3Arc } from 'd3-shape';
 import { SvgChart, helper } from 'd3kit';
 import 'd3-transition';
+import { round } from 'lodash';
 import {
   TOTAL_SENATOR,
   PRIME_MINISTER_THRESHOLD,
@@ -29,7 +31,7 @@ class GovernmentVis extends SvgChart {
         bottom: 5,
         left: 6,
         right: 6,
-        top: 30,
+        top: 38,
       },
       outerRadius: 154,
       rings: [64, 62, 56, 52, 50, 50, 48, 44, 38, 36],
@@ -63,7 +65,8 @@ class GovernmentVis extends SvgChart {
     this.layers
       .get('arc')
       .append('path')
-      .classed('progress', true);
+      .classed('progress', true)
+      .datum({});
 
     this.visualize = this.visualize.bind(this);
     this.on('data', this.visualize);
@@ -86,17 +89,17 @@ class GovernmentVis extends SvgChart {
         this.repPositions.push({
           angle,
           ringIndex,
-          x: Math.cos(radianAngle) * ringRadius,
-          y: Math.sin(radianAngle) * ringRadius,
+          x: round(Math.cos(radianAngle) * ringRadius, 2),
+          y: round(Math.sin(radianAngle) * ringRadius, 2),
         });
 
-        const radianAngle2 = (angle * Math.PI) / 180;
-        this.senatorPositions.push({
-          angle,
-          ringIndex,
-          x: Math.cos(radianAngle2) * ringRadius,
-          y: Math.sin(radianAngle2) * ringRadius,
-        });
+        // const radianAngle2 = (angle * Math.PI) / 180;
+        // this.senatorPositions.push({
+        //   angle,
+        //   ringIndex,
+        //   x: round(Math.cos(radianAngle2) * ringRadius, 2),
+        //   y: round(Math.sin(radianAngle2) * ringRadius, 2),
+        // });
       }
     });
 
@@ -191,16 +194,14 @@ class GovernmentVis extends SvgChart {
     const { senatorVotes, mainParty } = simulation;
 
     const OFFSET = 10;
-    const len = this.senatorPositions.length;
+    const len = this.repPositions.length;
     const senators = d3Range(0, TOTAL_SENATOR).map(id => {
       const isAlly = id < senatorVotes;
 
       return {
         id,
         isAlly,
-        position: this.senatorPositions[
-          isAlly ? len - id - 1 - OFFSET : id - senatorVotes + OFFSET
-        ],
+        position: this.repPositions[isAlly ? len - id - 1 - OFFSET : id - senatorVotes + OFFSET],
       };
     });
 
@@ -209,28 +210,36 @@ class GovernmentVis extends SvgChart {
       .attr(
         'transform',
         `translate(${this.getInnerWidth() / 2},${this.getInnerHeight() / 2 +
-          gapBetweenCouncil / 2})`,
+          gapBetweenCouncil / 2})rotate(180)`,
       )
       .selectAll('g')
       .data(senators, d => d.id);
 
     selection.exit().remove();
 
-    selection
+    const g = selection
       .enter()
       .append('g')
       .classed('senator', true)
-      .attr('transform', ({ position }) => `translate(${position.x}, ${position.y})`)
-      .append('rect')
+      .attr('transform', ({ position }) => `translate(${position.x}, ${position.y})`);
+
+    g.append('rect')
       .attr('transform', ({ position }) => `rotate(${position.angle + 45})`)
+      .attr('x', -glyphRadius)
+      .attr('y', -glyphRadius)
       .attr('height', (glyphRadius - 0.5) * 2)
       .attr('width', (glyphRadius - 0.5) * 2)
       .attr('rx', 1)
       .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
 
-    selection.attr('transform', ({ position }) => `translate(${position.x}, ${position.y})`);
+    selection
+      .transition()
+      .attr('transform', ({ position }) => `translate(${position.x}, ${position.y})`);
 
-    selection.select('rect').attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
+    selection
+      .select('rect')
+      .attr('transform', ({ position }) => `rotate(${position.angle + 45})`)
+      .attr('fill', d => (d.isAlly ? mainParty.color : '#999'));
   }
 
   renderPMAnnotation() {
@@ -329,17 +338,42 @@ class GovernmentVis extends SvgChart {
       .get('arc')
       .attr('transform', `translate(${this.getInnerWidth() / 2},${this.getInnerHeight() / 2})`);
 
-    layer
-      .select('path.progress')
-      // .transition()
-      .attr(
+    const path = layer.select('path.progress');
+
+    const arc = d3Arc()
+      .innerRadius(innerRadius - 10)
+      .outerRadius(outerRadius + 10)
+      .cornerRadius(4);
+
+    function arcTween({ startAngle, endAngle }) {
+      return function tween(d) {
+        const prevStartAngle = d.startAngle || 0;
+        const prevEndAngle = d.endAngle || 0;
+        const datum = d;
+        datum.startAngle = startAngle;
+        datum.endAngle = endAngle;
+        // interpolate both its starting and ending angles
+        const interpolateStart = interpolate(prevStartAngle || 0, startAngle);
+        const interpolateEnd = interpolate(prevEndAngle || 0, endAngle);
+
+        return function draw(t) {
+          return arc({
+            endAngle: interpolateEnd(t),
+            startAngle: interpolateStart(t),
+          });
+        };
+      };
+    }
+
+    path
+      .transition()
+      .delay(300)
+      .attrTween(
         'd',
-        d3Arc()
-          .innerRadius(innerRadius - 10)
-          .outerRadius(outerRadius + 10)
-          .startAngle(((-90 - ((senatorVotes + 10) / TOTAL_SENATOR) * 90) * Math.PI) / 180)
-          .endAngle(((-90 + (totalSeats / TOTAL_REPRESENTATIVE) * 180) * Math.PI) / 180)
-          .cornerRadius(4),
+        arcTween({
+          endAngle: ((-90 + (totalSeats / TOTAL_REPRESENTATIVE) * 180) * Math.PI) / 180,
+          startAngle: ((-90 - ((senatorVotes + 10) / TOTAL_SENATOR) * 90) * Math.PI) / 180,
+        }),
       )
       .attr('fill', mainParty.color)
       .style('opacity', 0.2);
