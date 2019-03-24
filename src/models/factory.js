@@ -16,7 +16,7 @@ const parties = [
 
 /* eslint-disable import/prefer-default-export */
 export function randomizeResults() {
-  const misc = Math.round(Math.random() * 20) + 10;
+  const misc = Math.round(Math.random() * 10) + 20;
   const results = parties.map(p => ({
     name: p,
     value: Math.random(),
@@ -24,7 +24,7 @@ export function randomizeResults() {
   const totalSeatsNotMisc = 500 - misc;
   const total = d3Sum(results, r => r.value);
   results.forEach(r => {
-    r.value = Math.round((r.value / total) * totalSeatsNotMisc);
+    r.value = Math.round((r.value / total) * totalSeatsNotMisc + 1);
   });
 
   return flow(
