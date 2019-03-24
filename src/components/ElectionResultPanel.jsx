@@ -11,6 +11,7 @@ import { TOTAL_REPRESENTATIVE } from '../models/rules';
 import ElectionResultTable from './ElectionResultTable';
 import PartyColorMark from './PartyColorMark';
 import './ElectionResultPanel.css';
+import { randomizeResults } from '../models/factory';
 
 const listOfPresets = entries(presets).map(([key, value]) => ({ key, value }));
 
@@ -88,7 +89,7 @@ class ElectionResultPanel extends React.PureComponent {
   }
 
   render() {
-    const { className, preset, result } = this.props;
+    const { className, preset, result, onChange } = this.props;
     const { isEditing } = this.state;
 
     const remainderParty = result.partyWithResults.filter(
@@ -122,6 +123,22 @@ class ElectionResultPanel extends React.PureComponent {
                 }}
               >
                 {isEditing ? 'หยุดแก้ไข' : 'แก้ไข'}
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                className={`btn btn-outline-secondary preset-btn ${isEditing ? 'active' : ''}`}
+                onClick={() => {
+                  const newResult = new ElectionResult(randomizeResults());
+                  const partialState = {
+                    preset: 'CUSTOM',
+                    result: newResult,
+                  };
+                  this.setState(partialState);
+                  onChange(partialState);
+                }}
+              >
+                มั่ว!
               </button>
             </div>
           </div>
