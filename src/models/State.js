@@ -75,14 +75,21 @@ export default class State {
 
 State.fromUrlParams = function fromUrlParams(paramsString) {
   const params = {};
-  paramsString
-    .replace('?', '')
-    .split('&')
-    .filter(x => x.length > 0)
-    .forEach(pair => {
-      const [key, value] = pair.split('=');
-      params[key] = JSON.parse(decodeURIComponent(value));
-    });
+
+  try {
+    paramsString
+      .replace('?', '')
+      .split('&')
+      .filter(x => x.length > 0)
+      .forEach(pair => {
+        const [key, value] = pair.split('=');
+        if (key === 'page' || key === 'preset' || key === 'election' || key === 'gov') {
+          params[key] = JSON.parse(decodeURIComponent(value));
+        }
+      });
+  } catch (e) {
+    console.warn('cannot parse url', paramsString);
+  }
 
   const { page, preset, election, gov } = params;
 
