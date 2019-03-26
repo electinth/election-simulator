@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { keyBy, flow, mapValues } from 'lodash/fp';
 import { sum as d3Sum } from 'd3-array';
 
@@ -24,6 +25,7 @@ export function randomizeResults() {
   const totalSeatsNotMisc = 500 - misc;
   const total = d3Sum(results, r => r.value);
   results.forEach(r => {
+    // eslint-disable-next-line no-param-reassign
     r.value = Math.round((r.value / total) * totalSeatsNotMisc + 1);
   });
 

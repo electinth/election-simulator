@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PartyWithResult from '../models/PartyWithResult';
+import { REMAINDER_PARTY_NAME } from '../models/Party';
 import PartyColorMark from './PartyColorMark';
 import './ElectionResultTable.css';
-import { REMAINDER_PARTY_NAME } from '../models/Party';
 
 const propTypes = {
   sortedParties: PropTypes.arrayOf(PropTypes.instanceOf(PartyWithResult)),

@@ -5,13 +5,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ElectionResult from '../models/ElectionResult';
-import SeatInput from './SeatInput';
 import { TOTAL_SENATOR } from '../models/rules';
-import PartyColorMark from './PartyColorMark';
-import './GovernmentFormulaTable.css';
-import Breadcrumb from './Breadcrumb';
 import GovernmentConfig from '../models/GovernmentConfig';
 import Simulation from '../models/Simulation';
+import Breadcrumb from './Breadcrumb';
+import PartyColorMark from './PartyColorMark';
+import SeatInput from './SeatInput';
+import './GovernmentFormulaTable.css';
 
 const propTypes = {
   className: PropTypes.string,

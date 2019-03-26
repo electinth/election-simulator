@@ -10,6 +10,7 @@
     "dev": "webpack-dev-server --mode=development --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git@gitlab.com:elect.in.th/election-simulator.git"
@@ -19,7 +20,7 @@
   "bugs": {
     "url": "https://gitlab.com/elect.in.th/election-simulator/issues"
   },
-  "homepage": "https://gitlab.com/elect.in.th/election-simulator#readme",
+  "homepage": "https://elect.in.th.gitlab.io/election-simulator/",
   "devDependencies": {
     "@babel/core": "^7.3.3",
     "@babel/preset-env": "^7.3.1",

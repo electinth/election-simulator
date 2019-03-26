@@ -3,15 +3,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { entries } from 'lodash';
-import ElectionResult from '../models/ElectionResult';
 import presets from '../data/electionResults';
-import SeatInput from './SeatInput';
+import ElectionResult from '../models/ElectionResult';
 import { REMAINDER_PARTY_NAME } from '../models/Party';
 import { TOTAL_REPRESENTATIVE } from '../models/rules';
+import { randomizeResults } from '../models/factory';
 import ElectionResultTable from './ElectionResultTable';
 import PartyColorMark from './PartyColorMark';
+import SeatInput from './SeatInput';
 import './ElectionResultPanel.css';
-import { randomizeResults } from '../models/factory';
 
 const listOfPresets = entries(presets).map(([key, value]) => ({ key, value }));
 

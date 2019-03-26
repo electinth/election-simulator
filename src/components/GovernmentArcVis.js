@@ -275,7 +275,6 @@ class GovernmentVis extends SvgChart {
       .attr('fill', 'none')
       .attr('stroke', '#666')
       .attr('stroke-width', '1px');
-    // .attr('stroke-dasharray', '4,4');
 
     layer
       .select('text.caption')
@@ -283,8 +282,6 @@ class GovernmentVis extends SvgChart {
       .attr('transform', `translate(${x},${y})rotate(180)`)
       .attr('dy', -5)
       .attr('dx', 0)
-      // .attr('x', x + 2)
-      // .attr('y', y - 2)
       .attr('text-anchor', 'middle')
       .style('font-size', '13px')
       .style('fill', '#999')
@@ -318,7 +315,6 @@ class GovernmentVis extends SvgChart {
       .attr('fill', 'none')
       .attr('stroke', '#666')
       .attr('stroke-width', '1px');
-    // .attr('stroke-dasharray', '4,4');
 
     layer
       .select('text.caption')
@@ -326,8 +322,6 @@ class GovernmentVis extends SvgChart {
       .attr('transform', `translate(${x},${y2})rotate(${angle + 270})`)
       .attr('dy', 14)
       .attr('dx', 0)
-      // .attr('x', x + 2)
-      // .attr('y', y - 2)
       .attr('text-anchor', 'middle')
       .style('font-size', '13px')
       .style('fill', '#999')

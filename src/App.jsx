@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import './css/fonts.css';
 import './css/style-header-white.css';
 import './css/style.css';
@@ -7,24 +8,22 @@ import ReactGA from 'react-ga';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
 import {
-  FacebookShareButton,
   FacebookIcon,
   TwitterShareButton,
   TwitterIcon,
   LineShareButton,
   LineIcon,
 } from 'react-share';
+import Simulation from './models/Simulation';
+import State from './models/State';
 import ElectionResultPanel from './components/ElectionResultPanel';
 import GovernmentFormulaTable from './components/GovernmentFormulaTable';
 import RawGovernmentVis from './components/GovernmentArcVis';
-import Simulation from './models/Simulation';
 import SimulationLegend from './components/SimulationLegend';
 import ElectHeader from './components/ElectHeader';
 import Breadcrumb from './components/Breadcrumb';
-import State from './models/State';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
-const SHARE_ICON_SIZE = 32;
 const ICON_BG_STYLE = { fill: 'rgba(255,255,255,0.4)' };
 
 class App extends React.PureComponent {
