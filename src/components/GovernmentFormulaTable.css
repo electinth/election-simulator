@@ -25,14 +25,6 @@
   overflow-y: auto;
 }
 
-.big-number {
-  font-family: 'Libre Baskerville',
-    'The Matter',
-    serif;
-  font-size: 2em;
-  font-weight: bold;
-}
-
 th.government-formula-table-title {
   font-size: 0.8em;
   font-weight: normal;

@@ -1,0 +1,20 @@
+.big-score {
+  text-align: center;
+}
+
+.fa-icon-green {
+  color: #4cd137;
+}
+
+.fa-icon-red {
+  color: #c23616;
+}
+
+.big-score .big-number {
+  font-family: 'Libre Baskerville',
+    'The Matter',
+    serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+

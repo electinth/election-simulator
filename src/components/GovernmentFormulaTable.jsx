@@ -8,6 +8,7 @@ import ElectionResult from '../models/ElectionResult';
 import { TOTAL_SENATOR } from '../models/rules';
 import GovernmentConfig from '../models/GovernmentConfig';
 import Simulation from '../models/Simulation';
+import BigScore from './BigScore';
 import Breadcrumb from './Breadcrumb';
 import PartyColorMark from './PartyColorMark';
 import SeatInput from './SeatInput';
@@ -123,37 +124,23 @@ class GovernmentFormulaTable extends React.PureComponent {
           </div>
         </div>
         <div className="result-subsection">
-          <div className="col text-align-center">
-            เสียงส.ส. + ส.ว.
-            <div className="big-number">
-              <i
-                className={`far ${
-                  simulation.canElectPrimeMinister()
-                    ? 'fa-check-circle fa-icon-green'
-                    : 'fa-times-circle fa-icon-red'
-                }`}
-              />
-              &nbsp;{simulation.totalSeats + simulation.senatorVotes}
-            </div>
-            <div>
-              {simulation.canElectPrimeMinister() ? 'ได้เลือกนายก!' : <span>ไม่ได้เลือกนายก</span>}
-            </div>
+          <div className="col">
+            <BigScore
+              header="เสียงส.ส. + ส.ว."
+              score={simulation.totalSeats + simulation.senatorVotes}
+              pass={simulation.canElectPrimeMinister()}
+              passText="ได้เลือกนายก!"
+              failText="ไม่ได้เลือกนายก"
+            />
           </div>
-          <div className="col text-align-center">
-            เสียงส.ส.
-            <div className="big-number">
-              <i
-                className={`far ${
-                  simulation.winCouncil()
-                    ? 'fa-check-circle fa-icon-green'
-                    : 'fa-times-circle fa-icon-red'
-                }`}
-              />
-              &nbsp;{simulation.totalSeats}
-            </div>
-            <div>
-              {simulation.winCouncil() ? 'คุมสภาผู้แทนฯได้!' : <span>คุมสภาผู้แทนฯไม่ได้</span>}
-            </div>
+          <div className="col">
+            <BigScore
+              header="เสียงส.ส."
+              score={simulation.totalSeats}
+              pass={simulation.winCouncil()}
+              passText="คุมสภาผู้แทนฯได้!"
+              failText="คุมสภาผู้แทนฯไม่ได้"
+            />
           </div>
         </div>
       </div>
