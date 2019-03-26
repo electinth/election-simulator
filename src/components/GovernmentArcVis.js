@@ -21,6 +21,26 @@ function compare(a, b) {
   return diff;
 }
 
+function arcTween({ arc, startAngle, endAngle }) {
+  return function tween(d) {
+    const prevStartAngle = d.startAngle || 0;
+    const prevEndAngle = d.endAngle || 0;
+    const datum = d;
+    datum.startAngle = startAngle;
+    datum.endAngle = endAngle;
+    // interpolate both its starting and ending angles
+    const interpolateStart = interpolate(prevStartAngle || 0, startAngle);
+    const interpolateEnd = interpolate(prevEndAngle || 0, endAngle);
+
+    return function draw(t) {
+      return arc({
+        endAngle: interpolateEnd(t),
+        startAngle: interpolateStart(t),
+      });
+    };
+  };
+}
+
 class GovernmentVis extends SvgChart {
   static getDefaultOptions() {
     return helper.deepExtend(super.getDefaultOptions(), {
@@ -337,40 +357,20 @@ class GovernmentVis extends SvgChart {
       .get('arc')
       .attr('transform', `translate(${this.getInnerWidth() / 2},${this.getInnerHeight() / 2})`);
 
-    const path = layer.select('path.progress');
-
     const arc = d3Arc()
       .innerRadius(innerRadius - 10)
       .outerRadius(outerRadius + 10)
       .cornerRadius(4);
 
-    function arcTween({ startAngle, endAngle }) {
-      return function tween(d) {
-        const prevStartAngle = d.startAngle || 0;
-        const prevEndAngle = d.endAngle || 0;
-        const datum = d;
-        datum.startAngle = startAngle;
-        datum.endAngle = endAngle;
-        // interpolate both its starting and ending angles
-        const interpolateStart = interpolate(prevStartAngle || 0, startAngle);
-        const interpolateEnd = interpolate(prevEndAngle || 0, endAngle);
-
-        return function draw(t) {
-          return arc({
-            endAngle: interpolateEnd(t),
-            startAngle: interpolateStart(t),
-          });
-        };
-      };
-    }
-
-    path
+    layer
+      .select('path.progress')
       .transition()
       .delay(300)
       .duration(500)
       .attrTween(
         'd',
         arcTween({
+          arc,
           endAngle: ((-90 + (totalSeats / TOTAL_REPRESENTATIVE) * 180) * Math.PI) / 180,
           startAngle: ((-90 - ((senatorVotes + 10) / TOTAL_SENATOR) * 90) * Math.PI) / 180,
         }),
