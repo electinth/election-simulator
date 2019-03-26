@@ -4,16 +4,8 @@ import './css/style-header-white.css';
 import './css/style.css';
 
 import React from 'react';
-import ReactGA from 'react-ga';
 import { hot } from 'react-hot-loader';
 import { createComponent } from 'react-d3kit';
-import {
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  LineShareButton,
-  LineIcon,
-} from 'react-share';
 import Simulation from './models/Simulation';
 import State from './models/State';
 import ElectionResultPanel from './components/ElectionResultPanel';
@@ -22,9 +14,9 @@ import RawGovernmentVis from './components/GovernmentArcVis';
 import SimulationLegend from './components/SimulationLegend';
 import ElectHeader from './components/ElectHeader';
 import Breadcrumb from './components/Breadcrumb';
+import SocialSharing from './components/SocialSharing';
 
 const GovernmentVis = createComponent(RawGovernmentVis);
-const ICON_BG_STYLE = { fill: 'rgba(255,255,255,0.4)' };
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -33,7 +25,6 @@ class App extends React.PureComponent {
     this.state = { state: State.fromUrlParams(window.location.search.toString()) };
     this.handlePrevPage = this.handlePrevPage.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
-    this.handleShare = this.handleShare.bind(this);
   }
 
   componentDidMount() {
@@ -55,62 +46,6 @@ class App extends React.PureComponent {
     }
 
     return `${base} page`;
-  }
-
-  createShareButtons(size, simulation) {
-    const formula = simulation.toFormula();
-    const title = `ทำนายผลเลือกตั้ง 2562: ${formula}`;
-    const url = window.location.toString();
-
-    return (
-      <React.Fragment>
-        <a
-          href="#"
-          className="SocialMediaShareButton"
-          onClick={e => {
-            e.preventDefault();
-            this.handleShare(title);
-            ReactGA.event({
-              category: 'Share',
-              action: 'Facebook',
-              label: formula,
-            });
-          }}
-        >
-          <FacebookIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
-        </a>
-        <TwitterShareButton title={title} url={url} hashtags={['electinth']}>
-          <a
-            href="#"
-            onClick={e => {
-              e.preventDefault();
-              ReactGA.event({
-                action: 'Twitter',
-                category: 'Share',
-                label: formula,
-              });
-            }}
-          >
-            <TwitterIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
-          </a>
-        </TwitterShareButton>
-        <LineShareButton title={title} url={url}>
-          <a
-            href="#"
-            onClick={e => {
-              e.preventDefault();
-              ReactGA.event({
-                action: 'Line',
-                category: 'Share',
-                label: formula,
-              });
-            }}
-          >
-            <LineIcon size={size} round iconBgStyle={ICON_BG_STYLE} />
-          </a>
-        </LineShareButton>
-      </React.Fragment>
-    );
   }
 
   updateUrl() {
@@ -148,19 +83,6 @@ class App extends React.PureComponent {
         }),
       });
     }
-  }
-
-  handleShare(title) {
-    // eslint-disable-next-line no-undef
-    FB.ui(
-      {
-        hashtag: '#electinth',
-        href: window.location.toString(),
-        method: 'share',
-        quote: title,
-      },
-      function handleResponse() {},
-    );
   }
 
   render() {
@@ -248,11 +170,11 @@ class App extends React.PureComponent {
                 <div className="share-floater float-right large-display-only">
                   <div className="btn btn-red">
                     แชร์ &nbsp;
-                    {this.createShareButtons(24, simulation)}
+                    <SocialSharing size={24} simulation={simulation} />
                   </div>
                 </div>
                 <h3>3. สรุป</h3>
-                <p style={{ height: 48, marginBottom: 0 }}>{simulation.printSummary()}</p>
+                <p className="final-summary">{simulation.printSummary()}</p>
                 <div className="text-align-center">
                   <GovernmentVis data={simulation} />
                   <SimulationLegend simulation={simulation} />
@@ -293,7 +215,7 @@ class App extends React.PureComponent {
                 </button>
                 <button type="button" className="next-btn">
                   แชร์ &nbsp;
-                  {this.createShareButtons(30, simulation)}
+                  <SocialSharing size={30} simulation={simulation} />
                 </button>
               </React.Fragment>
             )}

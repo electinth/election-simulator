@@ -253,12 +253,17 @@ button, button:focus {
   padding: 20px 0;
 }
 
-.result-card {
+.final-summary {
+  height: 48;
+  margin-bottom: 0;
+}
+
+/* .result-card {
   border: 1px #eee solid;
   padding: 25px;
   margin-top: 20px;
   text-align: center;
-}
+} */
 
 .share-floater {
   position: absolute;
