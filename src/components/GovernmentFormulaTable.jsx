@@ -122,7 +122,6 @@ class GovernmentFormulaTable extends React.PureComponent {
             </div>
           </div>
         </div>
-        <div className="senator-subsection" />
         <div className="result-subsection">
           <div className="col text-align-center">
             เสียงส.ส. + ส.ว.

@@ -11,9 +11,7 @@ html, body {
 }
 
 svg text {
-  font-family: "Noto Sans",
-  'Noto Sans Thai',
-  sans-serif;
+  font-family: "Noto Sans", "Noto Sans Thai", sans-serif;
   font-weight: normal;
 }
 
@@ -193,10 +191,6 @@ footer section {
   text-align: center;
 }
 
-.party-name {
-  /* font-family: 'Libre Baskerville', 'The Matter', serif; */
-}
-
 .party-name .badge {
   font-family: "Noto Sans", "Noto Sans Thai", sans-serif;
 }
@@ -248,22 +242,10 @@ button, button:focus {
   color: #c23616;
 }
 
-.summary {
-  text-align: center;
-  padding: 20px 0;
-}
-
 .final-summary {
   height: 48;
   margin-bottom: 0;
 }
-
-/* .result-card {
-  border: 1px #eee solid;
-  padding: 25px;
-  margin-top: 20px;
-  text-align: center;
-} */
 
 .share-floater {
   position: absolute;
@@ -287,7 +269,6 @@ button, button:focus {
 }
 
 .SocialMediaShareButton {
-  /* width: 32px; */
   display: inline-block;
   cursor: pointer;
   margin: -2px 5px 0px 5px;
@@ -355,12 +336,6 @@ button, button:focus {
   }
 }
 
-@media screen and (max-device-width: 667px) {
-  .result-card {
-    margin-top: 30px;
-    padding: 25px 10px;
-  }
-}
 @media screen and (max-device-width: 450px) {
   body {
     font-size: 14px;
@@ -392,13 +367,6 @@ button, button:focus {
 
   .page-content {
     padding: 16px;
-  }
-
-  .result-card {
-    border-left: none;
-    border-right: none;
-    padding: 25px 0px;
-    width: 320px;
   }
 }
 

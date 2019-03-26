@@ -132,22 +132,18 @@ class App extends React.PureComponent {
               <div className="page-content">
                 <Breadcrumb page={1} />
                 <h3>1. สัดส่วนส.ส.แต่ละพรรค</h3>
-                <div className="row">
-                  <div className="col">
-                    <ElectionResultPanel
-                      preset={electionResultPreset}
-                      result={electionResult}
-                      onChange={({ preset, result }) => {
-                        this.setState({
-                          state: state.set({
-                            electionResult: result,
-                            electionResultPreset: preset,
-                          }),
-                        });
-                      }}
-                    />
-                  </div>
-                </div>
+                <ElectionResultPanel
+                  preset={electionResultPreset}
+                  result={electionResult}
+                  onChange={({ preset, result }) => {
+                    this.setState({
+                      state: state.set({
+                        electionResult: result,
+                        electionResultPreset: preset,
+                      }),
+                    });
+                  }}
+                />
               </div>
             </section>
             <section className={this.getPageClass(2)}>
