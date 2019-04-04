@@ -101,6 +101,8 @@ class ElectionResultPanel extends React.PureComponent {
       .sort((a, b) => a.party.name.localeCompare(b.party.name))
       .concat(remainderParty);
 
+    const currentPreset = presets[preset] || {};
+
     return (
       <div className={className}>
         ใช้ตัวเลขจาก
@@ -147,6 +149,13 @@ class ElectionResultPanel extends React.PureComponent {
         {!isEditing && (
           <div className="row">
             <div className="col">
+              {currentPreset.description && (
+                <p className="helper-text">
+                  {currentPreset.description}{' '}
+                  {currentPreset.link && <a href={currentPreset.link}>อ่านเพิ่มเติม</a>}
+                </p>
+              )}
+
               <ElectionResultTable sortedParties={sortedParties} />
             </div>
           </div>
