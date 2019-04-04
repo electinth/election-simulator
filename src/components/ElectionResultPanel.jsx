@@ -152,7 +152,11 @@ class ElectionResultPanel extends React.PureComponent {
               {currentPreset.description && (
                 <p className="helper-text">
                   {currentPreset.description}{' '}
-                  {currentPreset.link && <a href={currentPreset.link}>อ่านเพิ่มเติม</a>}
+                  {currentPreset.link && (
+                    <a target="_blank" rel="noopener noreferrer" href={currentPreset.link}>
+                      อ่านเพิ่มเติม
+                    </a>
+                  )}
                 </p>
               )}
 
